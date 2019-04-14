@@ -1,0 +1,13 @@
+http://www.ymq.io/  
+http://www.hollischuang.com/list  
+http://www.hollischuang.com/  
+https://javadoop.com/  
+https://my.oschina.net/hosee  
+http://ifeve.com/  
+https://crossoverjie.top/archives  
+https://crossoverjie.top/JCSprout/#/  
+https://www.baeldung.com/category/java/  
+http://www.zhenganwen.top/archives/ 
+https://www.cnblogs.com/-new/  
+http://objcoding.com/archive/  
+http://www.ruanyifeng.com/blog/archives.html  
