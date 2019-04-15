@@ -151,5 +151,6 @@ for 0.. 10{
 对于不用的 变量 userEntity  最好不要 使用 userEntity = null; 来假装优化,  但是千万不要手动调用 System.gc();    
 置null的做法对GC的帮助微乎其微, 有时候反而会导致代码混乱, 手动gc还会影响性能;
 
+
 ### 参考   
 http://ifeve.com/gc-oriented-java-programming/  
