@@ -8,6 +8,7 @@ minSdkVersion-targetSdkVersion-compileSdkVersion 三者关系;
 compile;  implementation;  debugImplementation;  
 releaseImplementation;  androidTestImplementation;  
 repositories;  配置maven库的地址;  添加 aar 包;  配置 aar 包;  
+修改 build产生的临时文件的位置;  
 [链接](gradle/compile.md)  
 
 加快编译速度, 优化apk大小;  

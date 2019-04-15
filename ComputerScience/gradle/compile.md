@@ -84,6 +84,8 @@ allprojects {
         flatDir {
             dirs '../build_jar_aar'
         }
+        //  修改 build产生的临时文件的位置; 
+        buildDir = new File(rootDir, "gradle-build/${path.replaceAll(':', '/')}")
     }
 }
 ```

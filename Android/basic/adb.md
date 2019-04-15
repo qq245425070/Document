@@ -147,7 +147,7 @@ Warning: debug info can be unavailable.Please close other application using ADB:
 
 3.. 模拟器未授权:  
 android studio 出现 device offline 或者 device unauthorized 的一种解决方式: 
-找到  C:\Users\Administrator\.android 目录  
+找到目录  C:\Users\Administrator\.android   
 删除 adbkey 和adbkey.public文件, 删除后重启android studio这时手机会提示授权usb调试, 授权后就可以连接 adb 了;  
 
 ### 参考  
