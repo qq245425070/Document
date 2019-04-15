@@ -185,3 +185,5 @@ https://blog.csdn.net/qq_26222859/article/details/73135660
 https://blog.csdn.net/vegetable_bird_001/article/details/51278339  
 https://juejin.im/post/5c6b987ae51d45362c3631ca 
 
+垃圾回收  
+https://www.ibm.com/developerworks/cn/java/j-lo-JVMGarbageCollection/index.html   

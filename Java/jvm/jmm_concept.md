@@ -103,4 +103,4 @@ http://www.cnblogs.com/BangQ/p/4045954.html
 https://github.com/LRH1993/android_interview/blob/master/java/concurrence/volatile.md  
 http://www.hollischuang.com/archives/2550  
 https://juejin.im/post/5cad4adc5188251b1f4d87d2  
-li
+https://juejin.im/post/5cad4adc5188251b1f4d87d2#heading-10  
