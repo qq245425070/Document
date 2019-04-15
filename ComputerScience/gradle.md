@@ -7,6 +7,7 @@ minSdkVersion-targetSdkVersion-compileSdkVersion 三者关系;
 声明依赖项;  解决依赖冲突;  
 compile;  implementation;  debugImplementation;  
 releaseImplementation;  androidTestImplementation;  
+repositories;  配置maven库的地址;  添加 aar 包;  配置 aar 包;  
 [链接](gradle/compile.md)  
 
 加快编译速度, 优化apk大小;  
@@ -32,8 +33,6 @@ java 代码的目录结构;
 res 代码的对应结构;    
 [链接](gradle/sourceSets.md)  
 
-repositories;  配置maven库的地址;  添加 aar 包;  配置 aar 包;  
-[链接](gradle/repositories_maven.md)  
 
 ### gradle脚本
 外部函数的声明与引用;  
@@ -73,8 +72,8 @@ compileOptions {
 
   
 ### Gradle常见命令  
-通用 gradle;  windows  gradlew;  mac  ./gradlew;  
-
+通用 gradle, 需要配置环境变量;  windows  gradlew;  mac  ./gradlew;  
+gradle app:assembleDebug  
 //构建  
 gradlew app:clean    //移除所有的编译输出文件, 比如apk    
 

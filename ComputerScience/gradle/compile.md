@@ -30,3 +30,66 @@ runtime: 运行时所需要的依赖;默认情况下, 包含了编译时期的�
 testImplementation: 编译测试代码时所需要的依赖;默认情况下, 包含了编译时产生的类文件, 以及编译时期所需要的依赖  
 testRuntime: 测试运行时期的依赖;默认情况下, 包含了上面三个时期的依赖  
 branchOneImplementation 'com.android.support:appcompat-v7:22.2.0'  //  只为branchOne添加这个依赖  
+
+
+```
+
+buildscript {
+
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        jcenter() { url 'http://jcenter.bintray.com/' }
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
+        google()
+        mavenCentral()
+        maven { url minePluginUri }
+    }
+    
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        jcenter() { url 'http://jcenter.bintray.com/' }
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
+        google()
+        mavenCentral()
+        maven { url minePluginUri }
+
+        /*设置 aar 路径 */
+        flatDir {
+            dirs '../build_jar_aar'
+        }
+    }
+    
+}
+
+```
+
+### 添加#aar     
+在全局的 gradle  
+```
+allprojects {
+    repositories {
+        jcenter()
+
+        flatDir {
+            dirs '../build_jar_aar'
+        }
+    }
+}
+```
+在模块的gradle  
+```
+dependencies {
+    compile(name:'YibaAnalytics-release', ext:'aar')
+}
+```  
