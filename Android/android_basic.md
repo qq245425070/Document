@@ -74,7 +74,7 @@ View 圆角化, 布局圆角化, 控件圆角化, 图片圆角化;
 [ImageView 与 Bitmap](basic/ImageView.md)  
 [RecyclerView](basic/recyclerView/RecyclerView.md)  
 [UI自动化测试](basic/view_window/UiAutomator.md)  
-
+[音视频相关](basic/live_stream/live_stream.md)  
 SurfaceFlinger,  
 ActivityManagerService, PowerManagerService, PackageManagerService, WindowManagerService;  
 NetworkManagementService, NetworkTimeUpdateService, NetworkPolicyManagerService, NetworkStatsService, WifiService, TelephonyRegistry;  

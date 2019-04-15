@@ -129,25 +129,26 @@ adb shell getprop ro.build.version.sdk
 重启手机  
 adb shell setprop sys.powerctl reboot  
 
-### 模拟器debug掉线  
+### 常见问题  
+1.. 模拟器debug掉线  
 ```
-
 adb kill-server adb start-server adb devices   
-
-
 adb kill-server  
 adb devices  
 adb start-server  
 ```
 
-真机debug error   
+2.. 真机debug error   
 Warning: debug info can be unavailable.Please close other application using ADB:Monitor, DDMS, Eclipse  
 1.. 杀掉 adb   
 2.. 重启studio   
 3.. 重启电脑  
 4.. 重启手机（这个很搞笑，我居然重启手机成功了）  
 
-
+3.. 模拟器未授权:  
+android studio 出现 device offline 或者 device unauthorized 的一种解决方式: 
+找到  C:\Users\Administrator\.android 目录  
+删除 adbkey 和adbkey.public文件, 删除后重启android studio这时手机会提示授权usb调试, 授权后就可以连接 adb 了;  
 
 ### 参考  
 Android Debug Bridge  
