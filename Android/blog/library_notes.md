@@ -31,6 +31,7 @@ https://blog.csdn.net/carson_ho
 https://blog.csdn.net/shift_wwx/article/list/10  
 http://hannesdorfmann.com/categories/  
 https://github.com/linsir6/AndroidNote  
+https://juejin.im/user/586eff908d6d81005879507d/posts  
 
 ❀  尼古拉斯_赵四  
 http://www.wjdiankong.cn/  
