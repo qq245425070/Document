@@ -99,4 +99,6 @@ https://www.jianshu.com/p/8a8e9d120985
 转码-编码-码率-码流-分辨率-帧率  
 https://help.aliyun.com/document_detail/99380.html  
 
+OBS  
+Open Broadcaster Software  是一个免费的开源的视频录制和视频实时流软件, 有多种功能并广泛使用在视频采集, 直播等领域;  
 
