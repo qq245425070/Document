@@ -102,3 +102,6 @@ https://help.aliyun.com/document_detail/99380.html
 OBS  
 Open Broadcaster Software  是一个免费的开源的视频录制和视频实时流软件, 有多种功能并广泛使用在视频采集, 直播等领域;  
 
+VOD  
+Video on Demand  点播  
+
