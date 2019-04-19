@@ -91,6 +91,7 @@ https://github.com/square/sqldelight
 https://github.com/Jermic/Android-Crack-Tool/releases  
 https://github.com/jaredrummler/APKParser  
 https://github.com/githubwing/DroidSword  
+https://github.com/skylot/jadx/releases  
 
 注解式 框架  
 https://github.com/androidannotations/androidannotations/wiki/Cookbook  

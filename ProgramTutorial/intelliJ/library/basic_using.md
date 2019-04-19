@@ -87,7 +87,7 @@ Keep when reformatting
 类名注释模板  
 设置 -> Editor -> File and code Templates  右边  Include  File  Header  
 ```
-/**  * 作者：Alex  
+/**  作者：Alex  
  * 时间：${DATE}${HOUR}:${MINUTE}  
  * 简述：  
  */    

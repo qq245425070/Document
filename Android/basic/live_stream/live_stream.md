@@ -99,6 +99,26 @@ https://www.jianshu.com/p/8a8e9d120985
 转码-编码-码率-码流-分辨率-帧率  
 https://help.aliyun.com/document_detail/99380.html  
 
+
+https://www.jianshu.com/c/7fab5782f17e  
+
+ijkPlayer 系列  
+https://github.com/bilibili/ijkplayer  
+https://github.com/CarGuo/GSYVideoPlayer/wiki  
+https://www.jianshu.com/c/92a1d0b32c55  
+https://blog.csdn.net/ch97ckd/article/details/83155283  
+https://www.jianshu.com/p/220b00d00deb  
+https://blog.csdn.net/shareus/article/details/78585260  
+ff_ffplay_options  
+https://github.com/Bilibili/ijkplayer/blob/master/ijkmedia/ijkplayer/ff_ffplay_options.h  
+https://github.com/Bilibili/ijkplayer/issues/210  
+直播优化  
+https://blog.csdn.net/shareus/article/details/78585260  
+https://blog.csdn.net/yyhjifeng/article/details/71191950  
+倍速播放  
+https://www.cnblogs.com/renhui/p/6510872.html  
+
+
 OBS  
 Open Broadcaster Software  是一个免费的开源的视频录制和视频实时流软件, 有多种功能并广泛使用在视频采集, 直播等领域;  
 
