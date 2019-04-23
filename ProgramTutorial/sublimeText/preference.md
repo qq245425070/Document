@@ -19,6 +19,9 @@
 	  "extensions":[
 	  	"md"
 	  ],
+	  //  不记录打开的文件
+	  "hot_exit": false,
+      "remember_open_files": false
 }
 
 ```

@@ -1,3 +1,5 @@
+super(mac) = ctrl(windows)  
+
 ```
 [
     { "keys": ["super+d"], "command": "duplicate_line" },  //  command + D  复制 当前行，插入到下一行

@@ -1,3 +1,5 @@
+[ijkPlayer](ijk_player.md)  
+
 1.. 视频组成:  
 内容元素:  图像, 音频, 元信息;  
 编码格式:  
@@ -95,6 +97,7 @@ https://blog.csdn.net/ou775968876/article/details/76146287
 https://blog.csdn.net/zhiboshequ/article/details/54406264  
 https://blog.csdn.net/tencent_bugly/article/details/52981166  
 https://www.jianshu.com/p/8a8e9d120985  
+https://www.jianshu.com/p/b2674fc2ac35  
 
 转码-编码-码率-码流-分辨率-帧率  
 https://help.aliyun.com/document_detail/99380.html  
@@ -102,21 +105,6 @@ https://help.aliyun.com/document_detail/99380.html
 
 https://www.jianshu.com/c/7fab5782f17e  
 
-ijkPlayer 系列  
-https://github.com/bilibili/ijkplayer  
-https://github.com/CarGuo/GSYVideoPlayer/wiki  
-https://www.jianshu.com/c/92a1d0b32c55  
-https://blog.csdn.net/ch97ckd/article/details/83155283  
-https://www.jianshu.com/p/220b00d00deb  
-https://blog.csdn.net/shareus/article/details/78585260  
-ff_ffplay_options  
-https://github.com/Bilibili/ijkplayer/blob/master/ijkmedia/ijkplayer/ff_ffplay_options.h  
-https://github.com/Bilibili/ijkplayer/issues/210  
-直播优化  
-https://blog.csdn.net/shareus/article/details/78585260  
-https://blog.csdn.net/yyhjifeng/article/details/71191950  
-倍速播放  
-https://www.cnblogs.com/renhui/p/6510872.html  
 
 
 OBS  
@@ -125,3 +113,22 @@ Open Broadcaster Software  是一个免费的开源的视频录制和视频实�
 VOD  
 Video on Demand  点播  
 
+### 测试服务地址  
+http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8  
+https://ihzlh.linker.cc/ihzlh/ec9791add603193d31df93b87f063dfc.m3u8  
+http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8（可用）   
+http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8   
+http://devimages.apple.com/iphone/samples/bipbop/gear1/prog_index.m3u8   
+http://playertest.longtailvideo.com/adaptive/oceans_aes/oceans_aes.m3u8 (AES encrypted)   
+http://playertest.longtailvideo.com/adaptive/captions/playlist.m3u8 (HLS stream with CEA-608 captions)   
+http://playertest.longtailvideo.com/adaptive/wowzaid3/playlist.m3u8 (with metadata)   
+http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8   
+http://cdn-fms.rbs.com.br/hls-vod/sample1_1500kbps.f4v.m3u8   
+http://cdn-fms.rbs.com.br/vod/hls_sample1_manifest.m3u8（可用）   
+http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch1/appleman.m3u8 (LIVE TV可用)   
+http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch2/appleman.m3u8 (LIVE TV)   
+http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch3/appleman.m3u8 (LIVE TV)   
+https://dl.dropboxusercontent.com/u/7303267/website/m3u8/index.m3u8 (VOD) - [updated]    
+http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8 (link protection, video not encrypted)   
+http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8 (4K)   
+http://cdn3.viblast.com/streams/hls/airshow/playlist.m3u8 (4K)  
