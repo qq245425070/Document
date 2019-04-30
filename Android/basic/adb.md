@@ -117,6 +117,7 @@ adb shell dumpsys activity | findstr "mFocusedActivity"
 ```
 //  tag:level  
 adb logcat -s "LogTrack:v" "LogTrack:v"
+adb logcat -s "LogTrack:v" "IJKMEDIA"
 ```
 
 获取系统版本 // 7.0  

@@ -212,6 +212,10 @@ if (BuildConfig.DEBUG) {
 }
 ```
 ### 性能优化工具  
+adb  
+https://testerhome.com/topics/9513  
+http://www.blogjava.net/fjzag/articles/317773.html  
+
 Systrace  
 Android 4.1 以上版本提供的性能数据采样 & 分析工具;  
 检测 Android 系统各个组件随着时间的运行状态 & 提供解决方案;  
@@ -248,6 +252,11 @@ BlockCanary
 http://blog.zhaiyifan.cn/2016/01/16/BlockCanaryTransparentPerformanceMonitor/  
 
 ### 参考  
+内存的计算  
+https://www.jianshu.com/p/f0f192ec5650  
+https://www.kernel.org/doc/Documentation/filesystems/proc.txt  
+
+
 https://www.jianshu.com/p/f5514b1a826c  
 https://www.jianshu.com/p/4f44a178c547  
 https://www.jianshu.com/p/c4b283848970  

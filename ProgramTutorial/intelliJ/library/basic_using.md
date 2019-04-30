@@ -77,7 +77,7 @@ Keep when reformatting
 
 
 显示行号  
-设置 -> Editor -> General -> Appearances  右边  
+设置 -> Editor -> General -> Appearances  右边      
 勾上  Show line numbers    
 
 换字体  

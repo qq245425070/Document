@@ -25,7 +25,7 @@ execution(* com.alex.andfun.apt.AptMainActivity.onCreate(..))
 类A 在com.alex.andfun  包及子包内;  
 类A 的onCreate 方法;    
 
-
+javaExclude
 
 execution: 用于匹配方法执行的连接点;  
 within: 用于匹配指定类型内的方法执行;
