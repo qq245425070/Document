@@ -3,8 +3,7 @@
 二是进程天然支持 Binder 进程间通信机制;  
 
 ### 系统进程的具体描述  
-init 进程 fork zygote 进程;  
-init 进程 fork service_manager 进程;
+init 进程 fork zygote 进程, 和 service_manager 进程;
 zygote 进程 fork system_server 进程;  
 system_server 进程, 启动 ActivityManagerService, ActivityManagerService 向 native 的 ServiceManager 注册服务;  
 ActivityManagerService 工作在 system_server 进程;  
@@ -19,13 +18,13 @@ linux kernel 得到控制权后, 调用下列一系列函数:
 初始化文件系统;  
 加载硬件驱动;  
 初始化和启动属性服务;  
-fork init 进程, init 进程会启动 ServiceManager 和 android 的 Zygote 进程;  
+fork init 进程, init 进程 fork ServiceManager 和 android 的 Zygote 进程;  
 启动 ServiceManager 为 BinderDevice 注册上下文管理者;   
 ![安卓进程模型图](../context/ImageFiles/launcher_001.png)  
 
 
 #### ServiceManager  
-ServiceManager 对应 service_manager.c文件;  
+ServiceManager 对应 service_manager.c文件, 是 binder 的管理进程;  
 init 进程 fork ServiceManager 进程, ServiceManager 是 0号 binder 实体, 负责注册和管理 binder;  
 ServiceManager 进程, 做了哪些事情:  
 1.. 调用 binder_open()函数, 打开 binder 驱动, 并调用 mmap()方法分配 128k 的内存映射空间;  
@@ -74,13 +73,13 @@ Zygote 进程, 做了哪些事情:
 2.. 调用 AndroidRuntime 的 startVM()方法创建虚拟机, 再调用 startReg()注册 JNI 函数;     
 3.. 通过 JNI 方式调用 ZygoteInit.main(), 第一次进入 Java 世界;  
 4.. registerZygoteSocket()建立 socket 通道, 作为 IPC 通信服务端, zygote 作为通信的服务端, 用于响应客户端请求;   
-5.. 通过 registerZygoteSocket 函数创建服务端 Socket, 并通过 runSelectLoop 函数等待 ActivityManagerService 的请求来创建新的应用程序进程;  
+5.. 通过 registerZygoteSocket 函数创建服务端 Socket, 并通过 runSelectLoop 函数等待 ActivityManagerService (socket 通信)的请求来创建新的应用程序进程;  
 6.. fork SystemServer 进程;  
 7.. 执行 preloadClasses  和 preloadResource 函数, 分别是加载 class 文件到内存, 和加载资源文件到内存, 这个过程是很耗时间的, 所以开机会比较慢;   
     preload()预加载通用类, drawable 和 color 资源, openGL 以及共享库以及 WebView, 用于提高 app 启动效率;  
 
 #### SystemServer#进程  
-com.android.server.SystemServer 是一个进程;  
+com.android.server.SystemServer 是一个进程, 系统服务进程;  
 在 ZygoteInit.main()方法中, 调用 forkSystemServer()方法 fork 了 SystemServer 进程;  
 进程描述: className="com.android.server.SystemServer", 进程名字="system_server";  
 SystemServer 进程, 做了哪些事情:  
@@ -115,12 +114,12 @@ ActivityManager 通过 AMN 的 getDefault 方法得到 AMP, 通过 AMP 就可以
 除了 ActivityManager, 其他想要与 AMS 进行通信的类都需要通过AMP;  
 
 #### 在 Launcher 中点击  App 的图标后, 发生了什么  
-点击桌面 App 图标, Launcher-App 进程采用 Binder IPC向 system_server 进程发起 startActivity 请求;  
-system_server 进程接收到请求后, 向 zygote 进程发送创建进程的请求;  
-Zygote 进程 fork 出新的子进程, 即 App 进程;  
-App 进程, 通过 Binder IPC 向 system_server 进程发起 attachApplication 请求;  
-system_server 进程在收到请求后, 进行一系列准备工作后, 再通过 binder IPC 向 App 进程发送 scheduleLaunchActivity 请求;  
-App 进程的 binder 线程 (ApplicationThread) 在收到请求后, 通过 handler 向主线程发送 LAUNCH_ACTIVITY 消息;  
+点击桌面 App 图标, Launcher 所在的进程通过 Binder IPC 向 system_server 进程发起 startActivity 请求;  
+system_server 进程接收到请求后, 如果发现目标 app 进程并没有在运行, 就会通过 socket 向 zygote 进程发送创建 app 进程的请求;  
+zygote 进程收到请求后, 就会 fork 出 App 进程;  
+App 进程启动后, 会通过 Binder IPC 向 system_server 进程发起 attachApplication 请求;  
+system_server 进程在收到请求后, 进行一系列准备工作后, 再通过 binder IPC 向 App 进程发起 scheduleLaunchActivity 请求;  
+App 进程的 ApplicationThread(binder 线程) 收到请求后, 通过 handler 向主线程发送 LAUNCH_ACTIVITY 消息;  
 主线程在收到 Message 后, 通过发射机制创建目标 Activity, 并回调 Activity.onCreate()等方法;  
 到此, App 便正式启动, 开始进入 Activity 生命周期, 执行完 onCreate/onStart/onResume方法, UI 渲染结束后便可以看到 App 的主界面;  
 
@@ -181,7 +180,7 @@ server 会读取 binder driver 中的请求数据, 如果是发送给自己的, 
 
 ### BinderDriver  
 尽管名叫驱动, 实际上和硬件设备没有任何关系, 只是实现方式和设备驱动程序是一样的;  
-它工作于内核态, 提供 open(), mmap(), poll(), ioctl()等标准文件操作, 以字符驱动设备中的 misc 设备注册在设备目录/dev 下, 用户通过/dev/binder 访问该它;  
+它工作于内核空间, 向外提供一些标准文件操作函数, open(), mmap(), poll(), ioctl()等, 以字符驱动设备中的 misc 设备注册在设备目录/dev 下, 用户通过/dev/binder 访问该它;  
 驱动负责进程之间 Binder 通信的建立, Binder 在进程之间的传递, Binder 引用计数管理, 数据包在进程之间, 的传递和交互等一系列底层支持;  
 
 Binder Driver 会将自己注册成 misc device, 并向上层提供一个/dev/binder 节点, Binder 节点对应的不是硬件设备, 而是运行于内核态;  
@@ -437,9 +436,10 @@ https://blog.csdn.net/desler/article/details/47908017
 https://blog.csdn.net/freekiteyu/article/details/70082302  
 
 ### 参考#zygote  
+https://lrh1993.gitbooks.io/android_interview_guide/content/android/advance/app-launch.html  
 https://juejin.im/post/5c3832e66fb9a049e308510b  
 https://github.com/LRH1993/android_interview/blob/master/android/advance/app-launch.md  
-https://github.com/yipianfengye/androidSource/blob/master/14%20activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B.md  
+https://github.com/yipianfengye/androidSource/blob/master/14 activity启动流程.md  
 http://gityuan.com/2016/03/12/start-activity    
 https://juejin.im/post/5c4471e56fb9a04a027aa8ac  
 
@@ -473,7 +473,7 @@ http://blog.csdn.net/itachi85/article/details/55047104
 http://liuwangshu.cn/framework/booting/2-zygote.html  
 http://www.cnblogs.com/samchen2009/p/3294713.html  
 https://blog.csdn.net/itachi85/article/details/55047104  
-http://huaqianlee.github.io/2015/08/23/Android/%E9%AB%98%E9%80%9AAndroid%E8%AE%BE%E5%A4%87%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90-%E4%BB%8Epower-on%E4%B8%8A%E7%94%B5%E5%88%B0Home-Lanucher%E5%90%AF%E5%8A%A8/  
+http://huaqianlee.github.io/2015/08/23/Android/高通Android设备启动流程分析-从power-on上电到Home-Lanucher启动/    
 
 
 Activity启动过程全解析  

@@ -28,7 +28,11 @@
 给定一个排序数组, 你需要在原地删除重复出现的元素, 使得每个元素只出现一次, 返回移除后数组的新长度;  
 [链接](segment01/a014.md)  
 
+数组中出现次数超过一半的数  
 https://www.cnblogs.com/neuzk/p/9487463.html  
+
+从1亿个数里面找出前100个最大的  
+https://www.cnblogs.com/neuzk/p/9487757.html  
 
 ### 链表  
 单链表翻转;  双向链表翻转;  
@@ -48,6 +52,10 @@ https://www.cnblogs.com/ttltry-air/archive/2012/08/14/2638284.html
 
 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先;  
 [链接](segment01/a015.md)  
+
+给定一个二叉树, 打印所有的叶子节点;  
+二叉树的深度优先遍历, 二叉树的广度优先遍历;  
+
 
 https://www.cnblogs.com/neuzk/p/9504099.html   
 https://www.cnblogs.com/neuzk/p/9486095.html  

@@ -186,14 +186,5 @@ public void setView(View view, WindowManager.LayoutParams attrs, View panelParen
 requestLayout 的原理  
 [链接](/Android/basic/view_window/invalidate_requestLayout.md)  
 ### 参考  
-https://www.jianshu.com/p/3872219cc07a  
-http://blog.csdn.net/huachao1001/article/details/51866287  
-http://liuwangshu.cn/framework/wm/1-windowmanager.html  
-http://liuwangshu.cn/framework/wm/2-window-property.html  
-http://liuwangshu.cn/framework/wm/3-add-window.html  
-http://liuwangshu.cn/framework/wms/1-wms-produce.html  
-http://liuwangshu.cn/framework/wms/2-wms-member.html  
-http://liuwangshu.cn/framework/wms/3-wms-remove.html  
-https://blog.csdn.net/AndrExpert/article/details/81349343  
-https://blog.csdn.net/feiduclear_up/article/details/46711921  
+
 
