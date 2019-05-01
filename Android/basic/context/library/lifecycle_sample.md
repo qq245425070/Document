@@ -55,14 +55,9 @@ A 页面, 跳转到 B页面, B 页面调用 setResult 并 finish;
 BActivity#onPause
 
 AActivity#onActivityResult
-
 AActivity#onRestart
-
-AFragment#onStart
 AActivity#onStart
-
 AActivity#onResume
-AFragment#onResume
 
 BActivity#onStop
 BActivity#onDestroy
@@ -81,11 +76,9 @@ AActivity#onActivityResult   //  intent 对象为 null
 AActivity#onNewIntent  //  intent 对象非空  
 AActivity#onRestart
 
-AFragment#onStart
 AActivity#onStart
 
 AActivity#onResume
-AFragment#onResume
 
 BActivity#onStop
 BActivity#onDestroy

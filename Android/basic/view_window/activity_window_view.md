@@ -1,18 +1,19 @@
 [Activity-Window-View层级嵌套结构](../context/ImageFiles/awv_001.jpg)    
 
 PhoneWindow 是在 Activity#attach 方法中创建的;  
-DecorView 是在 PhoneWindow#generateDecor 中创建的;  
-Activity#setContentView 和 PhoneWindow#setContentView 的入口参数都是, 布局文件的 id;  
-在 PhoneWindow#generateLayout 方法中, 调用 DecorView#onResourcesLoaded 把xml布局文件, 解析成View, 添加到 DecorView 上;  
-再把xml根布局对应的view, 赋值给 mContentParent;  
-每个 Activity 会在 attach 方法中, 初始化并持有一个 PhoneWindow;
-Activity#setContentView  
-```
-public void setContentView(@LayoutRes int layoutResID) {
-    getWindow().setContentView(layoutResID);
-    initWindowDecorActionBar();
-}
-```
+
+Activity#setContentView 方法, 包含以逻辑:   
+DecorView 就是一个 FrameLayout;  
+DecorView 是在 PhoneWindow 的成员变量, generateDecor 方法中创建;  
+DecorView 包含 titleBar 和 mContentParent;  
+PhoneWindow#setContentView 把 xml 对应的 View 添加到 mContentParent 上;  
+
+ViewRootImpl 内部持有 mView 作为根视图;  
+ActivityThread#handleResumeActivity 方法:    
+WindowManagerGlobal 在把 DecorView 关联到 ViewRootImpl#mView 上;  
+再调用 ViewRootImpl#requestLayout, 触发 View树的遍历;  
+
+
 Activity#attach  
 ```
 final void attach(Context context, ActivityThread aThread,
@@ -27,71 +28,7 @@ final void attach(Context context, ActivityThread aThread,
     mWindow = new PhoneWindow(this, window, activityConfigCallback);
 }
 ```
-ActivityThread#performLaunchActivity  
-```
-private Activity performLaunchActivity(ActivityClientRecord r, Intent customIntent) {
-    ContextImpl appContext = createBaseContextForActivity(r);
-    Activity activity = null;
-    try {
-        java.lang.ClassLoader cl = appContext.getClassLoader();
-        activity = mInstrumentation.newActivity(cl, component.getClassName(), r.intent);
-    } catch (Exception e) {
-    }
-    try {
-        Application app = r.packageInfo.makeApplication(false, mInstrumentation);
-        if (activity != null) {
-            activity.attach(appContext, this, getInstrumentation(), r.token,
-                    r.ident, app, r.intent, r.activityInfo, title, r.parent,
-                    r.embeddedID, r.lastNonConfigurationInstances, config,
-                    r.referrer, r.voiceInteractor, window, r.configCallback);
-        }
-        r.setState(ON_CREATE);
-        mActivities.put(r.token, r);
-    } catch (SuperNotCalledException e) {
-        throw e;
-    } catch (Exception e) {
-    }
-    return activity;
-}
-```
-PhoneWindow#setContentView  
-```
-@Override
-public void setContentView(int layoutResID) {
-    // Note: FEATURE_CONTENT_TRANSITIONS may be set in the process of installing the window
-    // decor, when theme attributes and the like are crystalized. Do not check the feature
-    // before this happens.
-    if (mContentParent == null) {
-        //  需要初始化 
-        installDecor();
-    } else if (!hasFeature(FEATURE_CONTENT_TRANSITIONS)) {
-        mContentParent.removeAllViews();
-    }
 
-    if (hasFeature(FEATURE_CONTENT_TRANSITIONS)) {
-        final Scene newScene = Scene.getSceneForLayout(mContentParent, layoutResID, getContext());
-        transitionTo(newScene);
-    } else {
-        mLayoutInflater.inflate(layoutResID, mContentParent);
-    }
-}
-```
-PhoneWindow#installDecor  
-```
-private void installDecor() {
-    mForceDecorInstall = false;
-    if (mDecor == null) {
-        //  初始化 decorView, decorView 是一个 FrameLayout    
-        mDecor = generateDecor(-1);
-    } else {
-        mDecor.setWindow(this);
-    }
-    if (mContentParent == null) {
-        //  初始化 mContentParent, 这个是 xml 的根布局
-        mContentParent = generateLayout(mDecor);
-    }    
-}
-```
 每一个 Activity 都包含了唯一一个 PhoneWindow, 这个就是 Activity 根 Window;  
 在它上面可以增加更多其他的 Window, 如dialog等;  
 
@@ -186,5 +123,6 @@ public void setView(View view, WindowManager.LayoutParams attrs, View panelParen
 requestLayout 的原理  
 [链接](/Android/basic/view_window/invalidate_requestLayout.md)  
 ### 参考  
+https://www.jianshu.com/p/8766babc40e0  
 
 

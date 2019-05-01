@@ -35,5 +35,5 @@
 
 ### 参考  
 https://juejin.im/post/5c2449bae51d456c0c572a50  
-https://chinagdg.org/2016/01/%E7%94%9F%E8%BF%98%E6%98%AF%E6%AD%BB%EF%BC%9Fandroid-%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88%E7%BA%A7%E8%AF%A6%E8%A7%A3  
+https://chinagdg.org/2016/01/生还是死？android-进程优先级详解  
 

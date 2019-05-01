@@ -11,14 +11,11 @@
 
 基本概念:  
 在一个典型的显示系统中, 一般包括 CPU, GPU, display 三个部分;  
-CPU 负责计算数据, 把计算好数据交给 GPU;  
+CPU 负责计算数据, 把图形数据交给 GPU;  
 GPU 会对图形数据进行渲染, 渲染好后放到 buffer 里存起来;  
-然后 display(有的文章也叫屏幕或者显示器)负责把 buffer 里的数据呈现到屏幕上;  
+然后 display(屏幕或者显示器)负责把 buffer 里的数据呈现到屏幕上;  
 display 每秒钟, 刷新 60 帧, 也就是说, 每 16.6ms 刷新一帧;  
-
-简单的说, 就是 CPU, GPU 准备好数据, 存入buffer;  
-display 每隔一段时间, 去 buffer 里取数据, 然后显示出来;  
-display 读取的频率是固定的, 比如每个 16.6ms 读一次, 但是 CPU, GPU 写数据, 是完全无规律的;  
+display 读取的频率是固定的, 比如每个 16.6ms 读一次, 但是 CPU  GPU 写数据, 是完全无规律的;  
  
 对于 Android 而言, CPU 计算屏幕数据, 是指 View 树的绘制过程;  
 也就是 Activity 对应的视图, 从 DecorView 开始, 层层遍历每个 View, 分别执行测量, 布局, 绘制, 三个操作的过程;  
@@ -32,8 +29,23 @@ display 读取的频率是固定的, 比如每个 16.6ms 读一次, 但是 CPU, 
 但是, 底层还是会每隔 16.6ms, 发出一个屏幕刷新信号, 只是我们 app 不会接收到而已;  
 Display 还是会在每隔一个屏幕刷新信号, 去显示下一帧画面, 只是下一帧画面, 一直是最后一帧的内容而已;  
 
+#### 双缓冲  
+因为实际上帧的数据, 就是保存在两个缓冲区中,  
+当缓冲去区 A 用来显示当前帧, 那么缓冲区 B 就用来缓存下一帧的数据,   
+同理, B显示时, A就用来缓冲, 这样就可以做到一边显示一边处理下一帧的数据;  
+但是, 由于某些原因, 比如我们应用代码上逻辑处理过于复杂, 或者布局过于复杂, 出现过度绘制(Overdraw), UI线程的复杂运算, 频繁的GC等,   
+导致下一帧绘制的时间超过了16ms, 那么问题就来了, 用户很明显感知到了卡顿的出现, 也就是所谓的丢帧情况;  
+当 Display 显示第 0 帧数据时, 此时 CPU 和 GPU 已经开始渲染第 1 帧画面, 并将数据缓存在缓冲 B 中, 但是由于某些原因, 导致系统处理该帧数据耗时过长或者未能及时处理该帧数据;  
+当 vSync 信号来时, Display 向 B 缓冲要数据, 这时候 缓冲 B 的数据还没准备好, B缓冲区这时候是被锁定的, Display 表示你没准备好, 只能继续显示之前缓冲 A 的那一帧,   
+此时缓冲 A 的数据也不能被清空和交换数据, 这种情况就是所谓的"丢帧", 也被称作"废帧";  
+当第 1 帧数据(即缓冲 B 数据)准备完成后, 它并不会马上被显示, 而是要等待下一个 vSync, Display 刷新后, 这时用户才看到画面的更新;  
+丢帧给用户感觉就是卡顿了, 最严重的直接造成ANR;  
+既然丢帧的情况不可避免, Android 团队从未放弃对这块的优化处理, 于是便出现了Triple Buffer(三缓冲机制);  
+在三倍缓冲机制中, 系统这个时候会创建一个缓冲 C, 用来缓冲下一帧的数据, 也就是说在显示完缓冲B中那一帧后, 下一帧就是显示缓冲 C 中的了,   
+这样虽然还是不能避免会出现卡顿的情况, 但是 Android 系统还是尽力去弥补这种缺陷, 最终尽可能给用平滑的动效体验;  
+
 #### requestLayout   
-ViewRootImpl 实现了 ViewParent, 和一些 AttachInfo.Callbacks 和 DrawCallbacks, 并不是 ViewGroup;   
+ViewRootImpl 内部持有 mView, 作为跟视图, 实现了 ViewParent, 和一些 AttachInfo.Callbacks 和 DrawCallbacks, 并不是 ViewGroup;   
 
 View#requestLayout  
 函数体内部, 会回调父窗体的 requestLayout 方法;  
@@ -140,19 +152,6 @@ FrameDisplayEventReceiver 收到信号后, 调用 onVsync 方法, 通过 handler
 6.. requestLayout 会导致自己以及父族 view 的 PFLAG_FORCE_LAYOUT 和 PFLAG_INVALIDATED 标志被设置;  
 7.. 一般来说, 只要刷新的时候就调用 invalidate, 需要重新 measure 就调用 requestLayout, 后面再跟个 invalidate (为了保证重绘);   
 
-双缓冲技术一直贯穿整个 Android 系统, 因为实际上帧的数据, 就是保存在两个缓冲区中, A 缓冲用来显示当前帧, 那么 B 缓冲就用来缓存下一帧的数据,   
-同理, B显示时, A就用来缓冲, 这样就可以做到一边显示一边处理下一帧的数据;  
-但是, 由于某些原因, 比如我们应用代码上逻辑处理过于复杂, 或者布局过于复杂, 出现过度绘制(Overdraw), UI线程的复杂运算, 频繁的GC等,   
-导致下一帧绘制的时间超过了16ms, 那么问题就来了, 用户很明显感知到了卡顿的出现, 也就是所谓的丢帧情况;  
-当 Display 显示第 0 帧数据时, 此时 CPU 和 GPU 已经开始渲染第 1 帧画面, 并将数据缓存在缓冲 B 中, 但是由于某些原因, 导致系统处理该帧数据耗时过长或者未能及时处理该帧数据;  
-当 vSync 信号来时, Display 向 B 缓冲要数据, 这时候 缓冲 B 的数据还没准备好, B缓冲区这时候是被锁定的, Display 表示你没准备好, 只能继续显示之前缓冲 A 的那一帧,   
-此时缓冲 A 的数据也不能被清空和交换数据, 这种情况就是所谓的"丢帧", 也被称作"废帧";  
-当第 1 帧数据(即缓冲 B 数据)准备完成后, 它并不会马上被显示, 而是要等待下一个 vSync, Display 刷新后, 这时用户才看到画面的更新;  
-丢帧给用户感觉就是卡顿了, 最严重的直接造成ANR;  
-既然丢帧的情况不可避免, Android 团队从未放弃对这块的优化处理, 于是便出现了Triple Buffer(三缓冲机制);  
-在三倍缓冲机制中, 系统这个时候会创建一个缓冲 C, 用来缓冲下一帧的数据, 也就是说在显示完缓冲B中那一帧后, 下一帧就是显示缓冲 C 中的了,   
-这样虽然还是不能避免会出现卡顿的情况, 但是 Android 系统还是尽力去弥补这种缺陷, 最终尽可能给用平滑的动效体验;  
-
 ### api  
 获取手机屏幕的刷新频率  
 ```
@@ -175,8 +174,12 @@ android.view.Choreographer
 
 ### ViewRootImpl#performTraversals  
 API=18:  onMeasure-onMeasure-onLayout-onDraw  
+暂时理解为, 第一次 onMeasure 是从上而下, 传递父窗体有多大的空间, 然后根据测量模式, 计算当前 View 自己需要多大的空间;  
+对于 wrap_content 也就是 AT_MOST 情况, 父窗体会调整空间, 并传向下传递;  
+测量完成, 就会进行layout和draw;  
 
 当前Activity的所有子View的 onMeasure-onLayout-onDraw, 都是 performTraversals 直接或者间接触发的;  
+
 1.. 预测量阶段, 调用 measureHierarchy, 对 View 树进行第一次测量, 测量的结果可以通过mView.getMeasureWidth-Height 得到;  
 在此阶段, 计算出 view 树要展示的内容的尺寸-size, 即期望的窗口的尺寸,  
 在此阶段, 所有 view-ViewGroup 的 onMeasure 方法, 将会沿着 view 树一次被回调;  
@@ -1195,6 +1198,7 @@ public static int getChildMeasureSpec(int spec, int padding, int childDimension)
 }
 ```
 ### View#layout  
+
 ```
 public void layout(int l, int t, int r, int b) {
 	//  成员变量 mPrivateFlags3 中的一些比特位存储着和 layout 相关的信息
@@ -1442,12 +1446,16 @@ if (!mStopped || mReportNextDraw) {
 }
 ```
 ### 测量模式的表现  
+layout 的坐标系,是相对于父窗体的;  
+
 子控件 size = width = height = 200dp;  
 父控件 size = width = height = 100dp;  
 子控件画出来的是, 内切的实心圆;  
 1.. 父控件是 LinearLayout, 子控件值展示 1/4 圆;  
 2.. 父控件是 FrameLayout, 子控件值展示 1/4 圆;
 3.. 父控件是 RelativeLayout, 子控件值展示的是, 和父控件内切的实心圆;
+协商测量:  在 父窗体的 measure 里面可以拿到 子控件的 layoutParams, 如果发现其宽高超限, 可以调用 child.measure 传给他一个新的宽高, 强制修改child的大小;   
+
 
 ### 参考  
 VSync: 即V-Sync垂直同步;  垂直同步信号;  
