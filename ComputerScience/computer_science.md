@@ -1,3 +1,15 @@
+### 英语  
+state 与 status  
+强调枚举, 用 state;  
+强调关联关系, 变化依赖, 用 status;  
+https://blog.csdn.net/liyi1009365545/article/details/83242720  
+
+
+extension 与 extention    
+extension 扩展, 偏向具体;  
+extention 扩展, 偏向抽象;  
+
+
 ### 计算机相关  
 https://github.com/GDGAhmedabad/Learning-Resources  
 http://www.bijishequ.com/subject/3  

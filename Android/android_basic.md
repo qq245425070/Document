@@ -61,7 +61,7 @@ Activity#setContentView 机制;
 
 [自定义控件相关基础知识](basic/view_window/view_basic_know.md)
 [Android 事件分发机制](basic/view_window/dispatchTouchEvent.md)  
-[对LayoutInflater的理解](basic/view_window/LayoutInflater.md)  
+[对 LayoutInflater 的理解](basic/view_window/LayoutInflater.md)  
 
 动画效果  Animation 与 Animator;  
 [链接](basic/view_window/animation_animator.md)
@@ -74,7 +74,8 @@ View 圆角化, 布局圆角化, 控件圆角化, 图片圆角化;
 [ImageView 与 Bitmap](basic/ImageView.md)  
 [RecyclerView](basic/recyclerView/RecyclerView.md)  
 [UI自动化测试](basic/view_window/UiAutomator.md)  
-[音视频相关](basic/live_stream/live_stream.md)  
+音视频相关; 直播流; 播放器;  
+[链接](basic/live_stream/live_stream.md)  
 SurfaceFlinger,  
 ActivityManagerService, PowerManagerService, PackageManagerService, WindowManagerService;  
 NetworkManagementService, NetworkTimeUpdateService, NetworkPolicyManagerService, NetworkStatsService, WifiService, TelephonyRegistry;  

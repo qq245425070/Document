@@ -19,6 +19,7 @@ http://blog.chengdazhi.com/index.php/201
 
 
 ### 数据库  
+https://github.com/JetBrains/Exposed  
 
 GreenDAO  
 https://github.com/greenrobot/greenDAO  

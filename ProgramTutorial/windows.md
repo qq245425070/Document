@@ -29,6 +29,8 @@ Windows Registry Editor Version 5.00
 ★ 任务栏添加文件夹
 新建一个快捷方式，修改属性  
 C:\Windows\explorer.exe D:\WorkSpace  
+//  使用 某个软件做某件事情  
+"D:\Program Files\Sublime Text 3\sublime_text.exe" D:\Document\document.java  
 
 ★ 常见快捷键  
 当前窗口最小化  Alt + 空格 + N  
