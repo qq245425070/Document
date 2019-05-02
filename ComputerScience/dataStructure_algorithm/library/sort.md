@@ -1,5 +1,5 @@
 ### 冒泡排序  
-生成递增数组;  
+生成递增数组, 每次选择最大的放在最右边;  
 ```
 private static void bubbleSort(int array[]) {
     if (array == null || array.length <= 1) {
@@ -17,7 +17,7 @@ private static void bubbleSort(int array[]) {
 }
 ```
 ### 简单选择排序  
-生成递增数组;  
+生成递增数组, 每次选择最小的, 放在最左边;  
 ```
 private static void selectionSort(int[] array) {
     if (array == null || array.length <= 1) {
