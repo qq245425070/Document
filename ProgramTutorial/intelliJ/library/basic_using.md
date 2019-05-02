@@ -83,6 +83,9 @@ Keep when reformatting
 换字体  
 设置 -> Editor -> Code & Fonts 右边  
 
+窗口字体  
+设置 -> Appearance & Behavior -> Appearance  右边 use custom font 
+
 
 类名注释模板  
 设置 -> Editor -> File and code Templates  右边  Include  File  Header  
