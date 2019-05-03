@@ -3,5 +3,16 @@
 职责链模式是一种对象行为型模式。  
  一个纯的职责链模式要求一个具体处理者对象只能在两个行为中选择一个：要么承担全部责任，要么将责任推给下家；  
  
+ OkHttpClient  
+ ```
+public interface Interceptor {
+  Response intercept(Chain chain) throws IOException;
+  
+  interface Chain {
+    Request request();
+    Response proceed(Request request) throws IOException;
+  }
+}
+ ```
 参考  
 http://blog.csdn.net/qq_25827845/article/details/51959801  

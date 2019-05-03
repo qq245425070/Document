@@ -10,6 +10,9 @@ socket 自动选择最好路线, 并支持自动重连;
 流: HttpCode  
 连接: Connection  
 连接池: ConnectionPool  
+内置拦截器在 RealCall 里面初始化并使用;  
+RealCall#getResponseWithInterceptorChain  
+
 ### 内置拦截器  
 RetryAndFollowUpInterceptor  
 重试与重定向拦截器;  
