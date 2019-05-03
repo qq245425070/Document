@@ -1,5 +1,6 @@
-### 插件化
 
+
+### 插件化  
 https://github.com/goeasyway/EasyPlug  
 https://github.com/DroidPluginTeam/DroidPlugin  
 https://github.com/CtripMobile/DynamicAPK  
@@ -13,6 +14,11 @@ https://github.com/ljqloveyou123/LiujiaqiAndroid
 https://github.com/ManbangGroup/Phantom  
 
 ### 热修复  
+如果不考虑增大apk的体积, 只是简单的修复代码, 不修复so和资源, 选择Robust是最稳定的, 否则的话选择Tinker是一个不错的方案;  
+虽然阿里Sophix横空出世, 但是它不开源, 而且商业收费, 所以一般不是很赚钱的app选择收费的可能就很小了;  
+
+
+http://w4lle.com/2017/05/04/hotpatch-summary/  
 Tinker  
 https://github.com/Tencent/tinker  
 http://www.tinkerpatch.com/Docs/intro  
@@ -20,6 +26,16 @@ http://www.jianshu.com/p/3bd2cf801e4c
 
 RocooFix  
 https://github.com/dodola/RocooFix  
+
+Robust  
+https://github.com/Meituan-Dianping/Robust  
+https://tech.meituan.com/2016/09/14/android-robust.html  
+https://tech.meituan.com/2017/03/17/android-autopatch.html  
+http://w4lle.com/2017/03/31/robust-0/  
+http://w4lle.com/2018/05/28/robust-1/  
+
+AndFix  
+http://w4lle.com/2016/03/03/Android热补丁之AndFix原理解析/  
 
 
 ### 架构与组件化 （Architecture and Components） 
@@ -122,3 +138,5 @@ https://github.com/dmdevgo/RxPM
 不好   
 https://github.com/ittianyu/relight  
 https://github.com/Arello-Mobile/Moxy  
+
+

@@ -4,7 +4,6 @@
 
 接口 和 抽象类;    对Java中面向对象的认识;    Java类的各种成员初始化顺序;    
 [链接](basic/library/interface_abstract_class.md)  
-
 [java位运算](basic/library/BitOperation.md)  
 [参数传递](basic/library/fun_params.md)  
 [单元测试](basic/library/test_junit.md)  
@@ -45,6 +44,15 @@ Error 用于标识那些, 不应该被试图捕获的严重问题, 系统错误�
 内存溢出, 虚拟机错误, 栈溢出等, 这类错误一般与硬件有关, 与程序本身无关, 通常由系统进行处理, 程序本身无法捕获和处理;  
 
 Exception 用于标识那些, 需要被程序捕获处理的问题, 为了保证程序的健壮性, 需要对那些 coding 阶段无法预料的问题, 进行捕获和处理;  
+
+### System#arraycopy  
+为什么, System#arraycopy 会比较快?  
+System.arrayCopy 属于浅复制, 是内存地址的拷贝, 避免引用数据在内存中搬来搬去, 自然就会更快;  
+在 int double 等基础数据类型上表现, 不明显, 甚至不一定比 for 循环速度快, 但是, 在引用数组的拷贝上, 表现很明显了;  
+
+参考  
+https://blog.csdn.net/jianghuxiaojin/article/details/53541930  
+https://blog.csdn.net/wangyangzhizhou/article/details/79504818  
 
 
 ### 克隆  

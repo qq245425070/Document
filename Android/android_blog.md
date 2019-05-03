@@ -91,7 +91,7 @@ sticky listView;   sticky header;  item加载效果;  Shimmer;
 音频框架;  视频框架;  流媒体;  
 [链接](blog/audio_media.md)   
 
-插件化;  热修复;  架构与组件化;  
+插件化;  热修复;  热更新;  架构与组件化;  
 [链接](blog/architecture_components.md)   
 
 [jni部分](blog/jni_manual.md)   
