@@ -6,13 +6,23 @@
  OkHttpClient  
  ```
 public interface Interceptor {
-  Response intercept(Chain chain) throws IOException;
-  
-  interface Chain {
-    Request request();
-    Response proceed(Request request) throws IOException;
-  }
+
+    Request intercept(Chain chain);
+
+    interface Chain {
+        Request request();
+
+        Request proceed(Request request);
+
+    }
 }
+
+public class MyInterceptor implements Interceptor{
+    public Request intercept(Chain chain) {
+         return chain.proceed(chain.request());
+    }
+}
+
  ```
 参考  
 http://blog.csdn.net/qq_25827845/article/details/51959801  

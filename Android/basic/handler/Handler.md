@@ -166,7 +166,115 @@ public void onCreateData(@Nullable Bundle bundle) {
 
 }
 ```
+### IdleHandler  
+```
+Message next() {
+    int pendingIdleHandlerCount = -1; // -1 only during first iteration
+    int nextPollTimeoutMillis = 0;
+    for (;;) {
+        if (nextPollTimeoutMillis != 0) {
+            Binder.flushPendingCommands();
+        }
+        nativePollOnce(ptr, nextPollTimeoutMillis);
+        synchronized (this) {
+            if (msg != null) {
+                if (now < msg.when) {
+                    nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);
+                } else {
+                    return msg;
+                }
+            } else {
+                nextPollTimeoutMillis = -1;
+            }
+        }
+        for (int i = 0; i < pendingIdleHandlerCount; i++) {
+            final IdleHandler idler = mPendingIdleHandlers[i];
+            mPendingIdleHandlers[i] = null; // release the reference to the handler
+            try {
+                keep = idler.queueIdle();
+            } catch (Throwable t) {
+                Log.wtf(TAG, "IdleHandler threw exception", t);
+            }
+
+            if (!keep) {
+                synchronized (this) {
+                    mIdleHandlers.remove(idler);
+                }
+            }
+        }
+    }
+}
+```
+可见是, next 没有拿到即刻执行的消息, 或者没有拿到消息的时候, 会回调这个 IdleHandler 接口;   
+如果拿到了即刻的消息, 会立刻处理次条消息的;  
+另外, 如果 IdleHandler#queueIdle 如果返回 false, 那么处理完这个回调, 会把他从回调数组中移除, 返回 true, 则继续保留;  
+
+### 消息池   
+Looper#loop  
+```
+public static void loop() {
+    final Looper me = myLooper();
+    for (;;) {
+        final long dispatchEnd;
+        try {
+            msg.target.dispatchMessage(msg);
+            dispatchEnd = needEndTime ? SystemClock.uptimeMillis() : 0;
+        } finally {
+            if (traceTag != 0) {
+                Trace.traceEnd(traceTag);
+            }
+        }
+        //  回收资源  
+        msg.recycleUnchecked();
+    }
+}
+```
+Message#ontain  
+```
+public static Message obtain() {
+    synchronized (sPoolSync) {
+        if (sPool != null) {
+            Message m = sPool;
+            sPool = m.next;
+            m.next = null;
+            m.flags = 0; // clear in-use flag
+            sPoolSize--;
+            return m;
+        }
+    }
+    return new Message();
+}
+```
+Message#recycleUnchecked  
+```
+void recycleUnchecked() {
+    flags = FLAG_IN_USE;
+    synchronized (sPoolSync) {
+        if (sPoolSize < MAX_POOL_SIZE) {
+            next = sPool;
+            sPool = this;
+            sPoolSize++;
+        }
+    }
+}
+```
+A.. 我们假设, 每次 post/send 一个消息, 用obtain 的话,   
+第一次sPool=null, 会new 出来一个 Message 对象 m0, 在处理完消息的时候, looper 会调用 msg.recycleUnchecked(),  那么, 这个m0 会被赋值给 sPool;  
+第二次, 或者第N次, 用obtain的话, 永远都是使用的m0, 这样就达到了消息的复用;  
+
+B.. 我们假设, 有一次同时 post/send 8条消息, 这里的同时的意思是, 在looper没有调用msg.recycleUnchecked()之前, 所以继续看obtain 方法;  
+如果先加锁, 持有这把锁的是 public static final Object sPoolSync = new Object();  
+所以所有的调用处都要在外面排队等候, 当发现sPool非空时, 就使用链表头结点, 一直占用, 直到链表用光了, sPool 就会变成 null, 就会重新 new Message;  
+当然链表的next节点, 不会很多, 最大值是50个, 超出50的部分, 不会被加到链表next节点上, 也就是不会放在消息池中;  
+
+消息池如果增加到8个, 不会降下来, 如果继续增加到16个, 也不会降下来, 可以理解为, 核心池数量, 只要产生了峰值, 就会一直持有者;  
+
+
 ### 参考  
 https://blog.csdn.net/solarsaber/article/details/48974907  
 http://book.51cto.com/art/201208/353352.htm  
 http://wangkuiwu.github.io/2014/08/26/MessageQueue/  
+
+IdleHandler  
+https://blog.csdn.net/Tencent_Bugly/article/details/78395717  
+
