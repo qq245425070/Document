@@ -1,5 +1,8 @@
 自定义控件相关 基础知识   
 
+FrameLayout onMeasure 对子View onMeasure 执行2次;  
+LinearLayout onMeasure 对子View onMeasure 执行2次;  
+RelativeLayout onMeasure 对子View onMeasure 执行4次;  
 
 ### onLayout layout  
 继承 View, 可以重写 onLayout 和 layout;  
@@ -7,25 +10,6 @@
 
 onLayout 收到的是, 在父窗体的坐标;  
 自定义 ViewGroup 需要在 onMeasure 里面调用 measureChildren 或者, 子 view.measure 方法, 否则, 子 view 的 onMeasure 不会被执行;  
-
-### 渲染性能  
-大多数用户感知到的卡顿等性能问题的最主要根源都是因为渲染性能。从设计师的角度，他们希望App能够有更多的动画，图片等时尚元素来实现流畅的用户体验。  
-但是Android系统很有可能无法及时完成那些复杂的界面渲染操作。Android系统每隔16ms发出VSYNC信号，触发对UI进行渲染，  
-如果每次渲染都成功，这样就能够达到流畅的画面所需要的60fps，为了能够实现60fps，这意味着程序的大多数操作都必须在16ms内完成。  
-如果你的某个操作花费时间是24ms，系统在得到VSYNC信号的时候就无法进行正常渲染，这样就发生了丢帧现象。那么用户在32ms内看到的会是同一帧画面。  
-用户容易在UI执行动画或者滑动ListView的时候感知到卡顿不流畅，是因为这里的操作相对复杂，容易发生丢帧的现象，从而感觉卡顿。  
-有很多原因可以导致丢帧，也许是因为你的layout太过复杂，无法在16ms内完成渲染，有可能是因为你的UI上有层叠太多的绘制单元，还有可能是因为动画执行的次数过多。  
-这些都会导致CPU或者GPU负载过重。  
-
-### Why 60fps?  
-我们通常都会提到60fps与16ms，可是知道为何会是以程序是否达到60fps来作为App性能的衡量标准吗？这是因为人眼与大脑之间的协作无法感知超过60fps的画面更新。  
-12fps大概类似手动快速翻动书籍的帧率，这明显是可以感知到不够顺滑的。24fps使得人眼感知的是连续线性的运动，这其实是归功于运动模糊的效果。  
-24fps是电影胶圈通常使用的帧率，因为这个帧率已经足够支撑大部分电影画面需要表达的内容，同时能够最大的减少费用支出。  
-但是低于30fps是无法顺畅表现绚丽的画面内容的，此时就需要用到60fps来达到想要的效果，当然超过60fps是没有必要的。  
-开发app的性能目标就是保持60fps，这意味着每一帧你只有16ms=1000/60的时间来处理所有的任务。  
-
-参考  
-http://hukai.me/android-performance-patterns/  
 
 ###  getWidth 与 getMeasuredWidth 
 getMeasuredWidth 是measure阶段获得的View的原始宽度;  

@@ -14,6 +14,9 @@ J. 你对 IdleHandler 有多少了解?
 K. 你了解 HandlerThread 吗?  
 L. 你对 Message.obtain() 了解吗, 或者你知道 怎么维护消息池吗,  
 哈哈, 事实上 关于 handler还有一些其他的问题, 我都不记得了;  
+
+handlerThread 是用来实现多线程之间通信的, 不是用来更新UI的;  
+
 ### 使用 handler 
 要刷新UI, handler 要用到主线程的 looper, 
 在主线程中初始化 Handler handler = new Handler();  

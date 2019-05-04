@@ -61,7 +61,7 @@ Activity#setContentView 机制;
 
 [自定义控件相关基础知识](basic/view_window/view_basic_know.md)
 [Android 事件分发机制](basic/view_window/dispatchTouchEvent.md)  
-[对 LayoutInflater 的理解](basic/view_window/LayoutInflater.md)  
+[对LayoutInflater的理解](basic/view_window/LayoutInflater.md)  
 
 动画效果  Animation 与 Animator;  
 [链接](basic/view_window/animation_animator.md)
