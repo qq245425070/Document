@@ -78,5 +78,8 @@ terminal - 偏好设置 - 描述文件 - shell - 当shell退出时 - 当shell完
 [安装软件](ImageFiles/shortcut_001.png)  
 按照箭头, 拖过去;  
 
+![苹果手机换铃声](ImageFiles/iphone_001.jpg)  
+
+
 ### 参考    
 http://blog.csdn.net/zq019/article/details/54618185  
