@@ -51,7 +51,7 @@ https://www.cnblogs.com/ttltry-air/archive/2012/08/14/2638284.html
 [链接](segment01/a001.md)  
 
 二叉树, 根节点到指定节点的路径;  
-[链接](segment01/a016.md)
+[链接](segment01/a016.md)  
 
 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先;  
 [链接](segment01/a015.md)  
