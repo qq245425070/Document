@@ -902,6 +902,9 @@ https://blog.csdn.net/hherima/article/details/52469488
 https://blog.csdn.net/muzhengjun/article/details/53379593  
 https://www.cnblogs.com/svan/p/5090201.html  
 http://www.codeceo.com/article/ssl-tls-run.html  
+https://showme.codes/2017-02-20/understand-https/  
+https://wetest.qq.com/lab/view/110.html  
+
 
 中间人攻击  
 https://www.zhihu.com/question/65464646  

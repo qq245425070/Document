@@ -3,6 +3,7 @@
 logTag = "IJKMEDIA";  
 
 adb logcat -s "LogTrack" "IJKMEDIA"
+adb logcat -s "IJKMEDIA"
 
 ```
 自动播放#设置选项  
@@ -133,3 +134,12 @@ https://blog.csdn.net/liuxiaoheng1992/article/details/80601145
 
 音量焦点  
 https://blog.csdn.net/wusuobupo/article/details/53034506  
+
+seekTo 跳帧的问题  
+无法解决的bug  
+https://blog.csdn.net/zxccxzzxz/article/details/53101323  
+https://github.com/Bilibili/ijkplayer/issues/834  
+https://github.com/Bilibili/ijkplayer/issues/313  
+
+
+
