@@ -2,6 +2,10 @@ HTTP 是一种无状态(stateless)协议, 对于发送过的请求或响应, 都
 这是为了, 更快地处理大量事务, 确保协议的可伸缩性, 而特意把 HTTP 协议设计成如此简单的;  
 但为了实现期望的保持状态功能, 于是引入了 Cookie 技术;  
 
+HTTP劫持与DNS劫持的区别  
+HTTP劫持: 你打开的是人民日报的官方网站, 右下角却弹出了蓝翔的挖掘机广告;  
+DNS劫持: 你在地址栏输入的是人民日报的网页地址, 却打开了淘宝特卖的钓鱼网站;  
+
 ### 一次完整的网络请求过程  
 1.. 域名解析;  
 2.. TCP 的三次握手, 建立 TCP 连接;  
@@ -763,7 +767,17 @@ SSL 自身不要求客户端检查 Web 服务器证书, 但大部分现代浏览
 客户端使用本地的, 第三方机构的公钥, 对服务器传过来的证书进行解密, 拿到其传过来的公钥;  
 如果解密成功, 说明对应的证书和服务器都是真实可靠的;  
 
-
+1.. 客户端向服务器发起HTTPS请求;  
+2.. Charles拦截客户端的请求, 伪装成客户端向服务器进行请求;  
+3.. 服务器向 "客户端"(实际上是Charles)返回服务器的CA证书;  
+4.. Charles拦截服务器的响应, 获取服务器证书公钥, 然后自己制作一张证书, 将服务器证书替换后发送给客户端(这一步, Charles拿到了服务器证书的公钥);  
+5.. 客户端接收到"服务器"(实际上是Charles)的证书后, 生成一个对称密钥, 用Charles的公钥加密, 发送给"服务器"(Charles);  
+6.. Charles拦截客户端的响应, 用自己的私钥解密对称密钥, 然后用服务器证书公钥加密, 发送给服务器(这一步, Charles拿到了对称密钥);  
+7.. 服务器用自己的私钥解密对称密钥, 向"客户端"(Charles)发送响应;  
+8.. Charles拦截服务器的响应, 替换成自己的证书后发送给客户端
+9.. 至此, 连接建立, Charles拿到了服务器证书的公钥, 和客户端与服务器协商的对称密钥, 之后就可以解密或者修改加密的报文了;  
+HTTPS抓包的原理还是挺简单的, 简单来说, 就是Charles作为"中间人代理", 拿到了 服务器证书公钥 和 HTTPS连接的对称密钥;  
+前提是客户端选择信任并安装Charles的CA证书, 否则客户端就会"报警"并中止连接, 这样看来, HTTPS还是很安全的;  
 
 ### 状态码  
 100 - 199  Informational(信息性状态码), 指示信息, 表示请求已接收, 继续处理;  
@@ -902,11 +916,10 @@ https://blog.csdn.net/hherima/article/details/52469488
 https://blog.csdn.net/muzhengjun/article/details/53379593  
 https://www.cnblogs.com/svan/p/5090201.html  
 http://www.codeceo.com/article/ssl-tls-run.html  
-https://showme.codes/2017-02-20/understand-https/  
+https://showme.codes/2017-02-20/understand-https  
 https://wetest.qq.com/lab/view/110.html  
 https://www.cnblogs.com/ghjbk/p/6738069.html   
-https://www.cnblogs.com/GeniusLyzh/p/9321242.html  
-https://www.cnblogs.com/njqa/p/6508395.html  
+
 
 
 中间人攻击  
@@ -920,6 +933,13 @@ https://www.jianshu.com/p/e4fd0ba780a5
 https://kb.cnblogs.com/page/194742/  
 https://www.cnblogs.com/liyulong1982/p/6106132.html  
 https://www.zhihu.com/question/37370216/answer/71956414  
+
+android.Https  
+https://www.jianshu.com/p/3beebdf846bb  
+https://www.wolfcstech.com/2016/11/18/asymmetric_encryption_and_certificate/  
+https://juejin.im/post/5b67a7d9f265da0f6a0378ea  
+https://www.wolfcstech.com/2017/06/08/android_certificate_expired_issue/  
+https://www.wolfcstech.com/2017/06/08/android_tls_version_issue/  
 
 
 词条  
