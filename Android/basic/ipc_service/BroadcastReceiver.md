@@ -307,8 +307,6 @@ AMS 在消息循环中处理这个广播, 并通过 Binder 机制, 把这个广�
 ReceiverDispatcher 把这个广播放进 MainActivity 所在的线程的消息队列中去;  
 ReceiverDispatcher 的内部类 Args 在 MainActivity 所在的线程消息循环中处理这个广播, 最终将这个广播分发给 BroadcastReceiver#onReceive 函数进行处理;  
 
-
-
 ### 参考  
 https://blog.csdn.net/luoshengyang/article/details/6744448  
 https://www.jianshu.com/p/abb173858faf  
