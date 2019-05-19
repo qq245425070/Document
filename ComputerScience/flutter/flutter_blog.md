@@ -55,26 +55,45 @@ https://github.com/MarcinusX/flutter_ui_challenge_filter_menu
 https://github.com/flutter/plugins/tree/master/packages  
 https://github.com/flutter/plugins/tree/master/packages/android_intent  
 https://github.com/ReactiveX/rxdart  
-#### router  
+
+router  
 https://github.com/theyakka/fluro  
 
+网络库  
+https://github.com/flutterchina/dio  
 
+数据库  
+https://github.com/tekartik/sqflite  
+
+json  
+https://github.com/dart-lang/json_serializable  
+https://github.com/dart-lang/json_serializable/blob/master/example/pubspec.yaml  
+
+gsonFormat 网页版  
+https://javiercbk.github.io/json_to_dart/  
+
+### 工具类  
+https://github.com/Sky24n/flustars  
+https://github.com/Sky24n/common_utils  
 
 
 ### 架构  
-#### MVU
+MVU  
 https://github.com/brianegan/flutter_architecture_samples/tree/master/example/mvu  
-
-
-
 
 ### 开源App  
 https://github.com/MarcinusX/flutter_ui_challenge_flight_search  
 https://github.com/MarcinusX/cap_challenge  
 https://github.com/CarGuo/GSYGithubAppFlutter  
 https://github.com/jianggaocheng/30-days-of-flutter  
-
-
+https://github.com/alibaba/flutter-go  
+https://github.com/kaina404/FlutterDouBan  
+https://github.com/OpenFlutter/Flutter-Notebook  
+https://github.com/HackSoul/zhihu-flutter  
+https://github.com/huanxsd/flutter_shuqi  
+https://github.com/heruijun/flutter_boss  
+https://github.com/efoxTeam/flutter-ui  
+https://github.com/zhujian1989/flutter_study  
 
 
 

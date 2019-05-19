@@ -18,3 +18,16 @@ http://www.ruanyifeng.com/blog/computer
 https://github.com/mbinary/USTC-CS-Courses-Resource  
 http://www.ruanyifeng.com/blog/archives.html  
 
+### 免费 api  
+https://api.apiopen.top/recommendPoetry  
+https://api.apiopen.top/todayVideo  
+https://api.apiopen.top/videoHomeTab  
+https://api.apiopen.top/videoCategory  
+https://www.apiopen.top/journalismApi  
+https://www.apiopen.top/weatherApi?city=嘉兴  
+https://www.apiopen.top/meituApi?page=1  
+https://www.apiopen.top/femaleNameApi?page=1  
+https://www.apiopen.top/createUser?key=00d91e8e0cca2b76f515926a36db68f5&phone=13594347817&passwd=123654  
+https://www.apiopen.top/login?key=00d91e8e0cca2b76f515926a36db68f5&phone=13594347817&passwd=123456  
+
+
