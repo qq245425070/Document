@@ -100,3 +100,10 @@ class Imposter implements Person {
     String greet(who) => "Hi $who. Do you know who I am?";
 }
 ```
+### 延时  
+```
+void delayShow() async {
+    await new Future.delayed(new Duration(milliseconds: 10));
+    loadingDialog.show(context);
+}
+```

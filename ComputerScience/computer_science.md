@@ -17,6 +17,7 @@ https://github.com/jwasham/coding-interview-university/blob/master/translations/
 http://www.ruanyifeng.com/blog/computer  
 https://github.com/mbinary/USTC-CS-Courses-Resource  
 http://www.ruanyifeng.com/blog/archives.html  
+thinking in uml  
 
 ### 免费 api  
 https://api.apiopen.top/recommendPoetry  

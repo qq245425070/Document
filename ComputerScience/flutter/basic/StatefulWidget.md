@@ -9,6 +9,41 @@ initState: 初始化, 理论上只有初始化一次, 第二篇中会说特殊�
 didChangeDependencies: 在 initState 之后调用, 此时可以获取其他 State;  
 dispose: 销毁, 只会调用一次;  
 
+### 监测页面生命周期  
+是FlutterActivity 的, 不是某个 Flutter page 的;  
+```
+class _HomeBodyState extends State<_HomeBody> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this); //添加观察者
+  }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    LogTrack.w("state=" + state.toString());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this); //销毁
+  }
+ 
+}
+```
+### 渲染监测  
+页面监测;  
+```
+WidgetsBinding.instance.addPostFrameCallback((_) {
+  //  只在当前 Page 渲染完成, 回调一次;  
+  onFrameRendered();
+});
+WidgetsBinding.instance.addPersistentFrameCallback((_){
+  //  每次刷新 page 都会回调一次;  
+  LogTrack.v("Frame has been rendered");
+});
+```
 ### 参考  
 https://docs.flutter.io/flutter/widgets/StatefulWidget-class.html  
