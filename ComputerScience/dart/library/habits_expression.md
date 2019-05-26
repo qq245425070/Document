@@ -107,3 +107,13 @@ void delayShow() async {
     loadingDialog.show(context);
 }
 ```
+### 泛型  
+```
+abstract class State<T extends StatefulWidget> {
+
+}
+
+class AppbarState<T extends StatefulWidget> extends State<T>{
+
+}
+```

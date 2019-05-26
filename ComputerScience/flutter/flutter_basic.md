@@ -18,6 +18,9 @@ SliverFixedExtentList;  ListView;
 AnimationController;  Animation;  Tween;   
 [链接](basic/Animation.md)  
 
+相对布局;  Container;  
+[链接](basic/Container.md)  
+
 [GestureDetector](basic/GestureDetector.md)  
 [Scaffold](basic/Scaffold.md)  
 [Text](basic/Text.md)  
@@ -26,7 +29,7 @@ AnimationController;  Animation;  Tween;
 [IconButton](basic/IconButton.md)  
 [RaisedButton](basic/RaisedButton.md)  
 [Row Column](basic/Row_Column.md)  
-[Container](basic/Container.md)  
+
 [BoxDecoration](basic/BoxDecoration.md)  
 
 
@@ -47,8 +50,9 @@ RichText	               富文本, 通过设置TextSpan, 可以拼接出富文�
 TextField	               文本输入框: new TextField(controller: //文本控制器, obscureText: "hint文本");  
 Image	                   图片加载: new FadeInImage.assetNetwork( placeholder: "预览图", fit: BoxFit.fitWidth, image: "url");  
 FlatButton	           按键点击: new FlatButton(onPressed: () {},child: new Container());  
-
-
+Offstage                  offstage: true 隐藏;  当不可见的时, 如果有动画等, 需要手动停掉, Offstage 并不会停掉动画等操作;  
+Alignment               参数x: -1 最左边, 0 中间, 1 最右边;  参数y: -1 最上边, 0 中间, 1 最下边; 
+FractionalOffset     0,0 在左上角; 1,1 在右下角;  
 
 ### 参考  
 [Flutter开源与技术](flutter_blog.md)  

@@ -5,13 +5,13 @@
 [操作 进程](windows/shell_proccessor.md)  
 [解决夜神 连接 android studio 掉线问题](windows/shell_restart_nox.md)  
 
-★ cmd.exe 携带参数  
+❀ cmd.exe 携带参数  
 -c   
-执行 String 指定的命令，执行完后停止，会退出  
+执行 String 指定的命令, 执行完后停止, 会退出  
 C:\Windows\System32\cmd.exe /c taskkill /im java.exe -f  
 
 
-★ 修改 cmd 字体字号  
+❀ 修改 cmd 字体字号  
 cmd_dos_config.reg
 ```
 Windows Registry Editor Version 5.00
@@ -26,22 +26,22 @@ Windows Registry Editor Version 5.00
 "FontFamily"=dword:00000036
 ```
 
-★ 任务栏添加文件夹
-新建一个快捷方式，修改属性  
+❀ 任务栏添加文件夹
+新建一个快捷方式, 修改属性: 目标   
 C:\Windows\explorer.exe D:\WorkSpace  
 //  使用 某个软件做某件事情  
 "D:\Program Files\Sublime Text 3\sublime_text.exe" D:\Document\document.java  
 
-★ 常见快捷键  
+❀ 常见快捷键  
 当前窗口最小化  Alt + 空格 + N  
 所有窗口最小化  Win + M  
 展开当前窗口至最大化    Win + ↑  
 收回当前窗口至最小化    Win + ↓  
 移动当前窗口到左边的显示器   Shift + Win + ←  
 移动当前窗口到右边的显示器   Shift + Win + 右  
-在一个已经打开的文件夹中，新建一个文件夹   Ctrl + Shift + N  
+在一个已经打开的文件夹中, 新建一个文件夹   Ctrl + Shift + N  
 增强型鼠标右键    Shift + 鼠标右键  
 
-★ 系统图标都在哪里  
+❀ 系统图标都在哪里  
 C:\Windows\System32\shell32.dll  
   

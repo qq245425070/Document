@@ -11,15 +11,20 @@ https://github.com/theobouwman/flutter_cupertino_segment_control
 
 
 ### 列表  
-#### stick-slide-listView  
+stick-slide-listView  
 https://github.com/renefloor/side_header_list_view  
 
+下拉刷新  
+https://github.com/xuelongqy/flutter_easyrefresh  
+https://github.com/aagarwal1012/Liquid-Pull-To-Refresh  
 
 
 ### ImageView  
-#### 图片缓存、图片加载  
+图片缓存;  图片加载;  
 https://github.com/renefloor/flutter_cached_network_image  
 
+PhotoView  
+https://github.com/renancaraujo/photo_view  
 
 
 

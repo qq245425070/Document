@@ -30,5 +30,7 @@ https://www.apiopen.top/meituApi?page=1
 https://www.apiopen.top/femaleNameApi?page=1  
 https://www.apiopen.top/createUser?key=00d91e8e0cca2b76f515926a36db68f5&phone=13594347817&passwd=123654  
 https://www.apiopen.top/login?key=00d91e8e0cca2b76f515926a36db68f5&phone=13594347817&passwd=123456  
+https://github.com/xingstarx/-Api  
+https://github.com/maoruibin/liuye  
 
 
