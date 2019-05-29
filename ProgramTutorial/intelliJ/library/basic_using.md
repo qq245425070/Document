@@ -91,7 +91,7 @@ Keep when reformatting
 设置 -> Editor -> File and code Templates  右边  Include  File  Header  
 ```
 /**  作者：Alex  
- * 时间：${DATE}${HOUR}:${MINUTE}  
+ * 时间：${DATE} ${HOUR}:${MINUTE}  
  * 简述：  
  */    
 ```
@@ -112,14 +112,3 @@ View  ->  Navigation Bar
  */
 ```
 
-Gradle 依赖冲突  
-```
-androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {     
-    exclude group: 'com.android.support', module: 'support-annotations' }) 
-    compile ('com.facebook.react:react-native:+') {     
-        exclude group: 'com.squareup.okhttp3', module: 'okhttp'    
-        exclude group: 'com.android.support', module: 'support-v4'     
-        exclude group: 'com.android.support', module: 'support-v7'
-    }
-}
-```  
