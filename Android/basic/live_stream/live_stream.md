@@ -132,3 +132,13 @@ https://dl.dropboxusercontent.com/u/7303267/website/m3u8/index.m3u8 (VOD) - [upd
 http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8 (link protection, video not encrypted)   
 http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8 (4K)   
 http://cdn3.viblast.com/streams/hls/airshow/playlist.m3u8 (4K)  
+
+录播  
+1 min  
+http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4  
+3min  
+https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1920x1080h.mp4  
+https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4  
+
+10 min  
+http://mirror.aarnet.edu.au/pub/TED-talks/911Mothers_2010W-480p.mp4  

@@ -1,3 +1,4 @@
+
 噠Q   
 就是掉链子;  
 ```
@@ -8,3 +9,5 @@ Pool Cue=桌球棍 通常广东人都简称球杆为CUE CUE跟Q是同音。
 ```   
 
 
+### 参考  
+https://github.com/jyutnet/cantonese-books-data  
