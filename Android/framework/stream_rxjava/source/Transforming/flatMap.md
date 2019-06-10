@@ -12,3 +12,6 @@ public interface Function<T, R> {
     R apply(@NonNull T t) throws Exception;
 }
 ```
+
+### 参考  
+https://www.jianshu.com/p/610170c8f3af  
