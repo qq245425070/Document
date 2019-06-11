@@ -1,5 +1,3 @@
-#### map  
-
 apply方法法人入口参数是T,  出口参数是R   
 所以map做的事情是, T  to R  
 ```
@@ -21,10 +19,11 @@ ObservableMap#subscribeActual
 ```
 @Override
 public void subscribeActual(Observer<? super U> t) {
-    //所以我们应该关注MapObservable的onNext方法体
+    //  订阅上游事件, 并生成新的数据源, 交给下游处理
+    //  逻辑处理, 交给 MapObserver#onNext  
     source.subscribe(new MapObserver<T, U>(t, function));
 }
-```  
+```
 ObservableMap.MapObserver#onNext  
 ```
 @Override
@@ -39,6 +38,7 @@ public void onNext(T t) {
         fail(ex);
         return;
     }
+    //  下游的 observer 得到响应  
     actual.onNext(v);
 }
 ```  

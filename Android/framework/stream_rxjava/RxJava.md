@@ -19,7 +19,10 @@ Utility
 [timeout](source/Utility/timeout.md)  
 Transforming  
 [buffer](source/Transforming/buffer.md)  
-[flatMap](source/Transforming/flatMap.md)  
+
+flatMap;  concatMap;  
+[链接](source/Transforming/flatMap.md)  
+
 [groupBy](source/Transforming/groupBy.md)  
 [map](source/Transforming/map.md)  
 [scan](source/Transforming/scan.md)  
