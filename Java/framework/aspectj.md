@@ -53,6 +53,7 @@ http://blog.51cto.com/lavasoft/172292
 http://www.cnblogs.com/yudy/archive/2012/03/22/2411175.html  
 https://www.ibm.com/developerworks/cn/java/j-lo-springaopcglib  
 https://juejin.im/post/5c01533de51d451b80257752  
+https://livebook.manning.com/#!/book/aspectj-in-action-second-edition/part-1/  
 
 原理  
 apt, javapoet, hugo, aspectJ, aspectJX, javassist, savior, asm, ASMDEX,   

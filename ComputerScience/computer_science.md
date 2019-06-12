@@ -18,6 +18,7 @@ http://www.ruanyifeng.com/blog/computer
 https://github.com/mbinary/USTC-CS-Courses-Resource  
 http://www.ruanyifeng.com/blog/archives.html  
 thinking in uml  
+https://livebook.manning.com/  
 
 ### 免费 api  
 https://api.apiopen.top/recommendPoetry  

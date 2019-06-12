@@ -81,6 +81,7 @@ http://blog.csdn.net/u014165119/article/details/52582782
 https://www.jianshu.com/p/90e9434b8590  
 http://blog.csdn.net/xiechengfa/article/details/51821030  
 https://github.com/uber/AutoDispose  
+https://livebook.manning.com/#!/book/the-joy-of-kotlin/cover/  
 
 https://github.com/ReactiveX/RxJava  
 http://reactivex.io/documentation/scheduler.html  

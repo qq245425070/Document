@@ -871,6 +871,7 @@ http://127.0.0.1/user  DELETE 删除用户信息
 
 ### 参考  
 HTTP权威指南  
+https://livebook.manning.com/#!/book/http2-in-action/preface/  
 https://yq.aliyun.com/articles/78101  
 https://hpbn.co/optimizing-application-delivery/  
 http://www.cnblogs.com/wjlog/p/5827168.html  

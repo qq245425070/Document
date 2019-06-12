@@ -56,6 +56,8 @@ FractionalOffset     0,0 在左上角; 1,1 在右下角;
 
 ### 参考  
 [Flutter开源与技术](flutter_blog.md)  
+https://github.com/crazycodeboy/awesome-flutter-cn  
+https://livebook.manning.com/#!/book/flutter-in-action/welcome/v-7/  
 https://github.com/flutter/flutter/releases  
 https://book.flutterchina.club/  
 https://www.itcodemonkey.com/article/11041.html   

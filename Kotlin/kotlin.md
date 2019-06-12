@@ -1,4 +1,3 @@
-### kotlin  
 [习惯与表达式](library/Expression.md)  
 
 [类·接口定义](library/class/class.md)   
@@ -12,6 +11,8 @@
 [高阶函数实现接口回调]()  
 
 ### 参考  
+https://livebook.manning.com/#!/book/the-joy-of-kotlin/cover/  
+
 时间日期  
 https://github.com/kizitonwose/Time  
 
