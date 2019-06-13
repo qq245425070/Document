@@ -1,12 +1,12 @@
-### 习惯 与 表达式
-> 初始化一个数组
-
+```
+val isPlaying = gslVideoView?.isPlaying ?: false
+```
+初始化一个数组  
 ```
 val arrayOf = intArrayOf(44, 33, 40, 22, 10, 82, 10, 9, 8, 10, 20)
 ```
 
-> for 循环
-
+for 循环  
 ```
 /* 左右都是 闭区间 */
 for (i in 0 .. array.size){

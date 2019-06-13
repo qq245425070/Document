@@ -96,7 +96,10 @@ sticky listView;   sticky header;  item加载效果;  Shimmer;
 
 [jni部分](blog/jni_manual.md)   
 [优秀的文章](blog/library_notes.md)   
-[干货网站;  安卓源码;  开源App源码](blog/library_ui_collection.md)   
+
+干货网站;  安卓源码;  开源App源码;  
+[链接](blog/library_ui_collection.md)   
+
 [自定义控件相关知识](blog/library_view.md)   
 [未整理分类](blog/library_other.md)   
 

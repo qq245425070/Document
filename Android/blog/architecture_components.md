@@ -1,3 +1,30 @@
+### mvc-mvp-mvvm  
+❀ MVC 架构模式  
+![mvc](ImageFiles/mvc.png)  
+model 层, 包含数据模型, 与数据库操作, 网络请求, 持久层, 内存缓存等;  
+controller 是对业务逻辑的处理, 比方说协同几个任务或者几个接口来处理一些逻辑;  
+view 持有 controller 的引用, 
+view 持有 model 的引用;  
+controller 持有 model 的引用;  
+一个 controller 对应多个 view;  
+model 的变更, 直接通知 view, 不需要通过 controller 转发;  
+view 的点击事件, 可以传递给另一个 view, 或者引起自身的变化;  
+view 的点击事件, 也可以调用 controller 做出相应的改变, 比如一些列的逻辑操作, 例如存储操作等;  
+view 的点击事件, 也可以直接操作某个数据类, 让其发生变化;  
+controller 进行一些列的处理, 会更新数据类, 也可以把结果回调给 view, 让view 做出一些表现;  
+❀ MVP 架构模式  
+![mvp](ImageFiles/mvp.png)  
+model 层, 包含数据模型, 与数据库操作, 网络请求, 持久层, 内存缓存等;  
+一个 presenter 对应一个 view;  
+presenter 并不是直接控制 view 的, 而是控制 view interface, 与其进行交互, view 实现 view interface, 降低耦合度, 方便单测;  
+model 的变更会首先通知 presenter, presenter 会对 view 进行一系列的操作;  
+presenter 接收 view 的事件, 做出相应的改变, 例如更新数据;  
+
+❀ MVVM 架构模式  
+![mvvm](ImageFiles/mvvm.png)  
+model 是包含 view 的属性和对应操作, 的数据模型;  
+view 的变化会直接影响 viewModel, viewModel 的变化或者内容也会直接体现在 view 上;  
+
 
 
 ### 插件化  
@@ -51,7 +78,7 @@ https://github.com/oldergod/android-architecture
 https://github.com/HelloChenJinJun/NewFastFrame  
 
 
-◆ 非黑即白  
+非黑即白  
 https://listenzz.github.io/android-architecture-part-1-every-new-beginning-is-hard  
 https://listenzz.github.io/android-architecture-part-2-clean-architecture.html  
 https://listenzz.github.io/android-architecture-part-3-applying-clean-architecture-android.html  

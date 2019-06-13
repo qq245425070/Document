@@ -110,8 +110,8 @@ https://www.jianshu.com/p/7b6a2eee3f3a
 https://blog.csdn.net/u013241923/article/details/83544458  
 
 https  
-https://blog.csdn.net/linchaolong/article/details/52805666  
-https://coding.net/u/linchaolong/p/ijkplayer-https/git  
+https://github.com/1054353861/ijkplayer.So  
+
 
 优化  
 https://www.jianshu.com/p/80c56f47a870  
