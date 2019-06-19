@@ -145,5 +145,7 @@ https://blog.csdn.net/zxccxzzxz/article/details/53101323
 https://github.com/Bilibili/ijkplayer/issues/834  
 https://github.com/Bilibili/ijkplayer/issues/313  
 
+异常回调  
+https://blog.csdn.net/weixin_34357962/article/details/87044093  
 
 

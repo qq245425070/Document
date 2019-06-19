@@ -1,4 +1,21 @@
 ### api  
+//  descriptor  
+boolean      Z  
+char            C  
+byte            B  
+short           S  
+int               I  
+float            F  
+long            J  
+double       D  
+Object        Ljava/lang/Object;  
+int[]            [I  
+Object[][]   [[Ljava/lang/Object;  
+
+void m(int i, float f)                             (IF)V  
+int m(Object o)                                    (Ljava/lang/Object;)I  
+int []m(int i, String s)                           (ILjava/lang/String;);[I  
+Object m(int []i)                                   ([I)Ljava/lang/Object;  
 
 ### 参考  
 https://asm.ow2.io/asm4-guide.pdf  
@@ -7,7 +24,7 @@ https://plugins.jetbrains.com/plugin/5918-asm-bytecode-outline
 https://github.com/Viyu/AOPWithASMLib
 https://github.com/JieYuShi/Luffy
 
-https://www.jianshu.com/p/3ec8e9574aaf  
+https://www.jianshu.com/p/3ec8e9574aaf  Transformer
 https://www.jianshu.com/p/9039a3e46dbc  
 https://blog.csdn.net/weistar103/article/details/84396712  
 https://blog.csdn.net/fuleidemo/article/details/79314464  
@@ -23,3 +40,4 @@ https://github.com/JeasonWong/CostTime/
 https://github.com/Neacy/NeacyPlugin  
 https://github.com/SusionSuc/AdvancedAndroid/tree/master/gradle插件与字节码注入  
 https://github.com/JieYuShi/Luffy  
+https://blog.csdn.net/tterminator/article/details/54381618  

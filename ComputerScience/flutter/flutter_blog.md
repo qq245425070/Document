@@ -1,16 +1,23 @@
 ### 开源控件  
 https://github.com/Solido/awesome-flutter  
+https://github.com/nb312/flutter-ui-nice  
 
 
-### 指示器、段选择、tab    
-#### Indicator
+loading  
+https://github.com/Hitomis/loading_indicator_view  
+
+### 指示器;  段选择;  tab    
+Indicator
 https://github.com/long1eu/circle_indicator   
-#### segment  
+
+segment  
 https://github.com/theobouwman/flutter_cupertino_segment_control  
 
 
+卡片布局  
+https://github.com/ShaunRain/flutter_tindercard  
 
-### 列表  
+列表  
 stick-slide-listView  
 https://github.com/renefloor/side_header_list_view  
 
@@ -34,24 +41,22 @@ https://github.com/long1eu/rich_editor
 
 
 
-### 轮播图  
+轮播图  
 https://github.com/theobouwman/flutter_image_carousel  
 
 
 
 
 ###  选择器  
-#### 数字选择器  
+数字选择器  
 https://github.com/MarcinusX/NumberPicker  
-#### 颜色选择器  
+颜色选择器  
 https://github.com/long1eu/material_pickers  
 
-
-
 ### 菜单  
-#### 悬浮的ActionBar    
+悬浮的ActionBar    
 https://github.com/MarcinusX/sliver_fab  
-#### 展开折叠的ActionBar  
+展开折叠的ActionBar  
 https://github.com/MarcinusX/flutter_ui_challenge_filter_menu  
 
 
@@ -99,6 +104,7 @@ https://github.com/huanxsd/flutter_shuqi
 https://github.com/heruijun/flutter_boss  
 https://github.com/efoxTeam/flutter-ui  
 https://github.com/zhujian1989/flutter_study  
+https://github.com/simplezhli/flutter_deer  
 
 
 

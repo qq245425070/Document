@@ -7,7 +7,7 @@ view 持有 controller 的引用,
 view 持有 model 的引用;  
 controller 持有 model 的引用;  
 一个 controller 对应多个 view;  
-model 的变更, 直接通知 view, 不需要通过 controller 转发;  
+model 变更之后, 利用观察者模式, 直接通知 view, 不需要通过 controller 转发;  
 view 的点击事件, 可以传递给另一个 view, 或者引起自身的变化;  
 view 的点击事件, 也可以调用 controller 做出相应的改变, 比如一些列的逻辑操作, 例如存储操作等;  
 view 的点击事件, 也可以直接操作某个数据类, 让其发生变化;  
@@ -76,6 +76,7 @@ https://github.com/googlesamples/android-architecture
 https://github.com/iqiyi/Andromeda  
 https://github.com/oldergod/android-architecture  
 https://github.com/HelloChenJinJun/NewFastFrame  
+https://github.com/xiaojinzi123/Component  
 
 
 非黑即白  

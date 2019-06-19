@@ -92,5 +92,27 @@ android {
     
 }
 ```
+### 打包与发布的问题  
+```
+Error:Could not find PreferenceAnnotion:preference-annotation:unspecified.  
+```
+例如我有: platform, player, player-skin 这几个库;  
+在 player build.gradle 是这样配置的  
+```
+    if(isLibPlatformSource.toBoolean()){
+        implementation project(':library_platform')
+        logV("hello library_platform 源码依赖")
+    }else{
+        implementation libs.gsl_platform
+        logV("hello ${libs.gsl_platform}")
+    }
+```
+必须改成  
+```
+implementation libs.gsl_platform
+```
+暂时不知道, 为什么  
+
 ### 参考   
 http://kvh.io/cn/embrace-android-studio-maven-deploy.html  
+https://github.com/JeasonWong/CostTime/    

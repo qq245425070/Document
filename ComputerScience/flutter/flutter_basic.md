@@ -55,7 +55,6 @@ Alignment               参数x: -1 最左边, 0 中间, 1 最右边;  参数y: 
 FractionalOffset     0,0 在左上角; 1,1 在右下角;  
 
 ### 参考  
-[Flutter开源与技术](flutter_blog.md)  
 https://github.com/crazycodeboy/awesome-flutter-cn  
 https://livebook.manning.com/#!/book/flutter-in-action/welcome/v-7/  
 https://github.com/flutter/flutter/releases  
@@ -102,10 +101,9 @@ https://flutterchina.club/widgets/async/
 https://flutterchina.club/widgets/scrolling/   
 辅助功能  
 https://flutterchina.club/widgets/accessibility/  
+https://yq.aliyun.com/articles/651005  
+https://www.jianshu.com/p/39575a90e820  
 
-  
-Flutter完整开发实战详解(二、 快速开发实战篇)   
-https://juejin.im/post/5b685a2a5188251ac22b71c0  
 Flutter完整开发实战详解(三、 打包与填坑篇)  
 https://juejin.im/post/5b6fd4dc6fb9a0099e711162  
 Flutter完整开发实战详解(四、 Redux、主题、国际化)  
