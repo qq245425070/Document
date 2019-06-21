@@ -142,3 +142,8 @@ https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a
 
 10 min  
 http://mirror.aarnet.edu.au/pub/TED-talks/911Mothers_2010W-480p.mp4  
+
+视频加解密  
+https://github.com/ChangWeiBa/AesExoPlayer  
+https://blog.csdn.net/wanniu/article/details/78533796  
+https://stackoverflow.com/questions/38729220/reproducing-encrypted-video-using-exoplayer  
