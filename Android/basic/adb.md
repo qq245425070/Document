@@ -110,7 +110,7 @@ linux:
 adb shell dumpsys activity | grep "mFocusedActivity"
 
 windows:
-adb shell dumpsys activity | findstr "mFocusedActivity"
+adb shell dumpsys activity activities | findstr mResumedActivity
 ```
 
 ★ log  

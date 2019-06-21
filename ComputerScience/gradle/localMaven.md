@@ -1,4 +1,8 @@
 ### 本地仓库  
+点击 gradle.Tasks.upload.uploadArchives 按钮上传,   
+如果有多个仓库需要上传, 点击了脚本里面的小三角, 会导致多个仓库同时上传;  
+400 失败, 是需要升级版本号;   
+
 minePluginUri = file:///Users/alex/WorkSpace/Gradle/MinePlugin/repo/  
 
 provide library  
