@@ -111,9 +111,11 @@ https://blog.csdn.net/u013241923/article/details/83544458
 
 https  
 https://github.com/1054353861/ijkplayer.So  
+https://www.jianshu.com/p/3120f943abb7  
 
 
 优化  
+http://blog.sina.com.cn/s/blog_642473180102xwlg.html  
 https://www.jianshu.com/p/80c56f47a870  
 https://www.jianshu.com/p/843c86a9e9ad  
 https://blog.csdn.net/ch97ckd/article/details/83155283  
@@ -148,4 +150,14 @@ https://github.com/Bilibili/ijkplayer/issues/313
 异常回调  
 https://blog.csdn.net/weixin_34357962/article/details/87044093  
 
+调试  
+https://github.com/javandoc/IjkplayerDebug  
+https://download.csdn.net/download/g241893312/10270232  
+
+在ubuntu下编译ijkplayer-android  
+https://blog.csdn.net/u010072711/article/details/51438871  
+https://github.com/Dawish/ijkplayer-android-demo  
+https://blog.csdn.net/zhangkaiyazky/article/details/79637820  
+https://github.com/thiagooo0/lmnplayer  
+https://www.cnblogs.com/renhui/p/9954730.html  
 

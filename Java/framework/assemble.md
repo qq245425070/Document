@@ -40,4 +40,8 @@ https://github.com/JeasonWong/CostTime/
 https://github.com/Neacy/NeacyPlugin  
 https://github.com/SusionSuc/AdvancedAndroid/tree/master/gradle插件与字节码注入  
 https://github.com/JieYuShi/Luffy  
+https://github.com/saymagic/Daffodil  
 https://blog.csdn.net/tterminator/article/details/54381618  
+https://www.cnblogs.com/richaaaard/p/6214929.html  
+https://blog.csdn.net/jeamking/article/details/6767015  
+https://www.jianshu.com/p/9c07323dc7e5   

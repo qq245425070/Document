@@ -2,6 +2,7 @@ https://github.com/yipianfengye/androidProject
 https://github.com/didi/DoraemonKit  
 https://github.com/AndroidAdvanceWithGeektime/Chapter37  
 https://github.com/whataa/pandora  
+https://github.com/guxiaonian/MobileInfo  
 
 性能检测  
 https://github.com/zjw-swun/AppMethodOrder   

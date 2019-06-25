@@ -87,7 +87,7 @@ ContentService, AccountManagerService, AudioService, MountService, SearchManager
 ![AndroidService](basic/ImageFiles/android_service_001.png)  
 
 ndk;  jni;  
-[链接](basic/ndk/ndk.md)  
+[链接](basic/ndk/jni.md)  
 
 深入Android系统  
 IPC机制, Binder和匿名共享内存等  

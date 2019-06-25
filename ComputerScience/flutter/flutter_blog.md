@@ -1,6 +1,7 @@
 ### 开源控件  
 https://github.com/Solido/awesome-flutter  
 https://github.com/nb312/flutter-ui-nice  
+https://github.com/flutterchina/flukit  
 
 
 loading  

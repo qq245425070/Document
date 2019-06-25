@@ -35,6 +35,9 @@ java 代码的目录结构;
 res 代码的对应结构;    
 [链接](gradle/sourceSets.md)  
 
+在一个窗口里面打开多个 project;  
+不是打开多个 module;  
+[链接](gradle/one_window_more_project.md)  
 
 ### gradle脚本
 外部函数的声明与引用;  
