@@ -78,3 +78,9 @@ Sample
     |setting.gradle  
     |gradle.properties
 ```
+### 参考  
+https://blog.csdn.net/lucherr/article/details/71773878  
+https://www.zhihu.com/question/27823277  
+https://blog.csdn.net/a_asinceo/article/details/50178301  
+https://blog.csdn.net/jf_1994/article/details/49764123  
+https://blog.csdn.net/DeMonliuhui/article/details/82381897  
