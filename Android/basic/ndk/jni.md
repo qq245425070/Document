@@ -17,8 +17,10 @@ Build -> rebuild project
 
 
 ### 参考  
+
 ndk 版本  
 https://developer.android.google.cn/ndk/downloads/index.html  
+https://developer.android.google.cn/ndk/downloads/older_releases.html  
 https://dl.google.com/android/repository/android-ndk-r13-linux-x86_64.zip  
 https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip  
 https://dl.google.com/android/repository/android-ndk-r13b-windows-x86_64.zip  
