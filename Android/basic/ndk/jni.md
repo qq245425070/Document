@@ -17,7 +17,10 @@ Build -> rebuild project
 
 
 ### 参考  
-
+cmake demo  
+https://blog.csdn.net/you__are_my_sunshine/article/details/77146221  
+https://blog.csdn.net/you__are_my_sunshine/article/details/83150722  
+https://blog.csdn.net/qq_21430549/article/details/53365915  
 ndk 版本  
 https://developer.android.google.cn/ndk/downloads/index.html  
 https://developer.android.google.cn/ndk/downloads/older_releases.html  

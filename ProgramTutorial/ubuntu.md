@@ -57,6 +57,34 @@ nautilus .
 文件夾下  
 cd /usr/share/applications    
 nautilus .  
+### 按键映射  
+```
+sudo gedit /usr/share/X11/xkb/symbols/pc  
+// 左 control 与 左 window  
+key <LCTL> { [ Control_L ] };
+key <LWIN> { [ Super_L ] };
+//  修改为 
+key <LCTL> { [ Super_L ] };
+key <LWIN> { [ Control_L ] };
+```
+### 修改默认 terminal  
+```
+sudo apt-get install dconf-tools  
+dconf-editor 
+//  依次打开org > gnome > desktop > applications > terminal
+将 x-terminal-emulator  改为 deepin-terminal 
+```
+gnome-terminal
+deepin-terminal  
+exec  deepin-terminal  
+exec-arg -e 
+exec-arg -x
+//  /usr/share/applications
+
+gsettings set org.gnome.desktop.default-applications.terminal exec 'deepin-terminal'
+ gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/深度终端
+
+5 gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
 ### 推荐软件  
 文件管理器 PCManFM  
 
