@@ -1,3 +1,4 @@
+[编译so文件](library/ijk_compile_so.md)   
 开启调试, 日志输出  
 ```
 logTag = "IJKMEDIA";  
@@ -11,6 +12,7 @@ https://github.com/bilibili/ijkplayer/issues/4200
 
 ### setOption  
 ```
+
 ```
 ### 音量的焦点  
 ```

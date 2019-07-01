@@ -48,7 +48,16 @@ StartupWMClass=jetbrains-android-studio
 Name[zh_CN]=studio
 ```
 將新建的studio.desktop, 放到 
-/home/alex/.local/share/applications 文件夾下  
+文件夾下  
+cd /home/alex/.local/share/applications 
+nautilus .
+
+
 或者  
-/usr/share/applications  文件夾下  
+文件夾下  
+cd /usr/share/applications    
+nautilus .  
+### 推荐软件  
+文件管理器 PCManFM  
+
 
