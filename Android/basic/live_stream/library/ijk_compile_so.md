@@ -39,6 +39,8 @@ cd /home/alex/WorkSpace/AndroidStudio/ijkplayer-android/android/contrib
 //  编译ijkplayer  
 cd /home/alex/WorkSpace/AndroidStudio/ijkplayer-android/android  
 ./compile-ijk.sh all  
+或者
+./compile-ijk.sh armv5|armv7a|x86|arm64-v8a #编译指定版本
 
 //  查看编译出来的 so 文件  
 cd /home/alex/WorkSpace/AndroidStudio/ijkplayer-android/android/ijkplayer/ijkplayer-armv7a/src/main/libs/armeabi-v7a  

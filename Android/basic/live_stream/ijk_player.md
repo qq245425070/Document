@@ -163,3 +163,12 @@ https://blog.csdn.net/zhangkaiyazky/article/details/79637820
 https://github.com/thiagooo0/lmnplayer  
 https://www.cnblogs.com/renhui/p/9954730.html  
 
+可能包含 cpp cmake  
+https://www.jianshu.com/p/47957935414a  
+https://www.jianshu.com/p/58217be0fef2  
+https://blog.csdn.net/weixin_33939380/article/details/88181363  
+https://blog.csdn.net/weixin_33895695/article/details/91314897  
+https://www.jianshu.com/p/2f6bf5fbc4a2  
+
+
+
