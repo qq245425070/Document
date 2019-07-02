@@ -22,12 +22,12 @@ Activity;  Fragment;  Context;  Application;
 MIME数据类型;  统一资源标识符 URI;  
 [链接](/ComputerScience/network/URI.md)   
 
-apk 打包流程;  65535 问题;  multiDex 问题;  
+apk 打包流程;  65535 问题;  multiDex 问题;    
 [链接](basic/apk_build.md)  
 [adb相关](basic/adb.md)  
 [jvm, dalvik, art 对比](basic/jvm_dalvik_art.md)
 [Parcelable 和 Serializable](basic/parcelable_serializable.md)  
-
+[代码混淆](basic/librray/progurd.md)  
 共享存储;  SharePreference; SP;  
 [链接](basic/sharePreference.md)  
 
@@ -50,7 +50,7 @@ MVVM;  DataBinding;  LiveData;
 
 ### 自定义控件相关  
 
-View 绘制原理, View 绘制时机, 屏幕刷新机制;   
+View 绘制原理, View 绘制时机, 屏幕刷新机制;   fps;  
 invalidate;  requestLayout;  
 [链接](basic/view_window/invalidate_requestLayout.md)  
 

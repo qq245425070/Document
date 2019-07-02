@@ -12,6 +12,7 @@ https://github.com/Tencent/GT/tree/master/android
 https://github.com/Qihoo360/ArgusAPM  
 http://blog.zhaiyifan.cn/2016/01/16/BlockCanaryTransparentPerformanceMonitor/  
 
+
 断点续传  
 http://blog.csdn.net/shimiso/article/details/6763664  
 http://blog.csdn.net/wwj_748/article/details/20146869  
@@ -126,4 +127,7 @@ https://github.com/afollestad/vvalidator
 
 响应式  
 https://github.com/BoltsFramework/Bolts-Android  
+
+代码混淆  
+https://juejin.im/post/5d05dab06fb9a07ea9446e21  
 

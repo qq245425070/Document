@@ -77,6 +77,7 @@ https://github.com/iqiyi/Andromeda
 https://github.com/oldergod/android-architecture  
 https://github.com/HelloChenJinJun/NewFastFrame  
 https://github.com/xiaojinzi123/Component  
+https://github.com/Tinder/StateMachine  
 
 
 非黑即白  
