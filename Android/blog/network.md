@@ -1,6 +1,4 @@
-###  网络框架
-> Retrofit  
-
+Retrofit  
 https://github.com/square/retrofit  
 Articles tagged in: Retrofit    https://futurestud.io/tutorials/tag/retrofit  
 带进度显示的单个和多个 Retrofit+Rxjava2文件上传    http://blog.csdn.net/a1018875550/article/details/60882954  
@@ -10,8 +8,7 @@ etrofit-converter-fastjson    https://github.com/ligboy/retrofit-converter-fastj
 Retrofit Series Overview    http://www.cnblogs.com/krislight1105/p/5467969.html  
 https://github.com/JessYanCoding/RetrofitUrlManager  
 
-> OkHttp  
-
+### OkHttp  
 https://github.com/square/okhttp  
 https://github.com/jgilfelt/chuck  
 
@@ -25,22 +22,23 @@ OkHttp 使用 get post UI线程回调 上传 下载 进度监听    http://www.j
 
 
 
-> Fast-Android-Networking  
+
+Fast-Android-Networking  
 
 https://github.com/amitshekhariitbhu/Fast-Android-Networking  
 
-> OKHttpUtils  
+
+OKHttpUtils  
 
 https://github.com/jeasonlzy/okhttp-OkGo  
 https://github.com/duzechao/OKHttpUtils
 http://www.jianshu.com/p/281b9af06642  
 
-> NoHttp  
 
+NoHttp  
 https://github.com/yanzhenjie/NoHttp  
 
-> xUtils3  
-
+xUtils3  
 https://github.com/wyouflf/xUtils3  
 http://blog.csdn.net/dj0379/article/details/38356773  
 
@@ -48,8 +46,8 @@ http://blog.csdn.net/jinliang_890905/article/details/12611485
 http://codekk.com/open-source-project-analysis/detail/Android/Caij/xUtils%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90  
 http://blog.csdn.net/jjwwmlp456/article/details/44084411  
 
-> Volley  
 
+Volley  
 http://blog.csdn.net/swust_chenpeng/article/details/38421285  
 https://github.com/mcxiaoke/android-volley  
 http://download.csdn.net/index.php/mobile//source/download/fengyingyouhen/7450007  
@@ -93,5 +91,8 @@ Glide_Frasco_Picassco
 https://github.com/ladingwu/ImageLoaderFramework  
 
 
+web socket  
+webSocket  
+https://github.com/Tinder/Scarlet  
 
 
