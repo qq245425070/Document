@@ -79,6 +79,10 @@ target_link_libraries(
 ![示例1](sample/sample001.md)  
 
 ### 参考  
+cmake demo  
+https://blog.csdn.net/you__are_my_sunshine/article/details/77146221  
+https://blog.csdn.net/you__are_my_sunshine/article/details/83150722  
+https://blog.csdn.net/qq_21430549/article/details/53365915  
 https://blog.csdn.net/quwei3930921/article/details/78820991  
 
 ndk 版本  
