@@ -114,6 +114,9 @@ VOD
 Video on Demand  点播  
 
 ### 测试服务地址  
+mp4视频 视频测试地址(在线MP4文件)   
+https://www.jianshu.com/p/9db0fd1579b6  
+
 http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8  
 https://ihzlh.linker.cc/ihzlh/ec9791add603193d31df93b87f063dfc.m3u8  
 http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8（可用）   

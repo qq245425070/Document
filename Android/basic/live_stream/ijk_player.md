@@ -154,6 +154,7 @@ https://blog.csdn.net/weixin_34357962/article/details/87044093
 
 调试  
 https://github.com/javandoc/IjkplayerDebug  
+https://github.com/bookzhan/bzIjkPlayer  
 https://download.csdn.net/download/g241893312/10270232  
 
 在ubuntu下编译ijkplayer-android  
@@ -169,6 +170,9 @@ https://www.jianshu.com/p/58217be0fef2
 https://blog.csdn.net/weixin_33939380/article/details/88181363  
 https://blog.csdn.net/weixin_33895695/article/details/91314897  
 https://www.jianshu.com/p/2f6bf5fbc4a2  
+https://www.v2ex.com/t/579412  
+
+
 
 
 
