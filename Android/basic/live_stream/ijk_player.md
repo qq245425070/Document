@@ -1,4 +1,11 @@
 [编译so文件](library/ijk_compile_so.md)   
+
+录播 m3u8 文件, 在断网的时候, 会回调 onComplete, 修改成 onError  
+[链接](library/optimize_01.md)  
+
+m3u8 seekTo 的问题;  
+[链接](library/optimize_02.md)  
+
 开启调试, 日志输出  
 ```
 logTag = "IJKMEDIA";  
