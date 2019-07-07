@@ -51,7 +51,10 @@ private static final class InternalOnAudioFocusChangeListener implements AudioMa
 }
 ```
 
-### 耳机插拔  
+### 超时  
+```
+ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", 3000);
+```
 
 
 ### bug  

@@ -1,5 +1,6 @@
 ### 压缩与解压缩  
 
+tar -zxvf   sample.rar  
 #### tar   
 tar -cvf leet.tar leetcode  
 

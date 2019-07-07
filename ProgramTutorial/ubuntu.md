@@ -99,8 +99,24 @@ sudo apt install gnome-shell-extensions
 https://github.com/vinceliuice/Mojave-gtk-theme  
 sudo apt-get install gtk2-engines-murrine gtk2-engines-pixbuf  
 下载下来, 解压缩, 运行 /install.sh  
-
 ```
+❀ 安装rpm软件  
+```
+## alien默认没有安装，所以首先要安装它
+sudo apt-get install alien 
+##将rpm转换为deb,完成后会生成一个xxxx.deb
+sudo alien xxxx.rpm 
+##这样xxxx软件就可以安装完成了
+sudo dpkg -i xxxx.deb 
+
+
+视频播放器VLC
+sudo apt install vlc  
+
+安装Git  
+sudo apt install git  
+```
+
 ## 推荐软件  
 文件管理器 PCManFM  
 

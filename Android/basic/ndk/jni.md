@@ -78,6 +78,12 @@ target_link_libraries(
 ### 示例代码  
 ![示例1](sample/sample001.md)  
 
+打印日志  
+```
+#include "android/log.h" 
+#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG , "ffmpeg.c", __VA_ARGS__) 
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR , "ffmpeg.c", __VA_ARGS__)
+```
 ### 参考  
 cmake demo  
 https://blog.csdn.net/you__are_my_sunshine/article/details/77146221  
