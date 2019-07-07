@@ -116,8 +116,13 @@ sudo apt install vlc
 安装Git  
 sudo apt install git  
 ```
+❀ 修改 terminal 字体  
+```
+sudo apt-get install terminator  
 
+```
 ## 推荐软件  
-文件管理器 PCManFM  
+文件管理器      PCManFM  
+压缩软件          ark  Archiving Tool  
 
 
