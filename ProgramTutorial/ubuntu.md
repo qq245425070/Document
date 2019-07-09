@@ -6,8 +6,7 @@ ubuntu sudo root 失败
 sudo passwd
 //  再获取root权限
 su root  
-//  打开文件夹  
-nautilus .
+
 //  打开, 更新配置文件  
 sudo gedit /etc/profile  
 source /etc/profile  
