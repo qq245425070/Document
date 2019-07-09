@@ -1,8 +1,3 @@
-### Linux  
-
-[命令](cmd/cmd.md)   
-[shell](shell/shell.md)  
- 
 ### linux目录介绍  
 ```
  /bin  存放linux常用命令
@@ -19,57 +14,7 @@
  /tmp  存放程序执行时产生的临时文件
  /usr  所有用户程序和文件都存放在此
 ```
-### 常用命令  
-```
-# 表示命令行注释  
 
-删除文件
-rm -rf filePath
--f  force 
--i  interactive  #进行交互式 删除
--r -R  recursive  #递归删除所有子目录，子文件
--v  verbose  #详细地进行的步骤
-```  
-### 目录和文件  
-```
-ls  #显示文件或目录
-pwd  #当前工作目录 路径
-cd  #切换目录
-cd  /   #切换到根目录
-cd  ~  #去主目录，home目录
-cd  ..  #返回上级目录	
-cd  ../..  #返回两级
-
-打开文件夹
-nautilus  home  #打开home 目录
-nautilus  Downloads  #打开DownLoads 目录
-
-获得文件写权限
-chmod o+rwx hello.java  #获得文件写权限
-
-
-mkdir ProgramFiles #在当前目录下，创建ProgramFiles文件夹
-如果没有权限， 首先授权权限  
-sudo su
-# linux下，输入密码是没有显示的  
-
-
-touch Sample.txt  #在当前目录下，创建Sample.txt 文件  
-
-
-echo Hello >> Sample.txt  #往Sample.txt 文件上 追加并换行写入 Hello
-echo Hello > Sample.txt  #往Sample.txt 文件上 清空并写入 Hello
-
-
-cat Sample.txt #查看文件内容  
-
-文件复制  
-文件复制 重命名
-cp hello.text  /usr/share/hello.java
-
-
-
-```  
 安装rpm  
 ```
 rpm -i rmpFileName  #安装rpm文件

@@ -1,3 +1,4 @@
+[更多命令行](/Linux/linux_cmd.md)  
 常用命令  
 ubuntu sudo root 失败  
 ```
@@ -9,7 +10,7 @@ su root
 nautilus .
 //  打开, 更新配置文件  
 sudo gedit /etc/profile  
-source /etc/profile
+source /etc/profile  
 ```
 
 
@@ -119,7 +120,8 @@ sudo apt install git
 ❀ 修改 terminal 字体  
 ```
 sudo apt-get install terminator  
-
+sudo apt install dconf-editor  
+好看的字体是 Droid Sans Mono Regular  
 ```
 ## 推荐软件  
 文件管理器      PCManFM  

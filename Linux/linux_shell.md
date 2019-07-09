@@ -1,7 +1,7 @@
 ### shell  
-[hello world](sample/sample01.md)   
-[cd 命令无效的问题](sample/sample02.md)   
-[杀死java进程](sample/sample04.md)  
+[hello world](shell/sample01.md)   
+[cd 命令无效的问题](shell/sample02.md)   
+[杀死java进程](shell/sample04.md)  
 #### 变量赋值，运行结果赋值  
 ```
 result=$(pgrep java)
