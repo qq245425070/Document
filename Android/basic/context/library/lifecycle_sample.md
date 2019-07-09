@@ -1,4 +1,4 @@
-### 打开与关闭一个新的 Activity
+### 打开与关闭一个新的 Activity  
 
 打开 A 页面  
 ```
@@ -437,4 +437,5 @@ MainActivity            onResume
 
 
 ### onDestroy 一定会执行吗  
-假设当前在页面是 AActivity, 这个时候如果突然强杀 app, 那么 AActivity 的 onStop 和 onDestroy 一定不会执行的;  
+假设当前在页面是 AActivity, 这个时候如果突然强杀 app, 那么 AActivity  onDestroy 一定不会执行的;  
+
