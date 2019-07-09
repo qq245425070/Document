@@ -69,15 +69,20 @@ du -ah . | sort -nrk 1 | head
 参考  
 https://blog.csdn.net/tzh_linux/article/details/51192472    
 
-```  
-```
+
+❀ 在当前目录下, 查找 segment01 文件夹  
+find ./ -name segment01
+查询结果  
+.//page02/segment01
+.//page01/segment01
+
+
 ❀ 获取 域名对应的ip  
 ping www.baidu.com  
 
 ❀ 今天是 一年中的第几天  
 cal -j  
-
-```  
+```
  
 ### ps  
 
