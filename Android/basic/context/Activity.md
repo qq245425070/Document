@@ -5,7 +5,7 @@
 [Activity常见方法](library/function.md)   
 [Fragment重叠异常](library/solution_001.md)  
 
-不管 Activity 是不是被回收, 只要执行 onStop 就一定会先执行 onSaveInstanceState;  
+不管 Activity 是不是被回收, 只要执行 onStop 就一定会执行 onSaveInstanceState;  
 
 Activity 会通过 android:id 逐个恢复View的State;  
 也就是说, 如果 android:id 为空, View 将不具备恢复 State 的能力了;  
