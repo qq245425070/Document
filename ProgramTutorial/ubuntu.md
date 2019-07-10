@@ -99,6 +99,9 @@ sudo apt install gnome-shell-extensions
 https://github.com/vinceliuice/Mojave-gtk-theme  
 sudo apt-get install gtk2-engines-murrine gtk2-engines-pixbuf  
 下载下来, 解压缩, 运行 /install.sh  
+
+参考  
+https://blog.csdn.net/lishanleilixin/article/details/80453565  
 ```
 ❀ 安装rpm软件  
 ```

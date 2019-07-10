@@ -10,7 +10,7 @@
 Activity 会通过 android:id 逐个恢复View的State;  
 也就是说, 如果 android:id 为空, View 将不具备恢复 State 的能力了;  
 所有的自定义控件, 都应该实现State相关方法, onSaveInstanceState and onRestoreInstanceState;  
-一旦Fragment从回退栈出来，Fragment本身还在，View却是重新创建的;  
+一旦Fragment从回退栈出来, Fragment本身还在, View却是重新创建的;  
 但是给 TextView, EditText 设置 android:freezeText="true" 会让其在 Fragment 内, 自动保存State;     
 
 启动一个 Activity 和 Fragment, 他们的生命周期方法, 调用顺序;  
@@ -71,7 +71,7 @@ transaction.detach(fragment);  对应 onPause-onStop-onDestroyView
 #### transaction  
 1.. replace  加入回退栈, Fragment不销毁, 但是切换回销毁视图和重新创建视图;  
 2.. replace  未加回退栈, Fragment销毁掉;  
-3.. hide. show. Fragment不销毁，也不销毁视图, 隐藏和显示不走生命周期;  
+3.. hide. show. Fragment不销毁, 也不销毁视图, 隐藏和显示不走生命周期;  
 
 replace, AFragment 加入回退栈  
 在同一个位置, 第一次 replace AFragment, 第二次replace BFragment;    
@@ -202,7 +202,7 @@ Instrumentation#execStartActivity
 ActivityManagerProxy#startActivity  
 通过Binder驱动程序就进入到 ActivityManagerService 的 startActivity 方法;  
 ActivityManagerService#startActivity  
-经过IPC调用，启动Activity的指令来到了ActivityManagerService，紧接着AMS调用 startActivityAsUser 着手Activity的启动工作;   
+经过IPC调用, 启动Activity的指令来到了ActivityManagerService, 紧接着AMS调用 startActivityAsUser 着手Activity的启动工作;   
 
 ActivityStarter#startActiviytMayWait  
 AMS有一个ActivityStack, 负责Activity的调度工作, 比如维护回退栈, 但ActivityStack内的Activity是抽象成ActivityRecord来管理的, Activity对象不会存在于AMS当中;  
@@ -218,7 +218,7 @@ ActivityStack#resumeTopActivityInnerLocked
 ActivityStack#startSpecificActivityLocked  
 这里最后会调用AMS的startProcessLocked, 这个方法会先判断是否已经存在相应的进程, 如果不存在则通过远程调用Zygote进程来孵化出新的应用进程,  
 Zygote进程孵化出新的应用进程后, 会执行ActivityThread类的main方法;  
-在该方法里会先准备好Looper和消息队列, 然后调用attach方法将应用进程绑定到ActivityManagerService, 然后进入loop循环, 不断地读取消息队列里的消息，并分发消息;  
+在该方法里会先准备好Looper和消息队列, 然后调用attach方法将应用进程绑定到ActivityManagerService, 然后进入loop循环, 不断地读取消息队列里的消息, 并分发消息;  
 这个过程在Android的消息机制里已经非常熟悉了, 其中attach方法在与AMS绑定的过程中会调用attachApplicationLocked方法;  
 attachApplicationLocked方法有两个重要的函数调用thread.bindApplication和mMainStack.realStartActivityLocked;  
 thread.bindApplication将应用进程的ApplicationThread对象绑定到ActivityManagerService, 也就是说获得ApplicationThread对象的代理对象;  
@@ -230,12 +230,12 @@ app.thread其实就是ApplicationThread在AMS的代理对象, 实际上是调用
 
 ActivityThread#performLaunchActivity  
 通过类加载器加载Activity对象;  
-创建ContextImpl对象并调用activity的attach方法，把上下文变量设置进activity中，创建Window对象和设置WindowManager;  
+创建ContextImpl对象并调用activity的attach方法, 把上下文变量设置进activity中, 创建Window对象和设置WindowManager;  
 回调onCreate,onStart和onRestoreInstanceState方法;  
 
 ActivityThread#handleResumeActivity  
 回调Activity的onResume方法;  
-调用WindowManager的addView方法，将前面在attach方法内创建出来的window对象添加到WindowManager当中;  
+调用WindowManager的addView方法, 将前面在attach方法内创建出来的window对象添加到WindowManager当中;  
 
 
 

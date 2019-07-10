@@ -131,3 +131,12 @@ https://github.com/BoltsFramework/Bolts-Android
 代码混淆  
 https://juejin.im/post/5d05dab06fb9a07ea9446e21  
 
+事件总线  
+https://github.com/JeremyLiao/LiveEventBus  
+
+sp 存储  
+https://github.com/JeremyLiao/FastSharedPreferences  
+
+页面传值  
+https://github.com/luckybilly/PreLoader  
+https://github.com/JeremyLiao/DataLoader  
