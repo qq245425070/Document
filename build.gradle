@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+}
+
+//noinspection GroovyAssignabilityCheck
+group 'com.alex'
+//noinspection GroovyAssignabilityCheck
+version '1.0-SNAPSHOT'
+repositories {
+    mavenCentral()
+    google()
+}
+
