@@ -68,6 +68,8 @@ key <LCTL> { [ Super_L ] };
 key <LWIN> { [ Control_L ] };
 ```
 ### 修改默认配置  
+intellij  好看的字体是 ubuntu light   
+
 ```
 sudo apt-get install dconf-tools  
 dconf-editor 
