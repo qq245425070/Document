@@ -106,6 +106,7 @@ https://juejin.im/post/5a1d8f10f265da431523a849
 https://github.com/lipangit/JiaoZiVideoPlayer  
 https://github.com/Rukey7/IjkPlayerView  
 https://github.com/jiajunhui/PlayerBase  
+https://github.com/Jay-Goo/PeachPlayer  
 https://github.com/dueeeke/dkplayer  
 https://github.com/thiagooo0/lmnplayer  
 https://github.com/lingcimi/jjdxm_ijkplayer  

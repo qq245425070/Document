@@ -9,6 +9,7 @@ https://github.com/Piasy/BigImageViewer
 https://github.com/ongakuer/PhotoDraweeView  
 https://github.com/Piasy/BigImageViewer  
 https://github.com/stfalcon-studio/StfalconImageViewer  
+https://github.com/Hitomis/transferee  
 
 图片预览 - 仿微信    
 https://github.com/iielse/ImageWatcher  

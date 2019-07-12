@@ -150,3 +150,6 @@ http://mirror.aarnet.edu.au/pub/TED-talks/911Mothers_2010W-480p.mp4
 https://github.com/ChangWeiBa/AesExoPlayer  
 https://blog.csdn.net/wanniu/article/details/78533796  
 https://stackoverflow.com/questions/38729220/reproducing-encrypted-video-using-exoplayer  
+
+m3u8 downLoader  
+https://github.com/Jay-Goo/M3U8Downloader  

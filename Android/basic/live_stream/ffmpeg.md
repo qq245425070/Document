@@ -36,6 +36,8 @@ https://github.com/leixiaohua1020/simplest_ffmpeg_mobile
 https://blog.csdn.net/chenxiaoping1993/article/details/80306928  
 https://blog.csdn.net/bobcat_kay/article/details/80889398  
 https://cloud.tencent.com/developer/article/1453110  
+https://github.com/tanersener/mobile-ffmpeg   
+
 
 CMakeLists.text  
 https://blog.csdn.net/likuan0214/article/details/78417774  
