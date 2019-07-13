@@ -39,13 +39,12 @@ export PATH=${JAVA_HOME}/bin:$PATH
 Version=1.0
 Type=Application
 Name=Android Studio
-Exec="/home/alex/Android/android-studio/bin/studio.sh" %f
 Icon=/home/alex/Android/android-studio/bin/studio.png
+Exec="/home/alex/Android/android-studio/bin/studio.sh" %f
+Comment=Android Studio
 Categories=Development;IDE;
 Terminal=false
-StartupNotify=true
-StartupWMClass=jetbrains-android-studio
-Name[zh_CN]=studio
+StartupWMClass=jetbrains-studio
 ```
 將新建的studio.desktop, 放到 
 文件夾下  
@@ -101,6 +100,11 @@ sudo apt install gnome-shell-extensions
 https://github.com/vinceliuice/Mojave-gtk-theme  
 sudo apt-get install gtk2-engines-murrine gtk2-engines-pixbuf  
 下载下来, 解压缩, 运行 /install.sh  
+
+主题位置  /usr/share/themes/  
+icons 位置  /usr/share/icons/  
+桌面shell, 状态栏 位置  /usr/share/themes/  
+
 
 参考  
 https://blog.csdn.net/lishanleilixin/article/details/80453565  
