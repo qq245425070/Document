@@ -126,7 +126,7 @@ https://github.com/ChenLittlePing/RecyclerCoverFlow
 https://github.com/Chacojack/HiveLayoutManager  
 https://github.com/rantianhua/AssembleEssay  
 https://github.com/adgvcxz/CardLayoutManager  
-
+https://github.com/forceLain/AwesomeLayoutManager  
 
 
 

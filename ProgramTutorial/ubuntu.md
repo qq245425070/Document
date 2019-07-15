@@ -13,8 +13,10 @@ source /etc/profile
 ```
 
 
-### 环境变量
+### 环境变量  
 ```
+sudo gedit /etc/profile    
+
 //  sdk ndk  
 export ANDROID_NDK=/home/alex/Android/Sdk/android-ndk-r14b
 export PATH=$ANDROID_NDK:$PATH

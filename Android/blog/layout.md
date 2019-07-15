@@ -50,6 +50,7 @@ https://github.com/stkent/PolygonDrawingUtil
 
 ### ViewPager  
 https://github.com/alibaba/UltraViewPager  
+https://github.com/wuyr/LitePager  
 
 垂直的ViewPager  
 https://github.com/loopeer/PullSwitcher  

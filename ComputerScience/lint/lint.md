@@ -17,6 +17,9 @@ https://github.com/pinterest/ktlint
 ```
 import com.android.tools.lint.checks.LogDetector;  
 ```
+//  fastJson 实体类序列化检查  
+https://github.com/qjoy/AndroidLintWatchDog  
+
 ❊  分割线-大-老  
 https://blog.csdn.net/ouyang_peng/article/details/80374867  
 https://www.littlerobots.nl/blog/RxLint-a-lint-rule-for-RxJava/  
@@ -51,8 +54,8 @@ https://github.com/googlesamples/android-custom-lint-rules
 https://juejin.im/entry/576b613579bc44005bdb0c12  
 https://tech.meituan.com/android_custom_lint.html  
 https://segmentfault.com/a/1190000004497435  
-https://github.com/qjoy/AndroidLintWatchDog  
-http://alexq.farbox.com/post/andrlintwatchdog-custom-lint-zi-ding-yi-lint-ti-gao-dai-ma-zhi-liang  
+
+
 http://ljfxyj2008.github.io/2016/01/29/浅谈Android自定义Lint规则的实现 （一）.html   
 http://ljfxyj2008.github.io/2016/02/01/浅谈Android自定义Lint规则的实现 （二）.html  
 http://ljfxyj2008.github.io/2016/06/21/Android Lint工作原理剖析.html  
