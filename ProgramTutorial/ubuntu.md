@@ -48,16 +48,30 @@ Categories=Development;IDE;
 Terminal=false
 StartupWMClass=jetbrains-studio
 ```
+
+```
 將新建的studio.desktop, 放到 
 文件夾下  
 cd /home/alex/.local/share/applications 
 nautilus .
 
-
 或者  
 文件夾下  
 cd /usr/share/applications    
 nautilus .  
+```
+配置启动的快捷键  
+例如深度截图  
+```
+nautilus  /usr/share/applications   
+找到神图截图的图标, 右键属性, 找到命令 [deepin-screenshot --icon]  
+找到设置-设备-键盘-键盘快捷键-自定义:  
+名称:  看着写  
+命令:  deepin-screenshot --icon  
+快捷键: 按下 ctrl + shift + X;  
+
+```
+
 ### 按键映射  
 ```
 sudo gedit /usr/share/X11/xkb/symbols/pc  
