@@ -1,7 +1,14 @@
-### class loader  
-DexClassLoader: 可以加载文件系统上的 jar, dex, apk  
-PathClassLoader: 可以加载 /data/app 目录下的 apk, 这也意味着, 它只能加载已经安装的 apk  
-URLClassLoader: 可以加载 java 中的 jar,但是由于 dalvik 不能直接识别 jar, 所以此方法在 android 中无法使用, 尽管还有这个类  
+在 Java 程序中, JVM 虚拟机通过类加载器 ClassLoader 来加载 class 文件;  
+Android 与 java 类似, 只不过 Android 使用的是 dalvik/Art 虚拟机来运行 .dex 文件;  
+.dex 文件本质上是 .class 文件打包优化而得到的;  
+Android 的类加载器, 包括系统和自定义两种;   
+系统 classLoader 包括 BootClassLoader, PathClassLoader, DexClassLoader;  
+
+BootClassLoader 是 ClassLoader 的内部类, 用于预加载 preload()常用类以及一些系统 Framework 层级需要的类;  
+PathClassLoader 加载系统类和应用程序的类, 如果是加载非系统应用程序类, 则会加载 data/app/目录下的 dex 文件以及包含 dex 的 apk 文件或 jar 文件;  
+    可以加载 /data/app 目录下的 apk, 这也意味着, 它只能加载已经安装的 apk;   
+DexClassLoader 可以加载自定义的 dex 文件以及包含 dex 的 apk 文件或 jar 文件, 也支持从 SD 卡进行加载;  
+URLClassLoader 可以加载 java 中的 jar,但是由于 dalvik 不能直接识别 jar, 所以此方法在 android 中无法使用, 尽管还有这个类  
 
 ### 参考  
 http://weishu.me/2016/01/28/understand-plugin-framework-overview/  
