@@ -63,6 +63,7 @@ https://github.com/dingjikerbo/BluetoothKit
 https://github.com/Jasonchenlijian/FastBle  
 https://www.kancloud.cn/alex_wsc/android-wifi-nfc-gps/413031  
 https://github.com/xiaoyaoyou1212/BLE  
+https://github.com/Alex-Jerry/Android-BLE  
 
 
 车牌号识别  

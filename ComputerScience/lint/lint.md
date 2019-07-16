@@ -28,17 +28,14 @@ https://www.littlerobots.nl/blog/RxLint-a-lint-rule-for-RxJava/
 https://github.com/xsfelvis/LintDemo  
 https://github.com/yongce/AndroidDevNotes/blob/master/notes/knowledge/0005-custom-lint.asc  
 https://github.com/yongce/AndroidLib  
-https://juejin.im/entry/576b61162e958a0078c637fb  
 
-❊  分割线-未看  
 
-http://tools.android.com/tips/lint-custom-rules  
+❊ 分割线-未看  
 
 https://juejin.im/entry/5bc7f7935188255c9d564857  
 http://www.paincker.com/android-lint-2-implements  
 https://github.com/pinterest/ktlint  
 https://juejin.im/post/5b3efd446fb9a04fe6376301#heading-6  
-https://blog.csdn.net/u011240877/article/details/54141714  
 https://www.jianshu.com/p/a0f28fbef73f  
 https://blog.csdn.net/ouyang_peng/article/details/80374867  
 https://www.jianshu.com/p/cda6ad154c2c  
