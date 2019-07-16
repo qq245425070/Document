@@ -3,6 +3,7 @@
 https://github.com/ahmedrizwan/SeekBarCompat  
 https://github.com/warkiz/IndicatorSeekBar  
 https://github.com/Jay-Goo/RangeSeekBar  
+https://github.com/zhou-you/EasySignSeekBar  
 
 ❀ SeekBar-圆形  
 https://github.com/syedowaisali/crystal-range-seekbar  

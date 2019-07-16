@@ -130,7 +130,7 @@ public static int partition(int[] array, int low, int high) {
     return low;
 }
 ``` 
-![常见排序算法时间复杂度和空间复杂度](../ImageFiles/sort_001.png)  
+![常见排序算法时间复杂度和空间复杂度](ImageFiles/sort_001.png)  
 
 
 ### 参考  

@@ -11,6 +11,20 @@ http://weishu.me/2016/04/05/understand-plugin-framework-classloader/
 http://weishu.me/2016/04/12/understand-plugin-framework-receiver/  
 http://weishu.me/2016/05/11/understand-plugin-framework-service/  
 http://weishu.me/2016/07/12/understand-plugin-framework-content-provider/  
+
+反射原理  http://javawebsoa.iteye.com/blog/1512798  
+类加载器  https://www.ibm.com/developerworks/cn/java/j-lo-classloader/  
+类加载器  http://blog.csdn.net/zdwzzu2006/article/details/2253982  
+Android动态加载   http://www.androidblog.cn/index.php/Index/detail/id/16#  
+Android动态加载   http://blog.csdn.net/u013478336/article/details/50734108（已看，最简单入门）  
+Android动态加载   http://www.cnblogs.com/over140/archive/2011/11/23/2259367.html  
+Android动态加载   http://blog.csdn.net/u010687392/article/details/47121729?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io（入门详解版本）  
+Android动态加载   https://segmentfault.com/a/1190000004062866#articleHeader9（入门基础）  
+Android动态加载   https://segmentfault.com/a/1190000004062866（深入L1理解）  
+Android动态加载   https://segmentfault.com/a/1190000004062972（深入L2 代理Activity）  
+Android动态加载   https://segmentfault.com/a/1190000004077469（深入L2 动态创建Activity）  
+Android动态加载   http://www.jianshu.com/p/353514d315a7  
+
 Android插件化开发指南  
 
 https://github.com/ManbangGroup/Phantom  

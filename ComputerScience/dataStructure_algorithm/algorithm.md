@@ -36,7 +36,7 @@ for (i=1; i<=n; i++)
 ```
 时间复杂度就是 O(n)  
 推导步骤  
- ![推导步骤](../ImageFiles/ac_002.png)  
+ ![推导步骤](ImageFiles/ac_002.png)  
 
 ❀ O(n^2)  
 ```
@@ -50,7 +50,7 @@ for (i=1; i<=n; i++)
 因为 第一个的复杂度是 O(n)， 第二个的复杂度是 O(n^2)；  
 整体的复杂度就是 为Ο(n+n^2)  =  O(n^2)；  
 推导步骤  
-![推导步骤](../ImageFiles/ac_003.png)  
+![推导步骤](ImageFiles/ac_003.png)  
 
 ❀ O(n^3)  
 ```
@@ -77,7 +77,7 @@ while (i < n) {
 }
 ```
 推导步骤   
-![推导步骤](../ImageFiles/ac_004.png)  
+![推导步骤](ImageFiles/ac_004.png)  
 
 ### 参考  
 http://www.cppblog.com/85940806/archive/2011/03/12/141672.html  

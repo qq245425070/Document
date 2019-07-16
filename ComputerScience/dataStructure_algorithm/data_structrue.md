@@ -54,9 +54,9 @@ AVL树
 红黑树  
 
 
-![数据结构横向比较](ImageFiels/DS_01.png)  
+![数据结构横向比较](dataStructure/ImageFiels/DS_01.png)  
 
-![数据结构横向比较](ImageFiels/DS_02.png)  
+![数据结构横向比较](dataStructure/ImageFiels/DS_02.png)  
 
-![如何选取数据结构](ImageFiels/DS_003.png)  
+![如何选取数据结构](dataStructure/ImageFiels/DS_003.png)  
 

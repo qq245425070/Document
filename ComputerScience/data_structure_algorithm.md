@@ -1,13 +1,16 @@
 ### 数据结构与算法
-[数据结构基本概念](dataStructure_algorithm/dataStructure/data_structrue.md)  
+[数据结构基本概念](dataStructure_algorithm/data_structrue.md)  
+[算法基本概念](dataStructure_algorithm/algorithm.md)  
+
 [链表结构](dataStructure_algorithm/dataStructure/link/Link.md)  
 [树结构](dataStructure_algorithm/dataStructure/tree/Tree.md)  
 [队列结构](dataStructure_algorithm/dataStructure/queue/Queue.md)  
 [栈结构](dataStructure_algorithm/dataStructure/stack/Stack.md)  
 [哈希表](dataStructure_algorithm/dataStructure/hash/Hash.md)  
 [堆结构](dataStructure_algorithm/dataStructure/heap/Heap.md)  
-[经典排序算法](dataStructure_algorithm/library/sort.md)  
-[常见面试题](dataStructure_algorithm/leetcode/leet_code.md)  
+
+[经典排序算法](dataStructure_algorithm/sort.md)  
+[常见面试题](dataStructure_algorithm/leet_code.md)  
 
 ### 参考  
 https://github.com/gatieme/CodingInterviews  
