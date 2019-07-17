@@ -132,7 +132,7 @@ https://github.com/zzhoujay/RichText
 https://github.com/mukeshsolanki/MarkdownView-Android  
 https://github.com/zzhoujay/Markdown  
 https://github.com/noties/Markwon  
-
+https://github.com/qinci/MarkdownEditors  
 
 ### 歌词效果
 https://github.com/livesun/GradientTextView  
