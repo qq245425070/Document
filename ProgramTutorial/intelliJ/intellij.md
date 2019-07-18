@@ -1,4 +1,11 @@
-### IntelliJ 注册机
+[打包上传到仓库](library/upload_aar.md)  
+[配置Maven库](library/with_maven.md)  
+[基础设置](library/basic_using.md)  
+[插件](plugin/plugin.md)  
+[快捷键 mac](library/key_map_mac.md)  
+[快捷键 window](library/key_map_window.md)  
+
+### IntelliJ 注册机  
 
 ❀ 本地服务器   
 ```
@@ -18,11 +25,7 @@ window + r
 打开网站 http://idea.lanyus.com/  
 点击获取注册码  
 ```
-[打包上传到仓库](library/upload_aar.md)  
-[配置Maven库](library/with_maven.md)  
-[基础设置](library/basic_using.md)  
-[快捷键 mac](library/key_map_mac.md)  
-[快捷键 window](library/key_map_window.md)  
+
 ### 使用Tomcat  
 new project -> Java Enterprise  
 web Application  
@@ -81,4 +84,5 @@ https://plugins.jetbrains.com/plugin/7495--ignore
 GsonFormat  
 https://plugins.jetbrains.com/plugin/7654-gsonformat  
 https://github.com/zzz40500/GsonFormat  
+
 

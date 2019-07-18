@@ -1,3 +1,6 @@
+[Java内存模型(JMM)](jvm/jmm_concept.md)  
+[volatile 关键字](/Java/basic/library/volatile.md)  
+
 JVM 运行时数据区域:  程序计数器, Java虚拟机栈, 本地方法栈, Java堆(Heap), 方法区(Method Area), 直接内存;  
 
 ### 程序计数器 (Program Counter Register)   
@@ -169,10 +172,6 @@ Full GC
 持久代(Permanent Generation)被写满 
 System.gc()被显示调用 
 上一次GC之后Heap的各域分配策略动态变化
-
-### Java内存模型  
-[Java内存模型(JMM)](jvm/jmm_concept.md)  
-[volatile 关键字](/Java/basic/library/volatile.md)  
 
 
 ### 参考  

@@ -1,4 +1,3 @@
-### Android 事件分发机制  
 返回 true|false 的意思是, 没有调用 super, 没有做任何处理, 直接返回了 true|false;  
 返回默认的意思是, 调用了 super, 并且返回了这个默认值;  
 
@@ -35,3 +34,6 @@ ViewGroup.super.onTouchEvent(ev); 默认值是 false;
 View.super.onTouchEvent(ev); 默认值是 true;  
 
 ![流程图](../ImageFiles/touch_001.png)  
+
+### 参考  
+https://www.jianshu.com/p/24901c309cf4  

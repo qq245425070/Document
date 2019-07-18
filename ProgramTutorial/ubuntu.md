@@ -1,4 +1,5 @@
 [更多命令行](/Linux/linux_cmd.md)  
+[应用程序分类-分文件夹](ubuntu/app_dash_board.md)  
 常用命令  
 ubuntu sudo root 失败  
 ```
@@ -51,14 +52,18 @@ StartupWMClass=jetbrains-studio
 
 ```
 將新建的studio.desktop, 放到 
-文件夾下  
+文件夾下
+nautilus  /home/alex/.local/share/applications  
+
 cd /home/alex/.local/share/applications 
 nautilus .
 
-或者  
-文件夾下  
+或者  文件夾下  
+nautilus /usr/share/applications
+
 cd /usr/share/applications    
 nautilus .  
+  
 ```
 配置启动的快捷键  
 例如深度截图  
@@ -71,8 +76,8 @@ nautilus  /usr/share/applications
 快捷键: 按下 ctrl + shift + X;  
 
 ```
-
-### 按键映射  
+### 修改默认配置  
+❀ 按键映射      
 ```
 sudo gedit /usr/share/X11/xkb/symbols/pc  
 // 左 control 与 左 window  
@@ -82,24 +87,14 @@ key <LWIN> { [ Super_L ] };
 key <LCTL> { [ Super_L ] };
 key <LWIN> { [ Control_L ] };
 ```
-### 修改默认配置  
+❀ 单击图标事件    
+```
+# 改为点击预览窗口    
+gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'previews'
+# 改为点击最小化窗口
+gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+```
 intellij  好看的字体是 ubuntu light   
-
-```
-sudo apt-get install dconf-tools  
-dconf-editor 
-//  依次打开org > gnome > desktop > applications > terminal
-将 x-terminal-emulator  改为 deepin-terminal 
-```
-gnome-terminal
-deepin-terminal  
-exec  deepin-terminal  
-exec-arg -e 
-exec-arg -x
-//  /usr/share/applications
-
-gsettings set org.gnome.desktop.default-applications.terminal exec 'deepin-terminal'
- gsettings set org.gnome.desktop.default-applications.terminal exec /usr/bin/深度终端
 
 5 gsettings set org.gnome.desktop.default-applications.terminal exec-arg "-x"
 ❀ 时间显示  
@@ -147,8 +142,10 @@ sudo apt-get install terminator
 sudo apt install dconf-editor  
 好看的字体是 Droid Sans Mono Regular  
 ```
+
 ## 推荐软件  
 文件管理器      PCManFM  
 压缩软件          ark  Archiving Tool  
-
+压缩软件          P7Zip - Desktop      
+画图软件          Krita  
 
