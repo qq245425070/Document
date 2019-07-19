@@ -61,6 +61,7 @@ https://github.com/klinker41/android-slidingactivity
 https://github.com/r0adkll/Slidr  
 https://github.com/XBeats/and_swipeback  
 https://github.com/Bamboy120315/SlidingShut  
+https://github.com/luckybilly/SmartSwipe  
 
 
 ◆ 翻书效果  

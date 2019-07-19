@@ -47,6 +47,7 @@ http://www.jianshu.com/p/353514d315a7
 
 
 Android插件化开发指南  
+https://www.jianshu.com/p/b6d0586aab9f  
 
 https://github.com/ManbangGroup/Phantom  
 https://github.com/tiann/understand-plugin-framework  

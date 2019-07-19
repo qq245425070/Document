@@ -154,4 +154,5 @@ http://www.cnblogs.com/trust-freedom/p/6681948.html
 http://www.cnblogs.com/trust-freedom/p/6693601.html  
 https://hk.saowen.com/a/fd724624ba3693d3d28aa23bb45df5ed10ae1949e523d4c8516c7fd148949a57  
 http://ifeve.com/java-synchronousqueue  
+https://juejin.im/post/5d1882b1f265da1ba84aa676  
 

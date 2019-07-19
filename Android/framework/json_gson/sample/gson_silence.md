@@ -1,4 +1,5 @@
-### gson解析不抛异常  
+Gson, JsonReader, ReflectiveTypeAdapterFactory   
+
 #### 先看一组数据类    
 ```
 data class UserEntity(
@@ -158,5 +159,5 @@ LogTrack  22:25:47:0644  WARN  [ (Test.java:26) #lambda$main$0] 结果  = UserEn
 LogTrack  22:25:47:0645  WARN  [ (Test.java:26) #lambda$main$0] 结果  = UserEntity(name=, hobbitList=[], enLevel=, address=AddressEntity(province=, city=, county=), skillEntity=SkillEntity(name=, extra=SkillExtraEntity(desc=null, period=0, attrList=null)))
 LogTrack  22:25:47:0645  WARN  [ (Test.java:26) #lambda$main$0] 结果  = UserEntity(name=Alex, hobbitList=[], enLevel=, address=AddressEntity(province=, city=, county=), skillEntity=SkillEntity(name=, extra=SkillExtraEntity(desc=null, period=0, attrList=null)))
 ```
-  
-[我只是修改了 ReflectiveTypeAdapterFactory 的源码](https://github.com/Alex-Cin/belle/tree/master/src/main/java/com/google/gson)  
+我只是修改了 Gson, JsonReader, ReflectiveTypeAdapterFactory 的源码   
+[连接](https://github.com/Alex-Cin/belle/tree/master/src/main/java/com/google/gson)  

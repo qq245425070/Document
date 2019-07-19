@@ -31,7 +31,7 @@ apk 打包流程;  65535 问题;  multiDex 问题;
 共享存储;  SharePreference; SP;  
 [链接](basic/sharePreference.md)  
 
-优化稳定性;  低功耗;  性能优化;  冷启动介绍;  冷启动优化;  ANR;  
+优化稳定性;  低功耗;  性能优化;  冷启动介绍;  冷启动优化;  ANR;  内存泄露;  
 [链接](basic/optimize_stability_lowPower.md)  
 
 插件化; 热更新; 热修复; Plugin; ClassLoader;  

@@ -140,6 +140,7 @@ https://github.com/shallcheek/ColorLyricsView
 https://github.com/hongyangAndroid/ColorTrackView  
 https://github.com/cctanfujun/ProgressRoundButton  
 http://blog.csdn.net/u013278099/article/details/50881431  
+https://github.com/lenve/LrcView  
 
 
 

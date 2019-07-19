@@ -109,6 +109,7 @@ https://github.com/jiajunhui/PlayerBase
 https://github.com/Jay-Goo/PeachPlayer  
 https://github.com/dueeeke/dkplayer  
 https://github.com/thiagooo0/lmnplayer  
+https://github.com/dueeeke/DKVideoPlayer  
 https://github.com/lingcimi/jjdxm_ijkplayer  
 https://blog.csdn.net/word_code/article/details/78292535  
 https://blog.csdn.net/huaxun66/article/details/53401231  
