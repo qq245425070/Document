@@ -1,8 +1,5 @@
 新建 project 选择 IntelliJ Platform Plugin  暂时不要勾选 groovy library;  
-
-
-
-
+![常见api](plugin/plugin_api.md)  
 
 
 ### 参考  
