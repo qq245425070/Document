@@ -17,6 +17,52 @@ int m(Object o)                                    (Ljava/lang/Object;)I
 int []m(int i, String s)                           (ILjava/lang/String;);[I  
 Object m(int []i)                                   ([I)Ljava/lang/Object;  
 
+
+//  access  
+```
+//  public  1  
+Opcodes#ACC_PUBLIC = 0x0001
+//  public  2  
+Opcodes#ACC_PRIVATE = 0x0002  
+//  protected 4  
+Opcodes#ACC_PROTECTED = 0x0004  
+//  static 8  
+Opcodes#ACC_STATIC = 0x0008  
+//  final 16  
+Opcodes#ACC_FINAL = 0x0010  
+//  open 32  
+Opcodes#ACC_OPEN = 0x0020  
+//  abstract 1024
+Opcodes#ACC_ABSTRACT = 0x0400  
+//  strict  2048  
+Opcodes#ACC_STRICT = 0x0800  
+//  super  32  
+Opcodes#ACC_SUPER = 0x0020  
+// native 256  
+Opcodes#ACC_NATIVE = 0x0100  
+//  synthetic 4096  表示函数由 JAVAC 自动生成的  
+Opcodes#ACC_SYNTHETIC = 0x1000;  
+
+4096 
+```
+0            <default> <init> 方法  
+1            public 普通成员方法  
+2            private 普通成员方法  
+4            protected 普通成员方法  
+8            <default> static 方法  
+9            public static 方法  
+17          public final 普通成员方法  
+18          private final 普通成员方法  
+129       <default> override 接口方法  
+1025     interface 普通的 <default> 方法, 未加上 public abstract 修饰的 ACC_ABSTRACT(1024)+ACC_PUBLIC(1)  
+1153     interface 普通的 <default> 方法, 未加上 public abstract 修饰的 
+4097     <default> abstract override 构造函数  
+4104     <default> static 系统生成的桥接匿名内部类的方法  ACC_SYNTHETIC(4096)+ACC_STATIC(8)  
+4121     public static final 系统生成的桥接匿名内部类的方法 ACC_SYNTHETIC(4096)+ACC_STATIC(8)+ACC_FINAL(16)+ACC_PUBLIC(1)  
+4161     public abstract override 普通成员方法  ACC_SYNTHETIC(4096)+ACC_OPEN(32)+ACC_SUPER(32)+ACC_PUBLIC(1)  
+4164     protected abstract override 普通成员方法  ACC_SYNTHETIC(4096)+ACC_OPEN(32)+ACC_SUPER(32)+ACC_PROTECTED(1)  
+
+
 ### 参考  
 https://asm.ow2.io/asm4-guide.pdf  
 https://plugins.jetbrains.com/plugin/5918-asm-bytecode-outline  

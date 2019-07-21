@@ -1,7 +1,7 @@
 [打包上传到仓库](library/upload_aar.md)  
 [配置Maven库](library/with_maven.md)  
 [基础设置](library/basic_using.md)  
-[插件](plugin/plugin.md)  
+[插件](intellij_plugin.md)  
 [快捷键 mac](library/key_map_mac.md)  
 [快捷键 window](library/key_map_window.md)  
 

@@ -1,3 +1,4 @@
+新建 project 选择 IntelliJ Platform Plugin  暂时不要勾选 groovy library;  
 
 
 
@@ -11,4 +12,7 @@ https://www.jianshu.com/p/b8d0431bab11
 https://www.jianshu.com/p/5e1edd85d9ed  
 https://www.jianshu.com/p/5124c7af62e3  
 https://www.jianshu.com/p/3993aac140c5  
+
+https://github.com/githubwing/MVPHelper  
+https://github.com/longforus/MvpAutoCodePlus  
 
