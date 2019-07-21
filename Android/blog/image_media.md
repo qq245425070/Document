@@ -15,12 +15,13 @@ https://github.com/Hitomis/transferee
 https://github.com/iielse/ImageWatcher  
 
 
-◆ PhotoView  
+❀ PhotoView  
 https://github.com/boycy815/PinchImageView   
 https://github.com/chrisbanes/PhotoView  
 
-◆ 加载巨图  
+❀ 加载巨图  
 https://github.com/davemorrissey/subsampling-scale-image-view  
+https://github.com/Piasy/BigImageViewer  
 
 ### 图片处理-剪裁  
 
