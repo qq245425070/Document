@@ -20,8 +20,11 @@ git commit -am "add readMe file"
 git commit -am 等于下面两句,   
 git add .
 git commit -m "some str"
-```
 
+让 change id 发生变更  
+git commit --amend  
+
+```
 git push  
 ```
 //  把本地的, 当前分支, 推送到远端的, 当前分支上  
