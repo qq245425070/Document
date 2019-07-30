@@ -122,9 +122,8 @@ Merge branch 'master' of https://gitlab.com/Alex_Cin/mdreader
 
 
 ### 参考  
-git 下载  
-https://gitforwindows.org/
-  
+https://gitforwindows.org/  
+https://git-scm.com/book/zh/v1/Git-工具-重写历史  
 http://blog.csdn.net/wangyanchang21/article/details/51437934  
 http://iissnan.com/progit/  
 https://git-scm.com/book/zh/v1  

@@ -43,6 +43,16 @@ xml
     <NestedScrollView>
         <RecyclerView/>
 ```
+### ConstraintLayout.嵌套.RecyclerView  
+```
+如果不这样写, RecyclerView 展示不完全, 也无法滑动  
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent" />
+```
 ### 65535问题  
 app build.gradle  
 ```
