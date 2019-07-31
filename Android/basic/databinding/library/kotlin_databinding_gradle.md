@@ -1,7 +1,6 @@
-###### Kotlin与DataBinding 配置
+Kotlin与DataBinding 配置
 
-> project的gradle配置
-
+project的gradle配置  
 ```
 
 buildscript {
@@ -43,7 +42,8 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 ```
-> module的gradle配置
+
+module的gradle配置  
 ```
 if (isDebug.toBoolean()) {
     apply plugin: 'com.android.application'
@@ -78,9 +78,7 @@ dependencies {
 }
 apply from: "../build_lib/build_module_account.gradle"
 ```
-
-> gradle.properties
-
+gradle.properties  
 ```
 #定义全局的 kotlin 版本号
 kotlin_version=1.1.51

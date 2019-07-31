@@ -1,6 +1,5 @@
-###### 关联RecyclerView
-
-> AccountMessageActivity
+关联RecyclerView  
+AccountMessageActivity  
 ```
 @Route(path = "${M.Router.group}AccountMessage")
 class AccountMessageActivity : SimpleActivity<AccountMessageContract.ViewModel>(), AccountMessageContract.View {
@@ -13,7 +12,7 @@ class AccountMessageActivity : SimpleActivity<AccountMessageContract.ViewModel>(
 }
 ```
 
-> AccountMessageViewModel
+AccountMessageViewModel  
 ```
 class AccountMessageViewModel(view: AccountMessageContract.View) :
         SimpleViewModel<AccountMessageContract.View, AccountMessageContract.Presenter>(view),
@@ -50,7 +49,8 @@ class AccountMessageViewModel(view: AccountMessageContract.View) :
 }
 ```
 
-> AccountMessageAdapter
+
+AccountMessageAdapter  
 ```
 
 class AccountMessageAdapter :

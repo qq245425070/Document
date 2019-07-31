@@ -4,6 +4,21 @@ extends AnAction{
 
     @Override
     public void actionPerformed(AnActionEvent e) {
+   
+   
+        //  getProjectFilePath=/home/alex/WorkSpace/AndroidStudio/MyApplication/.idea/misc.xml  
+        //  project.getProjectFilePath()  
+        
+        //  /home/alex/WorkSpace/AndroidStudio/MyApplication
+        project.getBasePath();
+        
+        //  MyApplication
+        project.getName();  
+        
+        //  /home/alex/WorkSpace/AndroidStudio/MyApplication/.idea/workspace.xml
+        project.getWorkspaceFile();  
+         
+        //  鼠标在文件上的右键属性  
         PsiFile psiFile = e.getData(LangDataKeys.PSI_FILE);
         //  MainActivity.kt
         //  psiFile.getName()
@@ -20,6 +35,17 @@ extends AnAction{
         //  LoginActivity
         //  psiFile.getVirtualFile().getNameWithoutExtension()
    
+   
+       //  鼠标在文件/文件夹 上的右键属性  
+       //  鼠标右键所选择的路径
+       IdeView ideView = actionEvent.getRequiredData(LangDataKeys.IDE_VIEW);
+       PsiDirectory directory = ideView.getOrChooseDirectory();
+       //  entity  
+       directory.getName();
+       
+       //  /home/alex/WorkSpace/AndroidStudio/MyApplication/app/src/main/java/com/alex/kooper/list/entity
+       directory.getVirtualFile().getPath();         
+       
     }
 
 }

@@ -44,7 +44,8 @@ https://segmentfault.com/a/1190000004062866（深入L1理解）
 https://segmentfault.com/a/1190000004062972（深入L2 代理Activity）  
 https://segmentfault.com/a/1190000004077469（深入L2 动态创建Activity）  
 http://www.jianshu.com/p/353514d315a7  
-
+https://www.jianshu.com/p/b65e5da3dff2  
+https://www.jianshu.com/p/e179fcc97666  
 
 Android插件化开发指南  
 https://www.jianshu.com/p/b6d0586aab9f  

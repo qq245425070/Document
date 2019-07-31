@@ -34,6 +34,8 @@ https://www.jianshu.com/p/a05c9735f595
 https://www.jianshu.com/p/314f203459f2  
 https://github.com/Shopify/livedata-ktx  
 https://developer.android.google.cn/topic/libraries/architecture/livedata#extend_livedata  
+https://www.jianshu.com/p/6a19424e5c62  
+http://examplecode.cn/2018/07/20/android-databinding-01-introduction/  
 
 一般  
 https://github.com/LyndonChin/MasteringAndroidDataBinding  
