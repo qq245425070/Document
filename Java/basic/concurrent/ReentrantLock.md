@@ -786,6 +786,7 @@ https://blog.csdn.net/chen77716/article/details/6641477
 http://ifeve.com/introduce-abstractqueuedsynchronizer/  
 http://ifeve.com/juc-aqs-reentrantlock/  
 https://www.cnblogs.com/zhanjindong/p/java-concurrent-package-aqs-AbstractQueuedSynchronizer.html  
+https://juejin.im/post/5d40e5f26fb9a06b317b3e0d  
 
 Condition  
 http://www.tianxiaobo.com/2018/05/04/AbstractQueuedSynchronizer-原理分析-Condition-实现原理/  
