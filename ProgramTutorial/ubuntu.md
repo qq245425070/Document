@@ -142,6 +142,20 @@ sudo apt-get install terminator
 sudo apt install dconf-editor  
 好看的字体是 Droid Sans Mono Regular  
 ```
+❀ terminal 快捷键    
+ctrl + A  光标移动到当前行 最左边;  A=a;  
+ctrl + E  光标移动到当前行 最右边;  E=e; 
+ctrl + U  删除从光标位置处, 到最左边的所有文本;  
+ctrl + K  删除从光标位置处, 到最右边的所有文本;  
+❀ NumLK Scr LK  
+使用功能按键, 屏蔽数字按键, 对数字按键使用频率=0, 经常使用 home end 按键;  
+```
+sudo apt-get install numlockx  
+sudo gedit /usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf  
+再最后, 追加  off 是使用功能按键;  on 是使用数字按键;  
+greeter-setup-script=/usr/bin/numlockx off  
+
+```
 
 ## 推荐软件  
 文件管理器      PCManFM  
