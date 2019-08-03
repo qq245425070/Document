@@ -25,7 +25,6 @@ window + r
 打开网站 http://idea.lanyus.com/  
 点击获取注册码  
 ```
-
 ### 使用Tomcat  
 new project -> Java Enterprise  
 web Application  
@@ -38,7 +37,16 @@ org.apache.jasper.servlet.TldScanner.level = FINE
 ```
 
 ### java  doc 索引  
+
 ```
+打开连接  
+// @http://bbs.csdn.net/topics/390797771
+
+/**
+ * @启动者: {@link MainActivity}
+ * 单聊:   {@link com.alex.alexchat.activity.chatroom.ChatRoomActivity}
+ */
+ 
 /**
  * @param clickStatus {@link com.a.b.c.StringUtil#USER_NAME_LENGTH}
  * @param clickStatus {@link com.a.b.c.StringUtil}

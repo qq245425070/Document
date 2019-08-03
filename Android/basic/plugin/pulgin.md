@@ -19,9 +19,25 @@ DexClassLoader     可以加载外部的dex 的 apk, dex, class 文件, 也支�
 URLClassLoader     可以加载 java 中的 jar,但是由于 dalvik 不能直接识别 jar, 所以此方法在 android 中无法使用, 尽管还有这个类;  
 
 
+### instant run 原理  
+每一个方法, 都有一个钩子 change 变量, 类型是 IncrementalChange 这个接口, 如果代码有变动, 会生成一个实现类, 再根据要改动的方法, 生成一个对应的实现方法;  
+判断如果 change 不为空, 就执行 change 里面方法, 如果 change 为空, 就执行自己的逻辑;  
+
 ### 参考  
 https://github.com/Omooo/Android-Notes/blob/master/blogs/Android/热修复.md   
 https://juejin.im/post/5a0ad2b551882531ba1077a2  
+https://blog.csdn.net/u010299178/article/details/52031505  
+https://juejin.im/post/57c3ec49efa631005ac392e9  
+https://tech.meituan.com/2016/09/14/android-robust.html  
+https://segmentfault.com/a/1190000004062866  
+https://www.jianshu.com/p/b1e7b6326330  
+https://juejin.im/post/5a0ad2b551882531ba1077a2  
+https://yq.aliyun.com/articles/70321  
+https://yq.aliyun.com/articles/70337  
+https://yq.aliyun.com/articles/184258  
+https://yq.aliyun.com/articles/231111  
+https://github.com/WeMobileDev/article/blob/master/微信Android热补丁实践演进之路.md  
+
 
 http://weishu.me/2016/01/28/understand-plugin-framework-overview/  
 http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/  
@@ -47,8 +63,11 @@ http://www.jianshu.com/p/353514d315a7
 https://www.jianshu.com/p/b65e5da3dff2  
 https://www.jianshu.com/p/e179fcc97666  
 
-Android插件化开发指南  
+
+插件化
 https://www.jianshu.com/p/b6d0586aab9f  
+https://www.kymjs.com/code/2016/05/04/01/  
+https://juejin.im/post/59752eb1f265da6c3f70eed9  
 
 https://github.com/ManbangGroup/Phantom  
 https://github.com/tiann/understand-plugin-framework  

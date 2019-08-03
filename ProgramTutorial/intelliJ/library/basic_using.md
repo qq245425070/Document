@@ -103,12 +103,5 @@ File，选择Other Settings，选择Default Project Structure...，就可以看�
 隐藏 文件夹导航  
 View  ->  Navigation Bar  
 
-打开连接  
-```
-// @http://bbs.csdn.net/topics/390797771
-/**
- * @启动者: {@link MainActivity}
- * 单聊:   {@link com.alex.alexchat.activity.chatroom.ChatRoomActivity}
- */
-```
+
 

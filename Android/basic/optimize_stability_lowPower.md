@@ -63,15 +63,18 @@ Looper.myLooper().getQueue().addIdleHandler(new MessageQueue.IdleHandler() {
 ```
 ### 冷启动优化  
 
-冷启动（Cold start）  
-冷启动是指APP在手机启动后第一次运行, 或者APP进程被kill掉后在再次启动;  
+冷启动(Cold start)  
+冷启动是指 APP 在手机启动后第一次运行, 或者 APP 进程被kill掉后在再次启动;  
 可见冷启动的必要条件是该APP进程不存在, 这就意味着系统需要创建进程, APP需要初始化;  
 
-温启动(Warm start)  
-App进程存在, 当时Activity可能因为内存不足被回收。这时候启动App不需要重新创建进程, 但是Activity的onCrate还是需要重新执行的;  
-
 热启动(Hot start)  
-App进程存在, 并且Activity对象仍然存在内存中没有被回收。可以重复避免对象初始化, 布局解析绘制。  
+当启动应用时, 后台已有该应用的进程, 比如按下 home 键, 这种启动方式叫热启动;  
+App进程存在, 并且Activity对象仍然存在内存中没有被回收, 可以重复避免对象初始化, 布局解析绘制;  
+
+温启动(Warm start)  
+当启动应用时, 后台已有该应用的进程, 但是启动的入口 Activity 被干掉了;   
+比如按了 back 键, 应用虽然退出了, 但是该应用的进程是依然会保留在后台;  
+这时候启动 App 不需要重新创建进程, 但是 Activity 的 onCrate 还是需要重新执行的;  
 
 
 设置闪屏图片主题  
@@ -217,6 +220,7 @@ https://testerhome.com/topics/9513
 http://www.blogjava.net/fjzag/articles/317773.html  
 
 Systrace  
+Systrace是分析Android性能问题的神器, Google IO 2017上更是对其各种强推;  
 Android 4.1 以上版本提供的性能数据采样 & 分析工具;  
 检测 Android 系统各个组件随着时间的运行状态 & 提供解决方案;  
 收集和检测事件信息, FPS-代码耗时;  

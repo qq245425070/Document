@@ -4,6 +4,32 @@ FrameLayout onMeasure 对子View onMeasure 执行2次;
 LinearLayout onMeasure 对子View onMeasure 执行2次;  
 RelativeLayout onMeasure 对子View onMeasure 执行4次;  
 
+### DecorView.addView  
+```
+    @SuppressWarnings("ConstantConditions")
+    @SuppressLint({"InflateParams", "RtlHardcoded"})
+    private void patchOnDecorView(Activity activity){
+        if(activity==null || activity.getWindow()==null || activity.getWindow().getDecorView()==null){
+            return;
+        }
+        int _200dp = 200;
+        ContentFrameLayout decorView = (ContentFrameLayout) activity.getWindow().getDecorView();
+        View childView = LayoutInflater.from(activity).inflate(R.layout.abundant_basic_spannable, null);
+        int wrap= FrameLayout.LayoutParams.WRAP_CONTENT;
+        ContentFrameLayout.LayoutParams params = new FrameLayout.LayoutParams(wrap, wrap);
+        decorView.addView(childView, params);
+        childView.post(new Runnable() {
+            @Override
+            public void run() {
+                // 这里采用 post 的形式, 当 childView 在视图上呈现的时候, 就能正确的得到 childView.geHeight()
+                //  相比较而言, 比 measure 过程更加节省时间, 而且不用是适配子视图的测量模式;  
+                params.gravity = Gravity.RIGHT;
+                params.rightMargin = _200dp;
+                params.topMargin = childView.getHeight();
+            }
+        });
+    }
+```
 ### onLayout layout  
 继承 View, 可以重写 onLayout 和 layout;  
 继承 ViewGroup, 只可以重写 onLayout, layout 方法是 final 类型的,  不可以重写;  

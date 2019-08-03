@@ -1,6 +1,11 @@
 ### 优秀的开发者  
 https://www.jianshu.com/p/0680be542f6e  
 https://www.jianshu.com/u/ce54e5c21032  
+https://www.androidperformance.com/2018/05/07/Android-performance-optimization-skills-and-tools/  
+https://www.androidperformance.com/  
+https://www.jianshu.com/p/b3b09fa29f65 
+
+https://study.163.com/course/introduction.htm?courseId=1208968811#/courseDetail?tab=1  
 
 http://gityuan.com/archive  
 https://www.kancloud.cn/alex_wsc/androids/472142  

@@ -29,6 +29,7 @@ apply 方式没有 返回值, commit 方式有 boolean 类型的返回值;
 ❀ 为什么不能存储超大的数据  
 第一次初始化 SharePreference 对象, 需要从磁盘解析xml文件, 并读取到内存中, 可能会阻塞主线程, 使界面卡顿, 掉帧;  
 这些数据跟随进程的生命周期, 永久占据内存;  
+占用内存过高, 就会导致 app 可用内存变少, 在产生临时对象, 空间不足, 会频繁引起 GC, 可能会阻塞主线程, 使界面卡顿, 掉帧;  
 
 ❀ 优化操作  
 xml文件越大, 读取越慢, 数据分开放;  
@@ -36,8 +37,9 @@ xml文件越大, 读取越慢, 数据分开放;
 架构化的数据, 单独存储;  
 数据修改, 集中提交;  
 如果不要求立即的到反馈, 最好使用 apply 方式提交数据;  
+如果是存储 json 和 html 等文件, 会在 xml 中产生特殊字符, 会多占用更多内存, 可以直接在data/data/包名/ 下直接存储 json 文件;  
 
-❀ 怎么能让 SharePreference 跨进程通信  
+### 怎么能让 SharePreference 跨进程通信  
 1.. SharePreference 从磁盘往内存写入数据, 发生在 SharePreference 对象, 初始化的时候;  
 2.. 内存缓存了 SharePreference 对象;   
 所以, 只要在需要读取其他进程的数据时, 重新创建一个 SharePreference 对象, 即可;  
@@ -71,6 +73,8 @@ private ArrayMap<File, SharedPreferencesImpl> getSharedPreferencesCacheLocked() 
     return packagePrefs;
 }
 ```
+
+
 ### 参考  
 https://juejin.im/post/5c34615bf265da614171bf8a  
 https://juejin.im/post/5c361469f265da61776c29d0  
