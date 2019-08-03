@@ -13,11 +13,10 @@ ClassLoader
         | DexClassLoader  
         | PathClassLoader  
 ```
-BootClassLoader 是 ClassLoader 的内部类, 用于预加载 preload()常用类以及一些系统 Framework 层级需要的类;  
-PathClassLoader 加载系统类和应用程序的类, 如果是加载非系统应用程序类, 则会加载 data/app/目录下的 dex 文件以及包含 dex 的 apk 文件或 jar 文件;  
-    可以加载 /data/app 目录下的 apk, 这也意味着, 它只能加载已经安装的 apk;   
-DexClassLoader 可以加载自定义的 dex 文件以及包含 dex 的 apk 文件或 jar 文件, 也支持从 SD 卡进行加载;  
-URLClassLoader 可以加载 java 中的 jar,但是由于 dalvik 不能直接识别 jar, 所以此方法在 android 中无法使用, 尽管还有这个类  
+BootClassLoader   是 ClassLoader 的内部类, 用于预加载 preload()常用类以及一些系统 Framework 层级需要的类;  
+PathClassLoader    用于加载data/app下的, 也就是已安装的 apk 中的 apk, dex, class 文件;  
+DexClassLoader     可以加载外部的dex 的 apk, dex, class 文件, 也支持从 SD 卡进行加载;  
+URLClassLoader     可以加载 java 中的 jar,但是由于 dalvik 不能直接识别 jar, 所以此方法在 android 中无法使用, 尽管还有这个类;  
 
 
 ### 参考  

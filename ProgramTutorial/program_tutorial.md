@@ -1,8 +1,6 @@
-### 软件开发  
+二进制编辑器  
+http://www.sweetscape.com/download/010editor/  
 
-apk 反编译工具  
-https://ibotpeaches.github.io/Apktool/install/  
-https://bintray.com/skylot/jadx/releases  
 
 护眼率  
 RGB: #C7EDCC  
