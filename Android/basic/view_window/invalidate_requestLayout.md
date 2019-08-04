@@ -179,7 +179,7 @@ com.android.internal.view.SurfaceFlingerVsyncChoreographer
 android.view.Choreographer  
 
 
-### ViewRootImpl#performTraversals  
+### ViewRootImpl.performTraversals  
 API=18:  onMeasure-onMeasure-onLayout-onDraw  
 暂时理解为, 第一次 onMeasure 是从上而下, 传递父窗体有多大的空间, 然后根据测量模式, 计算当前 View 自己需要多大的空间;  
 对于 wrap_content 也就是 AT_MOST 情况, 父窗体会调整空间, 并传向下传递;  
@@ -911,7 +911,7 @@ private void performTraversals() {
 }
 ```
 
-### ViewRootImpl#getRootMeasureSpec  
+### ViewRootImpl.getRootMeasureSpec  
 DecorView 根布局宽和高都是 MATCH_PARENT, 因此 DecorView 根布局的测量模式就是 MeasureSpec.EXACTLY, 测量大小一般都是整个屏幕大小,  
 所以一般我们的 Activity 窗口都是全屏的;  
 ```
@@ -938,7 +938,7 @@ private static int getRootMeasureSpec(int windowSize, int rootDimension) {
     return measureSpec;
 }
 ```
-### ViewRootImpl#measureHierarchy  
+### ViewRootImpl.measureHierarchy  
 ```
 private boolean measureHierarchy(final View host, final WindowManager.LayoutParams lp,
 		final Resources res, final int desiredWindowWidth, final int desiredWindowHeight) {
@@ -1002,7 +1002,7 @@ private boolean measureHierarchy(final View host, final WindowManager.LayoutPara
 	return windowSizeMayChange;
 }
 ```
-### View#measure  
+### View.measure  
 首先, 调用 View.measure()方法时, View 并不是立即就去测量, 而是先判断一下是否有必要进行测量操作,  
 如果不是强制测量或者 MeasureSpec 与上次的 MeasureSpec 相同的时候, 那么 View 就不需要重新测量了.
 
@@ -1096,7 +1096,7 @@ public final void measure(int widthMeasureSpec, int heightMeasureSpec) {
 			(long) mMeasuredHeight & 0xffffffffL); // suppress sign extension
 }
 ```
-### View#resolveSizeAndState  
+### View.resolveSizeAndState  
 ```
 public static int resolveSizeAndState(int size, int measureSpec, int childMeasuredState) {
 	final int specMode = MeasureSpec.getMode(measureSpec);
@@ -1125,7 +1125,7 @@ public static int resolveSizeAndState(int size, int measureSpec, int childMeasur
 	return result | (childMeasuredState & MEASURED_STATE_MASK);
 }
 ```
-### ViewGroup#getChildMeasureSpec  
+### ViewGroup.getChildMeasureSpec  
 ```
 public static int getChildMeasureSpec(int spec, int padding, int childDimension) {
 	//  取得 SpecMode 和 SpecSize
@@ -1204,7 +1204,7 @@ public static int getChildMeasureSpec(int spec, int padding, int childDimension)
 	return MeasureSpec.makeMeasureSpec(resultSize, resultMode);
 }
 ```
-### View#layout  
+### View.layout  
 
 ```
 public void layout(int l, int t, int r, int b) {
@@ -1266,7 +1266,7 @@ public void layout(int l, int t, int r, int b) {
 	mPrivateFlags3 |= PFLAG3_IS_LAID_OUT;
 }
 ```
-### View#setFrame  
+### View.setFrame  
 ```
 protected boolean setFrame(int left, int top, int right, int bottom) {
 	boolean changed = false;
@@ -1483,6 +1483,7 @@ https://blog.csdn.net/zhangbijun1230/article/details/80376181
 
  
 view#绘制的原理  
+https://yq.aliyun.com/articles/3005  
 https://www.jianshu.com/p/150ddb223fff  
 https://www.jianshu.com/p/4a68f9dc8f7c  
 https://blog.csdn.net/feiduclear_up/article/details/46772477  

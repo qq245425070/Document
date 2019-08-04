@@ -1,5 +1,5 @@
 ### ObjectBox   
-[入门](library/start.md)  
+[入门](objectbox/start.md)  
 假设有对应关系  
 配置对应关系  
 ```

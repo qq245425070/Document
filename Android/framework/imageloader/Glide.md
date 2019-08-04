@@ -1,7 +1,7 @@
 ### Glide 相关知识
 
-[源码设计简单描述](library/source_design_desc.md)   
-[使用:  参数设置](library/sample.md)  
+[源码设计简单描述](glide/source_design_desc.md)   
+[使用:  参数设置](glide/sample.md)  
 
 ◆ 参考  
 http://bumptech.github.io/glide/dev/snapshots.html  
