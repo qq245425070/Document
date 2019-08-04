@@ -1,4 +1,5 @@
 [classLoader](/Java/jvm/object_info.md)  
+[robust](/Android/framework/hotfix/robust.md)  
 在 Java 程序中, JVM 虚拟机通过类加载器 ClassLoader 来加载 class 文件;  
 Android 与 java 类似, 只不过 Android 使用的是 dalvik/Art 虚拟机来运行 .dex 文件;  
 .dex 文件本质上是 .class 文件打包优化而得到的;  

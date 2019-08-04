@@ -78,3 +78,4 @@ void transform(Context context, Collection<TransformInput> inputs, Collection<Tr
 ### 参考  
 https://github.com/Leaking/Hunter  
 https://github.com/houjinyun/Android-AppLifecycleMgr  
+https://www.jianshu.com/p/16ed4d233fd1  
