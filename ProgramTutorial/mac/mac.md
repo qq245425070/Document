@@ -13,9 +13,13 @@ finder 打开 shell  Go2Shell
 系统垃圾清理  AppCleaner  
 ⌘: command, ⌃: control, ⇧: shift, ⌥: alt/option, ⏎: enter/return, ⌫: delete   
 
-★ terminal exit 关闭窗口  
+❀ terminal exit 关闭窗口  
 terminal - 偏好设置 - 描述文件 - shell - 当shell退出时 - 当shell完全退出后关闭   
 
+使用 iterm2  
+```
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"  
+```
 ### 快捷键  
 切换桌面  三指左右  control + 左右  
 锁定屏幕  control + command + Q  
@@ -35,13 +39,13 @@ terminal - 偏好设置 - 描述文件 - shell - 当shell退出时 - 当shell完
 打开当前应用的 设置页  command + ,  
 强制关机  control + command + 电源键  ,  相当于 windows 一直按住电源键    
 
-★ 浏览器  
+❀ 浏览器  
 新建标签  command + T  
 关闭标签  command + W  
 转向右边标签页  Control + Tab  
 转向左边标签页  Control + Shift + Tab   
 
-★ finder  
+❀ finder  
 文件夹前进后退  command + ]  command + [  
 清空废纸篓  shift + command + delete  
 清空废纸篓  shift + option + command + delete  
@@ -55,7 +59,7 @@ terminal - 偏好设置 - 描述文件 - shell - 当shell退出时 - 当shell完
 显示隐藏文件(临时)  在finder目录下 shift + command + .  
 显示隐藏文件(永久)  终端执行  defaults write com.apple.finder AppleShowAllFiles -bool true  
 
-★ 文本处理  
+❀ 文本处理  
 删除光标右边的字符  fn + Delete  
 单词左右跳转 option + 左右  
 行home end 跳转  command + 左右  
@@ -79,6 +83,7 @@ terminal - 偏好设置 - 描述文件 - shell - 当shell退出时 - 当shell完
 按照箭头, 拖过去;  
 
 ![苹果手机换铃声](ImageFiles/iphone_001.jpg)  
+
 
 
 ### 参考    

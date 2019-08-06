@@ -4,6 +4,13 @@ https://github.com/AndroidAdvanceWithGeektime/Chapter37
 https://github.com/whataa/pandora  
 https://github.com/guxiaonian/MobileInfo  
 
+开发者助手  
+https://www.coolapk.com/apk/com.toshiba_dealin.developerhelper  
+https://github.com/eleme/UETool  
+https://github.com/zhangke3016/VirtualUETool  
+https://github.com/whataa/pandora  
+
+
 性能检测  
 https://github.com/zjw-swun/AppMethodOrder   
 https://github.com/sunysen/studyagent  
@@ -103,10 +110,6 @@ jadx 反编译apk
 找到 Downloads  release from bintray:  点击进入 https://bintray.com/skylot/jadx/releases/v0.7.1#files  
 下载  jadx-0.7.1.zip 文件,  找到  /jadx-0.7.1/bin/jadx-gui   文件, 打开, 可以直接打开apk文件;  
 
-开发者助手  
-https://www.coolapk.com/apk/com.toshiba_dealin.developerhelper  
-https://github.com/eleme/UETool  
-https://github.com/zhangke3016/VirtualUETool  
 
 注解式 框架  
 https://github.com/androidannotations/androidannotations/wiki/Cookbook  

@@ -85,7 +85,8 @@ cal -j
 ```
  
 ### ps  
-
+//  按照名字, 杀死进程  
+pkill hello  
 ps -f|grep java
 ```
 UID       PID       PPID      C     STIME    TTY       TIME         CMD  
