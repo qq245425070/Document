@@ -10,7 +10,6 @@ fatal: index-pack failed
 git log  
 如何撤销已经push上去的commit    
 git提供了好几种方法做到这点，其中最简单的方法就是用git revert命令，后面跟上你要撤销的commit id即可。  
-
 git commit  
 ```
 //  提交当前本地变动, 添加变动描述;  
@@ -120,6 +119,25 @@ Merge branch 'master' of https://gitlab.com/Alex_Cin/mdreader
 ```
 直接按下 control + x  
 
+### 修改上一次的提交内容  
+假设用的是 gerrit 这个 code review 工具;  
+```
+第01次  System.out.println("test 1");  
+领导认为, 要添加一句 System.out.println("test 2");
+
+1.. 开始修改代码 mock  ...
+2.. 
+git add . 
+git commit --amend  
+按 esc, 按: (冒号), 按 wq, 按 enter (回车);  
+branchName 是分支名字, 写自己的分支名字, 例如 master  
+3.. 
+//  这里是 code review 的人员;  
+//  --receive-pack='git receive-pack --reviewer=zhangsan@host.com --reviewer=lisi@host.com' 
+git push origin HEAD:refs/for/branchName  
+
+git push --receive-pack='git receive-pack --reviewer=zhangsan@host.com --reviewer=lisi@host.com' origin HEAD:refs/for/branchName  
+```
 
 ### 参考  
 https://gitforwindows.org/  
