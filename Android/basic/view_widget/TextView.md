@@ -1,4 +1,5 @@
 ### 测量文本宽度-长度  
+```
 在5.5英寸 1080P的手机上，  
 中文标点符号 都是48px；  
 汉字都是48px；  
@@ -8,6 +9,8 @@
 英文. 是13px；  
 英文a是26px；    
 英文A是32px；  
+```
+
 ```
 public class EllipsizeTextView extends android.support.v7.widget.AppCompatTextView {
     private String endCharSeq = "...";
@@ -104,6 +107,18 @@ android:focusableInTouchMode="true"
 第一次点击 onClick 不会响应，之后再点击，onClick 都会响应；  
 
 
+### 绘制文本.基准线  
+大多数的文章, 都是讲  https://www.jianshu.com/p/8b97627b21c4  
+他们认为, 数字会画到 ascent, 事实上, 距离 ascent 还有一些像素, 随着字号变大二变大. 和字体还有一定的关系;  
+需要大量的测试....有一种有误差的计算方法;  
+```
+    Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+    int ascent = -(int) fontMetrics.ascent;
+    float distance = (fontMetrics.descent - fontMetrics.ascent) / 2 - fontMetrics.descent;
+    //  y 是 控件的 水平中线;  
+    int baselineY = y + (int) distance;
+
+```
 ### 参考  
 http://blog.csdn.net/ysh06201418/article/details/46439561  
 http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/0915/1682.html  
