@@ -74,7 +74,7 @@ View 圆角化, 布局圆角化, 控件圆角化, 图片圆角化;
 TextureView; SurfaceView;  
 [参考](basic/view_window/TextureView.md)  
 
-[ImageView 与 Bitmap](basic/ImageView.md)  
+[ImageView 与 Bitmap](basic/view_widget/ImageView.md)  
 [RecyclerView](basic/recyclerView/RecyclerView.md)  
 [UI自动化测试](basic/view_window/UiAutomator.md)  
 音视频相关; 直播流; 播放器;  
