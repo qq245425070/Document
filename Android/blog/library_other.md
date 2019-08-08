@@ -104,7 +104,18 @@ https://github.com/githubwing/DroidSword
 https://github.com/skylot/jadx/releases  
 apk 反编译工具  
 https://ibotpeaches.github.io/Apktool/install/  
-https://bintray.com/skylot/jadx/releases  
+https://bintray.com/skylot/jadx/releases
+
+Mac linux  
+```
+打开  
+https://github.com/skylot/jadx  
+git clone https://github.com/skylot/jadx.git
+cd jadx
+./gradlew dist
+
+运行  build/jadx/bin/jadx-gui    
+```  
 jadx 反编译apk  
 打开网页  https://github.com/skylot/jadx  
 找到 Downloads  release from bintray:  点击进入 https://bintray.com/skylot/jadx/releases/v0.7.1#files  
