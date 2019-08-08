@@ -73,6 +73,13 @@ touch .gitmodules
 git submodule add https://gitlab.com/Alex_Cin/mdreader.git module/mdreader
 git submodule add https://gitlab.com/Alex_Cin/andfun.git module/andfun
 ```
+git reset   
+```
+git reset 节点回退到上一次, 保留本地代码  
+git reset --hard  节点回退到上一次, 废弃本地代码  
+git reset --hard  abcabcxyzxyzxyxzxxxxyyxyxx    节点回退到某一个节点, 废弃本地代码  
+
+```
 ### 分支管理  
 查看本地分支  
 git branch  
