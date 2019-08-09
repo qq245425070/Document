@@ -127,6 +127,7 @@ SDK中有个dx工具负责将JAVA字节码转换为Dalvik字节码,   dx工具�
 
 
 ### 参考  
+https://www.zhihu.com/question/319688949/answer/648358786  
 https://source.android.google.cn/devices/tech/dalvik/    
 http://blog.csdn.net/evan_man/article/details/52414390  
 http://blog.csdn.net/jason0539/article/details/50440669    
