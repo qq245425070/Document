@@ -106,6 +106,7 @@ https://github.com/heruijun/flutter_boss
 https://github.com/efoxTeam/flutter-ui  
 https://github.com/zhujian1989/flutter_study  
 https://github.com/simplezhli/flutter_deer  
+https://github.com/alibaba/flutter_boost  
 
 ### 开发者  
 https://github.com/iampawan  

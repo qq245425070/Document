@@ -52,6 +52,7 @@ git checkout
 ```
 //  检出对应的分支名称  
 git checkout -b feature/v5.0  
+git checkout branchName  
 ```
 git add  
 ```
@@ -106,6 +107,10 @@ git 记住账号密码
 
 [remote "origin"]
 [branch "master"]
+```
+本地分支推送到远端  
+```
+git push origin localBranchName  
 ```
 ### git pull 冲突  
 ```
