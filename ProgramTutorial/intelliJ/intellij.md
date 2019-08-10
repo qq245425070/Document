@@ -83,6 +83,20 @@ allprojects {
 ```
 
 ### 插件  
+ASM Bytecode Outline  
+```
+public class PermissionUtils {
+    public static boolean checkSelfPermission(Context context, String permission) {
+        //  随便在一个地方, 鼠标邮右键, 选择 show bytecode outline  
+        if (null == context) {
+            return false;
+        }
+        int per = ContextCompat.checkSelfPermission(context, permission);
+        return per == PackageManager.PERMISSION_GRANTED;
+    }
+}
+```
+
 https://github.com/JesusFreke/smali  
 
 ignore  
