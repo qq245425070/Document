@@ -116,3 +116,5 @@ https://blog.csdn.net/u010299178/article/details/52031505
 https://segmentfault.com/a/1190000004062866  
 https://www.jianshu.com/p/b1e7b6326330  
 
+热修复比较    
+http://w4lle.com/2017/05/04/hotpatch-summary/  
