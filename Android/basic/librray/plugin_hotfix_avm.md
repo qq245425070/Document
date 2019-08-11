@@ -30,9 +30,10 @@ Hot Swap, Warm Swap, Cold Swap
 主要分为 java 层实现, 和 native 层实现两种, java 层实现主要分为基于 multiDex 和 instantRun;  
 使用 DexClassLoader 加载dex 数组, patch.dex 最优先加载, 例如 A.class 存在于 patch.dex 和 class.dex 中,   
 那么系统中只会存在一个 A.class, 就是 patch.dex 中的 class;  
+如果 A.class 和 B.class 以前在一个 dex 文件中, 现在 A.class 在 patch.dex 中, 那么, 如果 A 类和 B 类有相互调用的时候, 就是出现 与校验的问题, 下面具体讲解;  
 基于 multiDex 实现的热更新, 必须在重启之后才会生效;  
 简单来讲, 热更新的原理就是 dex 插桩;  
-java 文件编译成 .class 文件, dx.bat 再打包成 patch.dex  
+java 文件编译成 .class 文件, dx.bat 再打包成 patch.dex;  
 
 ❀ CLASS_ISPREVERIFIED 问题  
 在 apk 安装的时候, 虚拟机会将 dex 优化成 odex 后才拿去执行, 在这个过程中会对所有 class 进行校验;    
@@ -47,6 +48,8 @@ java 文件编译成 .class 文件, dx.bat 再打包成 patch.dex
 在 Dalvik虚拟机下, 执行 dexopt 时, 会对类进行扫描, 如果类里面所有直接依赖的类都在同一个 dex 文件中, 那么这个类就会被打上 CLASS_ISPREVERIFIED 标记,  
 如果一个类有 CLASS_ISPREVERIFIED 标记, 那么在热修复时, 它加载了其他 dex 文件中的类, 会报经典的Class ref in pre-verified class resolved to unexpected implementation异常;  
 通过在 android7.0 8.0 上进行热修复, 也没有遇到这个异常, 猜测这个问题只属于 android5.0以前, 因为 android5.0 后新增了 art;  
+
+很多热更新的解决方案, 都存在这个问题, 但是美团的 robust 和 阿里的 Sophix 不存在, robust 的解决办法很巧妙, sophix 则是 native 方式解决, 所以不存在此问题;  
 ```
 Dexposed                阿里               开源          实时修复  
 Andfix                      阿里               开源           实时修复  
