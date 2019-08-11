@@ -26,6 +26,42 @@ Hot Swap, Warm Swap, Cold Swap
 每一个方法, 都有一个钩子 change 变量, 类型是 IncrementalChange 这个接口, 如果代码有变动, 会生成一个实现类, 再根据要改动的方法, 生成一个对应的实现方法;  
 判断如果 change 不为空, 就执行 change 里面方法, 如果 change 为空, 就执行自己的逻辑;  
 
+### 热更新  
+主要分为 java 层实现, 和 native 层实现两种, java 层实现主要分为基于 multiDex 和 instantRun;  
+使用 DexClassLoader 加载dex 数组, patch.dex 最优先加载, 例如 A.class 存在于 patch.dex 和 class.dex 中,   
+那么系统中只会存在一个 A.class, 就是 patch.dex 中的 class;  
+基于 multiDex 实现的热更新, 必须在重启之后才会生效;  
+简单来讲, 热更新的原理就是 dex 插桩;  
+java 文件编译成 .class 文件, dx.bat 再打包成 patch.dex  
+
+❀ CLASS_ISPREVERIFIED 问题  
+在 apk 安装的时候, 虚拟机会将 dex 优化成 odex 后才拿去执行, 在这个过程中会对所有 class 进行校验;    
+校验方式, 假设 A 类的 static 方法, private方法, 构造函数, override 方法中直接引用到 B 类, 如果 A 类和 B 类在同一个 dex 中, 那么 A 类就会被打上 CLASS_ISPREVERIFIED 标记;  
+被打上这个标记的类不能引用其他 dex 中的类, 否则就会报错;  
+在我们的 Demo 中, MainActivity 和 Cat 本身是在同一个 dex 中的, 所以 MainActivity 被打上了 CLASS_ISPREVERIFIED,  
+而我们修复 bug 的时候却引用了另外一个 dex 的 Cat.class, 所以这里就报错了;  
+而普通分包方案则不会出现这个错误, 因为引用和被引用的两个类一开始就不在同一个 dex 中, 所以校验的时候并不会被打上 CLASS_ISPREVERIFIED;  
+补充一下第二条: A 类如果还引用了一个 C 类, 而 C 类在其他 dex 中, 那么 A 类并不会被打上标记,  
+换句话说, 只要在 static 方法, 构造方法, private方法, override 方法中直接引用了其他 dex 中的类, 那么这个类就不会被打上 CLASS_ISPREVERIFIED 标记;  
+
+在 Dalvik虚拟机下, 执行 dexopt 时, 会对类进行扫描, 如果类里面所有直接依赖的类都在同一个 dex 文件中, 那么这个类就会被打上 CLASS_ISPREVERIFIED 标记,  
+如果一个类有 CLASS_ISPREVERIFIED 标记, 那么在热修复时, 它加载了其他 dex 文件中的类, 会报经典的Class ref in pre-verified class resolved to unexpected implementation异常;  
+通过在 android7.0 8.0 上进行热修复, 也没有遇到这个异常, 猜测这个问题只属于 android5.0以前, 因为 android5.0 后新增了 art;  
+```
+Dexposed                阿里               开源          实时修复  
+Andfix                      阿里               开源           实时修复  
+阿里百川 Hotfix      阿里               未开源       实时修复  
+QQ 空间                   QQ 空间        未开源       冷启动修复  
+QFix                          手Q                开源           冷启动修复  
+Robust                     美团               开源           实时修复  
+Nuwa                        大众点评       开源           冷启动修复    
+RocooFIx                  百度金融       开源           冷启动修复  
+Aceso                        蘑菇街          开源           实时修复  
+Amigo                        饿了么         开源           冷启动修复  
+Tinker                         微信             开源           冷启动修复  
+Sophix                        阿里             未开源       实时修复+ 冷启动修复  
+```
+  
 ### 虚拟机  
 ❀ 编译技术  
 JIT just in time, 及时编译技术, JIT 会在运行时分析应用程序的代码, 识别哪些方法可以归类为热方法,   
@@ -48,13 +84,12 @@ ART 在内存分配上做了优化, 开辟了一块名为 Large Object Space 的
     同时还引入了moving collector 技术, 专门用来将 gc 后不连续的物理内存块对齐, 解决了内存碎片化严重的问题;  
     
 ### 参考  
+
+热更新;热修复;   
 https://github.com/Omooo/Android-Notes/blob/master/blogs/Android/热修复.md   
 https://juejin.im/post/5a0ad2b551882531ba1077a2  
-https://blog.csdn.net/u010299178/article/details/52031505  
-
-
-
 https://yq.aliyun.com/articles/231111  
+https://yq.aliyun.com/live/313  
 https://github.com/WeMobileDev/article/blob/master/微信Android热补丁实践演进之路.md  
 
 
