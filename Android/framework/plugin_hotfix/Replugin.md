@@ -1,8 +1,4 @@
-### 主要用法
-
-> [注意事项](Attention_SameClass_DifferentFile.md)  
-
-
+[注意事项](replugin/Attention_SameClass_DifferentFile.md)  
 
 ```
 Demo
@@ -85,11 +81,9 @@ host 的 静态字段
 object CacheEnum {     val rootPath = Environment.getExternalStorageDirectory().absolutePath!!     val cacheName = "PluginSample";     val cachePath = "$rootPath/$cacheName/"  }  object PluginEnum {     val mainActivityPath = CacheEnum.cachePath + "plugin.apk"     val mainActivityPair = Pair("plugin", "com.alex.replugin.plugin.MainActivity") }
 
 
-参考
 ```
 
-> 参考  
-
+### 参考  
 https://github.com/Qihoo360/RePlugin/tree/master/replugin-sample  
 https://github.com/Qihoo360/RePlugin/wiki/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B  
 https://github.com/Qihoo360/RePlugin/blob/dev/README_CN.md  

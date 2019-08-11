@@ -1,5 +1,8 @@
 [classLoader](/Java/jvm/object_info.md)  
-[robust](/Android/framework/hotfix/robust.md)  
+[robust](/Android/framework/plugin_hotfix/robust.md)  
+[VirtualApp](/Android/framework/plugin_hotfix/VirtualApp.md)  
+[VirtualApk](/Android/framework/plugin_hotfix/VirtualApk.md)  
+
 在 Java 程序中, JVM 虚拟机通过类加载器 ClassLoader 来加载 class 文件;  
 Android 与 java 类似, 只不过 Android 使用的是 dalvik/Art 虚拟机来运行 .dex 文件;  
 .dex 文件本质上是 .class 文件打包优化而得到的;  
@@ -64,7 +67,26 @@ Amigo                        饿了么         开源           冷启动修复
 Tinker                         微信             开源           冷启动修复  
 Sophix                        阿里             未开源       实时修复+ 冷启动修复  
 ```
-  
+
+### 插件化  
+第一代  dynamic-load-apk  DroidPlugin  
+第二代  VirtualApk  Small  RePlugin 
+第三代  VirtualApp  Atlas  
+ 
+多 dex 模式, 对于每一个插件, 都会生成一个 DexClassLoader, 当加载该插件中的类, 需要通过对应的 DexClassLoader;  
+这样, 不同的插件中的类是隔离的, 当不同的插件, 都引用了同一个库, 但是版本号不一致时, 是不会有问题的, RePlugin 就是采用的这种方案.  
+ 
+单 dex 模式, 将每个插件的 pathList 合并到主工程的 DexClassLoader 中, 这样的好处是, 不同的插件之间互相调用, 不需要通过中介来完成, 直接调用即可;  
+ 
+怎么启动插件中的 Activity, 因为插件中的 Activity 并没有在清单文件中注册, 也就是如何绕过系统的检查;  
+解决问题的办法有很多种, 例如在清单文件中预先配置 SubActivity(就是占位符), 在 Application 初始化的时候, 利用反射系统的 Instrumentation,   
+假如需要启动插件中的 AActivity, Intent 传值的时候, 启动的是 SubActivity, 在真正 new 出来 Activity 的时候, 利用 Intent 的传入参数, 创建目标 AActivity;  
+ 
+Service ContentProvider 的启动方式, 也是通过 SubService 的形式来完成的;  
+BroadCastReceiver 是通过解析清单文件, 将静态注册转为动态注册;  
+ 
+ 
+ 
 ### 虚拟机  
 ❀ 编译技术  
 JIT just in time, 及时编译技术, JIT 会在运行时分析应用程序的代码, 识别哪些方法可以归类为热方法,   
@@ -146,6 +168,17 @@ https://github.com/SusionSuc/AdvancedAndroid/tree/master/插件化
 https://blog.csdn.net/jason0539/article/details/50440669  
 https://yq.aliyun.com/articles/663995  
 
+GC  
+https://yq.aliyun.com/articles/179805  
+
+
+热修复比较    
+http://w4lle.com/2017/05/04/hotpatch-summary/  
+
+instant run 原理  
+https://blog.csdn.net/nupt123456789/article/details/51828701  
+https://blog.csdn.net/xiangzhihong8/article/details/64906131  
+
 废物  
 https://juejin.im/post/5bf22bb5e51d454cdc56cbd5   
 https://juejin.im/post/5c5100c1e51d4550f31755b6  
@@ -154,5 +187,3 @@ https://blog.csdn.net/u010299178/article/details/52031505
 https://segmentfault.com/a/1190000004062866  
 https://www.jianshu.com/p/b1e7b6326330  
 
-热修复比较    
-http://w4lle.com/2017/05/04/hotpatch-summary/  

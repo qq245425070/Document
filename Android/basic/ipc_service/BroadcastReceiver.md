@@ -319,6 +319,7 @@ https://www.jianshu.com/p/abb173858faf
 https://www.open-open.com/lib/view/open1475654927659.html  
 
 原理  
+https://yq.aliyun.com/articles/638371  
 https://www.jianshu.com/p/d0ab021a65f9  
 https://www.jianshu.com/p/37f366064b98  
 https://www.open-open.com/lib/view/open1475654927659.html  

@@ -245,6 +245,7 @@ https://inthecheesefactory.com/blog/fragment-state-saving-best-practices/en
 https://github.com/nuuneoi/StatedFragment  
 
 ❀ startActivity  
+https://www.jianshu.com/p/a768810c3ff8  
 https://blog.csdn.net/stonecao/article/details/6591847  
 https://blog.csdn.net/qq_23547831/article/details/51224992  
 http://gityuan.com/2016/03/12/start-activity/  
