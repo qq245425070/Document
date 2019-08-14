@@ -9,7 +9,7 @@ invoke-direct                                          没有被覆盖方法的�
 move-result vAA                                    将上一个 invoke 类型的指令操作的单字非对象结果负责 vAA;  
 move-result-object vAA                        将上一个 invoke 类型指令操作的对象赋值给 vAA;  
 move-exception vAA                             保存一个运行时发生的异常vAA寄存器，必须是异常发生时的异常处理的第一条指令;  
-const-string v2, "A"                               将字符串常量 "A" 赋值给 v2;  
+const-string v2, "A"                               声明一个变量 v2, 将字符串常量 "A" 赋值给 v2;  
 const/16 v3, 0x929                                把 0x929  赋值给 v3, 0x929 是 16 位数值;  
 const/4 v1, 0x7                                      把 0x7  赋值给 v1, 0x7 是 4 位数值;  
 return-void                                            返回一个void; 

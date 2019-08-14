@@ -12,14 +12,30 @@
 finder 打开 shell  Go2Shell  
 系统垃圾清理  AppCleaner  
 ⌘: command, ⌃: control, ⇧: shift, ⌥: alt/option, ⏎: enter/return, ⌫: delete   
-
 ❀ terminal exit 关闭窗口  
 terminal - 偏好设置 - 描述文件 - shell - 当shell退出时 - 当shell完全退出后关闭   
-
 使用 iterm2  
 ```
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"  
 ```
+```
+# 隐藏某一个文件夹-目录  
+chflags hidden /Users/alex/Public  
+# 显示某一个文件夹-目录  
+chflags nohidden /Users/alex/Public  
+
+chflags hidden /Users/alex/Public
+chflags hidden /Users/alex/Pictures
+chflags hidden /Users/alex/Documents
+chflags hidden /Users/alex/Music
+chflags hidden /Users/alex/Movies
+chflags hidden /Users/alex/Applications
+# 应用程序  
+/Applications  
+# 资源库  
+/Library  
+```
+
 ### 快捷键  
 切换桌面  三指左右  control + 左右  
 锁定屏幕  control + command + Q  
@@ -81,7 +97,6 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 
 [安装软件](ImageFiles/shortcut_001.png)  
 按照箭头, 拖过去;  
-
 ![苹果手机换铃声](ImageFiles/iphone_001.jpg)  
 
 

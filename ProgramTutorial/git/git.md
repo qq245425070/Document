@@ -1,5 +1,4 @@
-
-◆ cloning  
+cloning  
 ```
 fatal: The remote end hung up unexpectedly 
 fatal: early EOF 
@@ -8,12 +7,23 @@ fatal: index-pack failed
 [clone_error](library/clone_error_eof.md)  
 [update latest](library/update_latest.md)  
 [环境变量](library/run_path.md)   
+git 记住账号密码  
+```
+[core]
+## 主要是后面这两行, 如果不想保存, 则删除即可;  
+[credential]
+    helper = store
+## 保存  
+[remote "origin"]
+[branch "master"]
+```
+### git 操作  
 git log  
 如何撤销已经push上去的commit    
-git提供了好几种方法做到这点，其中最简单的方法就是用git revert命令，后面跟上你要撤销的commit id即可。  
+git提供了好几种方法做到这点, 其中最简单的方法就是用git revert命令, 后面跟上你要撤销的commit id即可。  
 git commit  
 ```
-//  提交当前本地变动, 添加变动描述;  
+#  提交当前本地变动, 添加变动描述;  
 git commit -am 更新  
 git commit -am "add readMe file"  
 
@@ -27,16 +37,16 @@ git commit --amend
 ```
 git push  
 ```
-//  把本地的, 当前分支, 推送到远端的, 当前分支上  
+#  把本地的, 当前分支, 推送到远端的, 当前分支上  
 git push origin  
 ```
 
 git fetch  
 ```
-//  抓取远端的 当前分支
+#  抓取远端的 当前分支
 git fetch origin  
 
-//  抓取远端的 feature/v5.0 分支
+#  抓取远端的 feature/v5.0 分支
 git fetch origin feature/v5.0  
 ```  
 fetch 和 pull 区别  
@@ -46,91 +56,61 @@ git fetch 的时候只是将remote的origin进行update  但是并没有在local
 ```
 git merge  
 ```
-//  远端的 feature/v5.0 分支, merge 到本地, 当前分支;  
+#  远端的 feature/v5.0 分支, merge 到本地, 当前分支;  
 git merge origin/feature/v5.0 
-```
-git checkout  
-```
-//  检出对应的分支名称  
-git checkout -b feature/v5.0  
-git checkout branchName  
 ```
 git add  
 ```
-
-git add -A  添加所有变化  
-git add -u  添加被修改(modified)和被删除(deleted)文件，不包括新文件(new)  
-git add .   添加新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件  
+git add -A    添加所有变化  
+git add -u    添加被修改(modified)和被删除(deleted)文件, 不包括新文件(new)  
+git add .      添加新文件(new)和被修改(modified)文件, 不包括被删除(deleted)文件  
 ```
 git status  
 ```
 位于分支 master
 您的分支领先 'origin/master' 共 3 个提交。
   （使用 "git push" 来发布您的本地提交）
-无文件要提交，干净的工作区
+无文件要提交, 干净的工作区
 ```
-git submodule  
-```
-touch .gitmodules
-git submodule add https://gitlab.com/Alex_Cin/mdreader.git module/mdreader
-git submodule add https://gitlab.com/Alex_Cin/andfun.git module/andfun
-```
+
 git reset   
 ```
 git reset 节点回退到上一次, 保留本地代码  
 git reset --hard  节点回退到上一次, 废弃本地代码  
-git reset --hard  abcabcxyzxyzxyxzxxxxyyxyxx    节点回退到某一个节点, 废弃本地代码  
-
+git reset --hard  aaaaaaaaa    节点回退到某一个节点, 废弃本地代码  
 ```
 ### 分支管理  
-查看本地分支  
+❀ 查看本地分支  
 git branch  
-前面带*，高亮的是当前分支  
+前面带 *, 高亮的是当前分支  
 ```
 test  
 dev  
 release  
 * master  
 ```
-查看远端分支  
+新建分支-切换分支  
 ```
+#  查看远端分支  
 git branch -a  
-```
+#  新建分支  
+git branch branchName  
+#  切换分支  
+git checkout branchName  
 
-git 记住账号密码  
-```
-[core]
+#  新建分支, 并切换分支    
+git checkout -b branchName  
+等于以下两步     
+1.. git branch branchName
+2.. git checkout branchName  
 
-## 主要是后面这两行, 如果不想保存, 则删除即可;  
-[credential]
-    helper = store
-## 保存  
-
-[remote "origin"]
-[branch "master"]
-```
-本地分支推送到远端  
-```
+#  本地分支推送到远端  
 git push origin localBranchName  
+#  删除本地分支  
+git branch -d branchA  
+#  删除远端分支  
+git push origin --delete branchB  
 ```
-### git pull 冲突  
-```
-
-Merge branch 'master' of https://gitlab.com/Alex_Cin/mdreader
-# 请输入一个提交信息以解释此合并的必要性，尤其是将一个更新后的上游分支
-# 合并到主题分支。
-#
-# 以 '#' 开始的行将被忽略，而空的提交说明将终止提交。
-
-
-
-
-                                                                          [ 已读取 5 行 ]
-^G 求助         ^O 写入         ^W 搜索         ^K 剪切文字     ^J 对齐         ^C 游标位置     M-U 撤销        M-A 标记文字    M-] 至括号      M-▲ 上一个
-^X 离开         ^R 读档         ^\ 替换         ^U 还原剪切     ^T 拼写检查     ^_ 跳行         M-E 重做        M-6 复制文字    M-W 搜索下一个  M-▼ 下一个
-
-```
-直接按下 control + x  
 
 ### 修改上一次的提交内容  
 假设用的是 gerrit 这个 code review 工具;  
@@ -151,7 +131,32 @@ git push origin HEAD:refs/for/branchName
 
 git push --receive-pack='git receive-pack --reviewer=zhangsan@host.com --reviewer=lisi@host.com' origin HEAD:refs/for/branchName  
 ```
+### git submodule  
+```
+touch .gitmodules  
+git submodule add https://gitlab.com/Alex_Cin/mdreader.git module/mdreader
+git submodule add https://gitlab.com/Alex_Cin/andfun.git module/andfun
+git submodule init  # 初始化本地.gitmodules文件  
+git submodule update  # 同步远端submodule源码  
+git submodule foreach --recursive git submodule init   
+git submodule foreach --recursive git submodule update   
+❀ 在主目录下, 更新子模块有两种形式  
+1..  git submodule foreach git pull  
+2..  cd subProjectPath  
+      git pull  
+❀ 修改子模块代码  
+如果需要修改 submoduleA 的代码, 正确的操作是, 切换到子模块目录下, 执行 git pull;  
+修改完成之后, 会执行 git add -A, 再执行 git commit -am 'message', 再执行 git push;  
+回到主仓库, 执行 git pull, git submodule update, git status;  
+这个时候, 会带来一个问题, 那就是, submoduleA 并不是在 master 分支, 而是某一个游离点-挂起点;  
+如果再要回到 submoduleA 修改代码, 一定要执行 git checkout branchName, git pull, git status;  
+如果再要回到 submoduleA 修改代码, 如果忘记切换分支, 但是已经修改了代码  
+        执行 git checkout branchName, 将HEAD从游离状态切换到 branchName 分支, 这时候, git 会报 Warning, 有一个提交没有在 branch 上,   
+        记住这个提交的change-id(假如change-id为 aaaa)  
+        执行 git cherry-pick aaaa 来将刚刚的提交作用在 branchName 分支上;  
+        再执行 git status;  
 
+```
 ### 参考  
 https://gitforwindows.org/  
 https://git-scm.com/book/zh/v1/Git-工具-重写历史  
