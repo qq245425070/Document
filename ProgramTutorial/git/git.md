@@ -85,7 +85,7 @@ release
 新建分支-切换分支  
 ```
 #  查看远端分支  
-git branch -a  
+git branch -r  
 #  新建分支  
 git branch branchName  
 #  切换分支  

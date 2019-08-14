@@ -17,7 +17,11 @@ terminal - 偏好设置 - 描述文件 - shell - 当shell退出时 - 当shell完
 使用 iterm2  
 ```
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"  
+iTerm2固定标签名字  
+https://www.jianshu.com/p/d47e36ae2ec5  
+
 ```
+
 ```
 # 隐藏某一个文件夹-目录  
 chflags hidden /Users/alex/Public  
