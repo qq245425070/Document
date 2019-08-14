@@ -72,13 +72,6 @@ git status
   （使用 "git push" 来发布您的本地提交）
 无文件要提交, 干净的工作区
 ```
-
-git reset   
-```
-git reset 节点回退到上一次, 保留本地代码  
-git reset --hard  节点回退到上一次, 废弃本地代码  
-git reset --hard  aaaaaaaaa    节点回退到某一个节点, 废弃本地代码  
-```
 ### 分支管理  
 ❀ 查看本地分支  
 git branch  
@@ -131,13 +124,20 @@ git push origin HEAD:refs/for/branchName
 
 git push --receive-pack='git receive-pack --reviewer=zhangsan@host.com --reviewer=lisi@host.com' origin HEAD:refs/for/branchName  
 ```
+git reset   
+```
+git reset 节点回退到上一次, 保留本地代码  
+git reset --hard  节点回退到上一次, 废弃本地代码  
+git reset --hard  aaaaaaaaa    节点回退到某一个节点, 废弃本地代码  
+```
 ### git submodule  
+子模块  
 ```
 touch .gitmodules  
 git submodule add https://gitlab.com/Alex_Cin/mdreader.git module/mdreader
 git submodule add https://gitlab.com/Alex_Cin/andfun.git module/andfun
-git submodule init  # 初始化本地.gitmodules文件  
-git submodule update  # 同步远端submodule源码  
+git submodule init   #  初始化本地.gitmodules 文件  
+git submodule update   #  同步远端 submodule 源码  
 git submodule foreach --recursive git submodule init   
 git submodule foreach --recursive git submodule update   
 ❀ 在主目录下, 更新子模块有两种形式  

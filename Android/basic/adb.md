@@ -29,7 +29,12 @@ open -e .bash_profile
 追加  
 export PATH=${PATH}:~/Library/Android/sdk/platform-tools  
 
-
+mac 下, 总是配置失败,   
+使用 iterm2, 使用 oh-my-zsh 主题,  
+执行 touch .zshrc  
+执行 open -e .zshrc  
+追加 source ~/.bash_profile  
+source ~/.bash_profile  
 ### 常见命令  
 
 ❀ 查看栈顶的Activity  
