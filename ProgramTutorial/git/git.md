@@ -72,7 +72,6 @@ git status
   （使用 "git push" 来发布您的本地提交）
 无文件要提交, 干净的工作区
 ```
-### 分支管理  
 ❀ 查看本地分支  
 git branch  
 前面带 *, 高亮的是当前分支  
@@ -85,13 +84,16 @@ release
 新建分支-切换分支  
 ```
 #  查看远端分支  
-git branch -a  
-#  新建分支  
+git branch -r  
+#  检出远端分支, 并切换分支  
+git fetch origin    
+git checkout -b branchName origin/branchName  
+#  新建本地分支  
 git branch branchName  
-#  切换分支  
+#  切换本地分支  
 git checkout branchName  
 
-#  新建分支, 并切换分支    
+#  新建本地分支, 并切换到本地分支    
 git checkout -b branchName  
 等于以下两步     
 1.. git branch branchName
@@ -104,8 +106,32 @@ git branch -d branchA
 #  删除远端分支  
 git push origin --delete branchB  
 ```
-
-### 修改上一次的提交内容  
+如果看错分支了;  
+```
+假设应该在 branchA 上改代码, 结果在 branchB 上;  
+git branch = branchB  
+#  保存当前工作进度, 会分别对暂存区和工作区的状态进行保存;  
+git stash   或者 git stash save 'message'  
+git checkout branchA  
+git stash pop  
+#  清空  
+git stash clear 
+```
+#### tag  
+```
+#  查看标签列表  
+git tag  
+#  新建标签  
+git tag v3.1.0  
+#  push标签到远程  
+git push origin v3.1.0  
+#  删除本地标签  
+git tag -d v3.1.0  
+#  删除远程标签  
+git push origin :refs/tags/v3.1.0  
+```
+### 修改提交内容
+#### 修改上一次的提交内容  
 假设用的是 gerrit 这个 code review 工具;  
 ```
 第01次  System.out.println("test 1");  
@@ -129,6 +155,21 @@ git reset
 git reset 节点回退到上一次, 保留本地代码  
 git reset --hard  节点回退到上一次, 废弃本地代码  
 git reset --hard  aaaaaaaaa    节点回退到某一个节点, 废弃本地代码  
+
+git reset  
+等于  git reset HEAD  
+等于  git reset --soft  HEAD~1  
+
+git reset -- filename.java    
+```
+#### 修改前几次的提交内容  
+```
+#  2是倒数第几个commit  
+git rebase -i HEAD~2   
+会出来一个命令, 把 pick 改为 edit   
+修改你的代码, 
+git rebase --continue  
+git push --review    
 ```
 ### git submodule  
 子模块  
