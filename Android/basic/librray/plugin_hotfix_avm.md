@@ -167,6 +167,7 @@ https://github.com/SusionSuc/AdvancedAndroid/tree/master/插件化
 虚拟机  
 https://blog.csdn.net/jason0539/article/details/50440669  
 https://yq.aliyun.com/articles/663995  
+https://juejin.im/post/5d4bdb23e51d453c2577b747  
 
 GC  
 https://yq.aliyun.com/articles/179805  

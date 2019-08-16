@@ -3,7 +3,7 @@
 ![mvc](ImageFiles/mvc.png)  
 model 层, 包含数据模型, 与数据库操作, 网络请求, 持久层, 内存缓存等;  
 controller 是对业务逻辑的处理, 比方说协同几个任务或者几个接口来处理一些逻辑;  
-view 持有 controller 的引用, 
+view 持有 controller 的引用,  
 view 持有 model 的引用;  
 controller 持有 model 的引用;  
 一个 controller 对应多个 view;  
@@ -65,7 +65,10 @@ AndFix
 http://w4lle.com/2016/03/03/Android热补丁之AndFix原理解析/  
 
 
-### 架构与组件化 （Architecture and Components） 
+### 架构与组件化 (Architecture and Components)  
+MVC-MVP-MVVM  
+https://www.jianshu.com/p/f17f5d981de7  
+
 https://github.com/CameloeAnthony/AndroidArchitectureCollection  
 https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html  
 http://www.jianshu.com/p/3edcf85539a6  
@@ -87,7 +90,7 @@ https://listenzz.github.io/android-architecture-part-3-applying-clean-architectu
 https://listenzz.github.io/android-architecture-part-4-applying-clean-architecture-on-android-hands-on.html  
 https://listenzz.github.io/android-lifecyle-works-perfectly-with-rxjava.html    
 
-下面的，是没看的  
+下面的, 是没看的  
 https://www.jianshu.com/p/c1ee77f8237f  
 https://github.com/yangchong211/LifeHelper  
 https://github.com/CameloeAnthony/AndroidArchitectureCollection  
