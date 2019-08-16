@@ -121,10 +121,9 @@ https://github.com/Badranh/Syntax-View-Android
 
 
 ❀ PDF  
+https://github.com/barteksc/AndroidPdfViewer  
 https://github.com/JoanZapata/android-pdfview  
-https://github.com/barteksc/AndroidPdfViewer  
-https://github.com/itext/itextpdf  
-https://github.com/barteksc/AndroidPdfViewer  
+https://github.com/voghDev/PdfViewPager 
 
 ❀ MarkDown  
 https://github.com/falnatsheh/MarkdownView  
