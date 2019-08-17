@@ -101,7 +101,18 @@ public void closeItemAnimator() {
     this.getItemAnimator().setRemoveDuration(0);
     ((SimpleItemAnimator) this.getItemAnimator()).setSupportsChangeAnimations(false);
 }
-```  
+```
+### RecyclerView 和 ListView 相比较优点  
+1.. 丰富的 api;  
+2.. 通过 LayoutManager 实现 item 的排列方式, 布局更加灵活;  
+3.. 在缓存方面, 对于刚刚划出去, 再划回来的两个 item, 不需要绑定数据, 能更快的展示出来;   
+4.. 支持多个 recyclerView 之间共享 recyclerViewPool, 在布局嵌套时, 可以共享 viewHolder, 减少创建过程, 减少用户等待;  
+5.. 支持局部刷新, 性能上更加优越;  
+6.. 容易实现添加, 删除 item 的动画效果;  
+
+从缓存上看, ListView 更节省内存;  
+ListView 自带 headerView 和 footerView 机制,setOnItemClickListener,  recyclerView 需要手动实现;  
+
 ### 参考  
 https://juejin.im/post/5a5d3d9b518825734216e1e8  
 http://www.cnblogs.com/dasusu/p/7746946.html  

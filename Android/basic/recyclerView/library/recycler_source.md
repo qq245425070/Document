@@ -13,10 +13,10 @@ recyclerView 还存在一级缓存 mScrapList, 是被 LayoutManager 持有, recy
 但是 mScrapList 其实一定程度上和动画有关;  
 缓存的重头戏还是在RecyclerView中的内部类Recycler中;  
 类的结构也比较清楚, 这里可以清楚的看到我们后面讲到的四级缓存机制所用到的类都在这里可以看到：
-1.. 一级缓存: mAttachedScrap  
-2.. 二级缓存: mCacheViews  
+1.. 一级缓存: mAttachedScrap(无需执行 bindViewHolder);  
+2.. 二级缓存: mCacheViews(无需执行 bindViewHolder);    
 3.. 三级缓存: mViewCacheExtension  
-4.. 四级缓存: mRecycledViewPool;    
+4.. 四级缓存: mRecycledViewPool(需要执行 bindViewHolder);    
 
 recycler.getViewForPosition(pos)  
 1.. 从 mAttachedScrap 中通过匹配pos获取holder缓存, 如果成功, 得到 holder;  
