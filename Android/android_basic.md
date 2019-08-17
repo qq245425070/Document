@@ -35,7 +35,7 @@ apk 打包流程;  65535 问题;  multiDex 问题;
 [链接](basic/optimize_stability_lowPower.md)  
 
 插件化; 热更新; 热修复; Plugin; ClassLoader;  dalvik ART 虚拟机;  系统;  
-[插件化](basic/librray/plugin_hotfix_avm.md)  
+[链接](basic/librray/plugin_hotfix_avm.md)  
 
 常见问题;  机型差异化;  
 [链接](basic/librray/bug.md)  

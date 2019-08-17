@@ -39,6 +39,10 @@ Hot Swap, Warm Swap, Cold Swap
 java 文件编译成 .class 文件, dx.bat 再打包成 patch.dex;  
 
 ❀ CLASS_ISPREVERIFIED 问题  
+在 dalvik 虚拟机上, 安装 apk 的过程中, 会有一个验证优化 dex 的机制, 就是 dexOpt(Optimised Dex), 这个过程会生成 odex 文件, 当然 odex 文件也是属于 dex 文件;  
+执行 odex 的效率会比直接执行 dex 文件的效率要高很多;   
+运行Apk的时候, 直接加载 odex 文件, 从而避免重复验证和优化, 加快了 apk 的响应时间;  
+
 在 apk 安装的时候, 虚拟机会将 dex 优化成 odex 后才拿去执行, 在这个过程中会对所有 class 进行校验;    
 校验方式, 假设 A 类的 static 方法, private方法, 构造函数, override 方法中直接引用到 B 类, 如果 A 类和 B 类在同一个 dex 中, 那么 A 类就会被打上 CLASS_ISPREVERIFIED 标记;  
 被打上这个标记的类不能引用其他 dex 中的类, 否则就会报错;  
@@ -80,6 +84,7 @@ Sophix                        阿里             未开源       实时修复+ �
  
 怎么启动插件中的 Activity, 因为插件中的 Activity 并没有在清单文件中注册, 也就是如何绕过系统的检查;  
 解决问题的办法有很多种, 例如在清单文件中预先配置 SubActivity(就是占位符), 在 Application 初始化的时候, 利用反射系统的 Instrumentation,   
+Instrumentation 是 ActivityThread 的字段, ActivityThread 对象在内存中只有一份;  
 假如需要启动插件中的 AActivity, Intent 传值的时候, 启动的是 SubActivity, 在真正 new 出来 Activity 的时候, 利用 Intent 的传入参数, 创建目标 AActivity;  
  
 Service ContentProvider 的启动方式, 也是通过 SubService 的形式来完成的;  
@@ -109,12 +114,9 @@ ART 在内存分配上做了优化, 开辟了一块名为 Large Object Space 的
     同时还引入了moving collector 技术, 专门用来将 gc 后不连续的物理内存块对齐, 解决了内存碎片化严重的问题;  
     
 ### 参考  
-
 热更新;热修复;   
-https://github.com/Omooo/Android-Notes/blob/master/blogs/Android/热修复.md   
-https://juejin.im/post/5a0ad2b551882531ba1077a2  
+https://github.com/GitLqr/HotFixDemo  
 https://yq.aliyun.com/articles/231111  
-https://yq.aliyun.com/live/313  
 https://github.com/WeMobileDev/article/blob/master/微信Android热补丁实践演进之路.md  
 
 

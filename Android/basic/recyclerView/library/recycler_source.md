@@ -1,14 +1,22 @@
 ### 对 recyclerView 源码的认识  
 RecyclerView, LayoutManager, Adapter, ViewHolder, ItemDecoration;  
-
+假设一屏展示 N 条, 那么 onCreateViewHolder 初次会执行 N 次, 最终会执行 N + 3 次;  
+之后, 无论怎样滑动, 都不会再触发 onCreateViewHolder, 也就是不会再生成新的 ViewHolder;  
+假设一屏展示6条数据, 初始状态展示 0..5, 之后向上滑动, 第6条出现, 再次执行 onCreateViewHolder;  
+再次滑动, 第0条划出屏幕, holder0 进入 mCacheViews, 第7条出现, 再次执行 onCreateViewHolder;   
+再次滑动, 第1条划出屏幕, holder1 进入 mCacheViews, 第8条出现, 再次执行 onCreateViewHolder;   
+再次滑动, 第2条划出屏幕, holder0 进入 mRecycledViewPool;  
+再次滑动, 第9条进入屏幕, 复用 mRecycledViewPool 里面的 holder0;  
+再次滑动, 第3条划出屏幕, holder1 进入 mRecycledViewPool;   
+以此类推 ....  
 recyclerView 还存在一级缓存 mScrapList, 是被 LayoutManager 持有, recycler是被RecyclerView持有;  
-但是mScrapList其实一定程度上和动画有关;  
+但是 mScrapList 其实一定程度上和动画有关;  
 缓存的重头戏还是在RecyclerView中的内部类Recycler中;  
-类的结构也比较清楚，这里可以清楚的看到我们后面讲到的四级缓存机制所用到的类都在这里可以看到：
+类的结构也比较清楚, 这里可以清楚的看到我们后面讲到的四级缓存机制所用到的类都在这里可以看到：
 1.. 一级缓存: mAttachedScrap  
 2.. 二级缓存: mCacheViews  
 3.. 三级缓存: mViewCacheExtension  
-4.. 四级缓存: mRecyclerPool  
+4.. 四级缓存: mRecycledViewPool;    
 
 recycler.getViewForPosition(pos)  
 1.. 从 mAttachedScrap 中通过匹配pos获取holder缓存, 如果成功, 得到 holder;  
@@ -24,7 +32,7 @@ recycler.getViewForPosition(pos)
 
 第一次尝试, 从 mAttachedScrap 和 mCacheView 中  
 根据 pos 从 mAttachedScrap 中获取 holder, 如果是对应当前 pos, 则为有效;  
-如果无效, 则从  mAttachedScrap 中移除, 放在 mCacheViews 或者 mRecyclerPool 中, 继续下一个缓存, 如果下一个缓存中找到, 则从下一个缓存中移除, 并添加到 mAttachedScrap 缓存中;  
+如果无效, 则从  mAttachedScrap 中移除, 放在 mCacheViews 或者 mRecycledViewPool 中, 继续下一个缓存, 如果下一个缓存中找到, 则从下一个缓存中移除, 并添加到 mAttachedScrap 缓存中;  
 
 第二次尝试,  
 第一次尝试, 对于 mAttachedScrap 和 mCacheViews 缓存, 是不区分 itemViewType 的, 第二次尝试, 流程和第一次基本一致, 多了对 viewType 的判断;  
@@ -33,12 +41,12 @@ recycler.getViewForPosition(pos)
 从自定义 mViewCacheExtension 中获取 holder, 首先这个类基本上没有什么限制, 都由开发者自己决定, 
 
 第四次尝试  
-这次针对 mRecyclerPool 缓存, 支持多个 RecyclerView之间复用 View, 也就是说通过自定义Pool 我们甚至可以实现整个应用内的 RecyclerView 的 View 的复用;  
-mRecyclerPool 内部使用 SparseArray, key就是 ViewType, 而 value 存放的是 ArrayList, 而默认的每个ArrayList的大小是5个;  
+这次针对 mRecycledViewPool 缓存, 支持多个 RecyclerView之间复用 View, 也就是说通过自定义Pool 我们甚至可以实现整个应用内的 RecyclerView 的 View 的复用;  
+mRecycledViewPool 内部使用 SparseArray, key就是 ViewType, 而 value 存放的是 ArrayList, 而默认的每个ArrayList的大小是5个;  
 这里还有一个要注意的点就是 getRecycledView 这个方法可以看到拿到 holder 其实是通过 remove 拿到的, 也就是通过remove拿到的;  
 
 总结:  
-1.. RecyclerView 内部大体可以分为四级缓存: mAttachedScrap,mCacheViews,mViewCacheExtension,mRecyclerPool. 
+1.. RecyclerView 内部大体可以分为四级缓存: mAttachedScrap,mCacheViews,mViewCacheExtension,mRecycledViewPool. 
 2.. mAttachedScrap,mCacheViews 只是对 View 的复用, 并且不区分 type; ViewCacheExtension  RecycledViewPool 是对于 ViewHolder 的复用, 而且区分 type;  
 3.. 如果缓存 ViewHolder 时发现超过了mCachedView 的限制, 会将最老的 ViewHolder(也就是 mCachedView 缓存队列的第一个 ViewHolder )移到 RecycledViewPool 中;  
 
@@ -46,12 +54,12 @@ mAttachedScrap的大小刚好为屏幕内可以显示的Item的数量, 不需要
 mCachedViews 内的缓存在复用的时候不需要调用 bindHolder, 也就是在滑动的过程中, 免去了bind的过程, 提高滑动的效率;   
 
 在自定义 LayoutManager 中:   
-被 remove 的view, 对应的 holder, 会放在 mViewCacheExtension 或 mRecyclerPool 中;  
+被 remove 的view, 对应的 holder, 会放在 mViewCacheExtension 或 mRecycledViewPool 中;  
 被 detach 的view, 对应的 holder, 会放在 mAttachedScrap 或 mCacheViews 中;  
-因为 mAttachedScrap,mCacheViews 是对 view 的复用,  mViewCacheExtension, mRecyclerPool 是对 holder 的复用;  
-mCacheViews 与 mAdapter 一致, 当 mAdapter 被更换时, mCacheViews 即被缓存至 mRecyclerPool 中, 上限是 2, 即被划出屏幕的两个 itemView;   
+因为 mAttachedScrap,mCacheViews 是对 view 的复用,  mViewCacheExtension, mRecycledViewPool 是对 holder 的复用;  
+mCacheViews 与 mAdapter 一致, 当 mAdapter 被更换时, mCacheViews 即被缓存至 mRecycledViewPool 中, 上限是 2, 即被划出屏幕的两个 itemView;   
 mViewCacheExtension 不直接使用, 默认不实现, 需要 RD 手动实现;  
-mRecyclerPool 与自身生命周期一致, 不再被引用时, 被释放;  根据 viewType 存储, 默认支持5种 viewType;  
+mRecycledViewPool 与自身生命周期一致, 不再被引用时, 被释放;  根据 viewType 存储, 默认支持5种 viewType;  
 
 ### dispatchLayout  
 ```

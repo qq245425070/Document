@@ -70,9 +70,10 @@ https://github.com/eschao/android-PageFlip
 
 ### MapView-课程表-流式布局-自由拖动
 
-❀ MapView  
+❀ MapView; 地图    
 https://github.com/onlylemi/MapView  
 https://github.com/moagrius/TileView  
+https://github.com/lemberg/mappwidget  
 
 仿支付宝选票    https://github.com/captain-miao/SelectMovieSeat  
     
