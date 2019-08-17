@@ -103,6 +103,7 @@ public void closeItemAnimator() {
 }
 ```  
 ### 参考  
+https://juejin.im/post/5a5d3d9b518825734216e1e8  
 http://www.cnblogs.com/dasusu/p/7746946.html  
 ListView 与 RecyclerView 简单对比  
 https://blog.csdn.net/shu_lance/article/details/79566189  

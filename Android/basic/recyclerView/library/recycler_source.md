@@ -61,10 +61,6 @@ mCacheViews 与 mAdapter 一致, 当 mAdapter 被更换时, mCacheViews 即被�
 mViewCacheExtension 不直接使用, 默认不实现, 需要 RD 手动实现;  
 mRecycledViewPool 与自身生命周期一致, 不再被引用时, 被释放;  根据 viewType 存储, 默认支持5种 viewType;  
 
-### dispatchLayout  
-```
-
-```
 ### 参考  
 https://blog.csdn.net/sdfdzx/article/details/79981073  
 https://segmentfault.com/a/1190000007331249  
