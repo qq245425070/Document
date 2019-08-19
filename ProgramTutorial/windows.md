@@ -1,15 +1,29 @@
 文件强删工具  LockHunter  
+❀ 操作进程  
+```
+- 查看进程
+tasklist 
 
-### 命令行  操作
+- 杀死 java
+taskkill /im java.exe -f
 
-[操作 进程](windows/shell_proccessor.md)  
-[解决夜神 连接 android studio 掉线问题](windows/shell_restart_nox.md)  
+- 杀死 Android Studio
+taskkill /im studio64.exe -f
 
+- 杀死 aapt
+taskkill /im aapt.exe -f
+```
+
+❀ 解决夜神 连接 android studio 掉线问题  
+```
+D:
+cd D:\Program Files (x86)\Nox\Nox\bin
+nox_adb.exe connect 127.0.0.1:62001
+```
 ❀ cmd.exe 携带参数  
 -c   
 执行 String 指定的命令, 执行完后停止, 会退出  
 C:\Windows\System32\cmd.exe /c taskkill /im java.exe -f  
-
 
 ❀ 修改 cmd 字体字号  
 cmd_dos_config.reg

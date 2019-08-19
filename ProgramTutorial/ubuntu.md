@@ -1,5 +1,5 @@
 [更多命令行](/Linux/linux_cmd.md)  
-[应用程序分类-分文件夹](ubuntu/app_dash_board.md)  
+[应用程序分类-分文件夹](library/ubuntu_app_dash_board.md)  
 常用命令  
 ubuntu sudo root 失败  
 ```

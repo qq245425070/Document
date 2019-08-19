@@ -1,5 +1,5 @@
-[clone_error](library/clone_error_eof.md)  
-[环境变量](library/run_path.md)   
+[clone_error](git/clone_error_eof.md)  
+[环境变量](git/run_path.md)   
 git 记住账号密码  
 ```
 [core]
