@@ -20,9 +20,6 @@ http://www.ruanyifeng.com/blog/archives.html
 thinking in uml  
 https://livebook.manning.com/  
 
-MaterialDesign  
-https://www.materialui.co/colors  
-
 ### 免费 api  
 https://api.apiopen.top/recommendPoetry  
 https://api.apiopen.top/todayVideo  
