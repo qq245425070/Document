@@ -24,16 +24,26 @@ FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 PUB_HOSTED_URL=https://pub.flutter-io.cn
 
 
-
+#  mac  
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 export FLUTTER_HOME=/Users/alex/WorkSpace/sourceTree/flutterSDK
-export PATH=$PATH:$FLUTTER_HOME/bin:
+export PATH=$PATH:$FLUTTER_HOME/bin
 
-//  windows 
+#  windows 
 FLUTTER_HOME=D:\Flutter\sdk;  
 PATH=%FLUTTER_HOME\bin;
 PATH=D:\Flutter\sdk\bin;
+
+# ubuntu  
+sudo gedit /etc/profile      
+export PUB_HOSTED_URL=https://pub.flutter-io.cn
+export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+export FLUTTER_HOME=/home/alex/Flutter/flutter-v1.2.1
+export PATH=$PATH:$FLUTTER_HOME/bin
+
+刷新环境变量  
+source /etc/profile  
 ```
 step 03  
 flutter doctor  

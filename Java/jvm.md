@@ -1,6 +1,9 @@
 [Java内存模型(JMM)](jvm/jmm_concept.md)  
 [volatile 关键字](/Java/basic/library/volatile.md)  
+对象的创建;  对象的内存布局;  类加载的生命周期;  类加载器ClassLoader, 与双亲委派模型;  
+[链接](jvm/object_info.md)  
 
+[Class类文件结构](jvm/class_file_structure.md)    
 JVM 运行时数据区域:  程序计数器, Java 虚拟机栈, 本地方法栈, Java 堆(Heap), 方法区(Method Area), 直接接内存;  
 
 ### 程序计数器 (Program Counter Register)   
@@ -90,7 +93,7 @@ Java 虚拟机对 Class 文件每一部分(包括常量池)的格式都有严格
 一般来说, 除了保存 Class 文件中描述的符号引用外, 还会把翻译出来的直接引用, 也存储在运行时常量池中;  
 运行时常量池, 相对于 Class 文件常量池, 的另外一个重要特征是具备动态性, 运行期间也可能将新的常量放入池中;  
 这种特性被开发人员利用得比较多的, 便是String类的 intern()方法;  
-既然运行时常量池是方法区的一部分, 自然受到方法区内存的限制, 当常量池无法再申请到内存时会抛出OutOfMemoryError异常。  
+既然运行时常量池是方法区的一部分, 自然受到方法区内存的限制, 当常量池无法再申请到内存时会抛出OutOfMemoryError异常;   
 
 常量池:  
 常量池可以理解为, Class 文件之中的资源仓库, 它是 Class 文件结构中, 与其他项目关联最多的数据类型,  
@@ -105,32 +108,22 @@ Java 虚拟机对 Class 文件每一部分(包括常量池)的格式都有严格
 
 
 ### 直接内存(DirectMemory)
-直接内存(Direct Memory)并不是虚拟机运行时数据区的一部分, 也不是Java虚拟机规范中定义的内存区域。   
+直接内存(Direct Memory)并不是虚拟机运行时数据区的一部分, 也不是Java虚拟机规范中定义的内存区域;    
 但是这部分内存也被频繁地使用, 而且也可能导致OutOfMemoryError异常出现,     
 在JDK 1.4中新加入了NIO(New Input/Output)类, 引入了一种基于通道(Channel)与缓冲区(Buffer)的I/O方式,   
-它可以使用Native函数库直接分配堆外内存, 然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。     
-这样能在一些场景中显著提高性能, 因为避免了在Java堆和Native堆中来回复制数据。  
-显然, 本机直接内存的分配不会受到Java堆大小的限制, 但是, 既然是内存, 肯定还是会受到本机总内存大小以及处理器寻址空间的限制。   
+它可以使用Native函数库直接分配堆外内存, 然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作;      
+这样能在一些场景中显著提高性能, 因为避免了在Java堆和Native堆中来回复制数据;   
+显然, 本机直接内存的分配不会受到Java堆大小的限制, 但是, 既然是内存, 肯定还是会受到本机总内存大小以及处理器寻址空间的限制;    
 服务器管理员在配置虚拟机参数时, 会根据实际内存设置-Xmx等参数信息, 但经常忽略直接内存,   
-使得各个内存区域总和大于物理内存限制(包括物理的和操作系统级的限制), 从而导致动态扩展时出现OutOfMemoryError异常。  
+使得各个内存区域总和大于物理内存限制(包括物理的和操作系统级的限制), 从而导致动态扩展时出现OutOfMemoryError异常;   
 
-
-### 类与对象  
-对象的创建;  对象的内存布局;  类加载的生命周期;  类加载器ClassLoader, 与双亲委派模型;  
-[链接](jvm/object_info.md)  
-
-[Class类文件结构](jvm/class_file_structure.md)    
-
-
-### 内存回收  
-可达性分析算法;  GC Roots;  JVM怎么判断对象是否已死;  finalize;  
-[链接](jvm/class_lifecycle.md)  
-
-[垃圾收集算法](jvm/garbage_collection.md)   
-[垃圾收集器](jvm/garbage_coloector.md)   
 ### 判断对象是否存活与引用有关  
-当前讨论现象, 建立在一个对象是 gc root 可达;  
+垃圾收集算法; 可达性分析算法;  垃圾收集器;  GC Roots;  JVM怎么判断对象是否已死;  finalize;  
+[链接](jvm/garbage_collection.md)   
 
+
+❀ 对象引用  
+当前讨论现象, 建立在一个对象是 gc root 可达;  
 强引用: 就是指在程序代码之中普遍存在的, 类似 "Object obj = new Object()" 这类的引用, 只要一个对象是 gc root 可达, 并且存在强引用, 垃圾收集器永远不会回收掉被引用的对象;  
 软引用: 只要一个对象是 gc root 可达, 不存在强引用(对象引用置为null), 存在软引用可达, 则内存空间足够, 垃圾回收器就不会回收它;  
               如果内存空间不足了, 就会回收这些对象的内存, 只要垃圾回收器没有回收它, 该对象就可以被程序使用, 软引用可用来实现内存敏感的高速缓存;  
@@ -140,40 +133,57 @@ Java 虚拟机对 Class 文件每一部分(包括常量池)的格式都有严格
               为一个对象设置虚引用的唯一目的就是能在这个对象被收集器回收时刻得到一个系统通知;  
 
 ###  内存分配与回收策略  
-对象主要分配在新生代的Eden区上, 大多数情况下, 对象在新生代Eden区中分配。 当Eden区没有足够空间进行分配时, 虚拟机将发起一次Minor GC。  
-大对象直接进入老年代, 所谓的大对象是指, 需要大量连续内存空间的Java对象, 最典型的大对象就是那种很长的字符串以及数组。    
-大对象对虚拟机的内存分配来说就是一个坏消息, 经常出现大对象容易导致内存还有不少空间时就提前触发垃圾收集以获取足够的连续空间来存储它们。    
+对象主要分配在新生代的Eden区上, 大多数情况下, 对象在新生代Eden区中分配;  当Eden区没有足够空间进行分配时, 虚拟机将发起一次Minor GC;   
+大对象直接进入老年代, 所谓的大对象是指, 需要大量连续内存空间的Java对象, 最典型的大对象就是那种很长的字符串以及数组;     
+大对象对虚拟机的内存分配来说就是一个坏消息, 经常出现大对象容易导致内存还有不少空间时就提前触发垃圾收集以获取足够的连续空间来存储它们;     
 
-长期存活的对象将进入老年代, 如果对象在Eden出生并经过第一次Minor GC后仍然存活, 并且能被Survivor容纳的话, 将被移动到Survivor空间中, 并且对象年龄设为1。    
-对象在Survivor区中每 "熬过" 一次Minor GC, 年龄就增加1岁, 当它的年龄增加到一定程度(默认为15岁), 就将会被晋升到老年代中。     
+长期存活的对象将进入老年代, 如果对象在Eden出生并经过第一次Minor GC后仍然存活, 并且能被Survivor容纳的话, 将被移动到Survivor空间中, 并且对象年龄设为1;     
+对象在Survivor区中每 "熬过" 一次Minor GC, 年龄就增加1岁, 当它的年龄增加到一定程度(默认为15岁), 就将会被晋升到老年代中;      
 
-动态对象年龄判定, 为了能更好地适应不同程序的内存状况, 如果在Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半, 年龄大于或等于该年龄的对象就可以直接进入老年代。  
+动态对象年龄判定, 为了能更好地适应不同程序的内存状况, 如果在Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半, 年龄大于或等于该年龄的对象就可以直接进入老年代;   
 
-空间分配担保, 在发生Minor GC之前, 虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间, 如果这个条件成立, 那么Minor GC可以确保是安全的。  
-因此当出现大量对象在Minor GC后仍然存活的情况(最极端的情况就是内存回收后新生代中所有对象都存活), 就需要老年代进行分配担保, 把Survivor无法容纳的对象直接进入老年代。  
+空间分配担保, 在发生Minor GC之前, 虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间, 如果这个条件成立, 那么Minor GC可以确保是安全的;   
+因此当出现大量对象在Minor GC后仍然存活的情况(最极端的情况就是内存回收后新生代中所有对象都存活), 就需要老年代进行分配担保, 把Survivor无法容纳的对象直接进入老年代;   
 
-新生代GC(Minor GC): 指发生在新生代的垃圾收集动作, 因为Java对象大多都具备朝生夕灭的特性, 所以Minor GC非常频繁, 一般回收速度也比较快。  
-老年代GC(Major GC/Full GC): 指发生在老年代的GC, 出现了Major GC, 经常会伴随至少一次的Minor GC,  Major GC的速度一般会比Minor GC慢10倍以上。   
+新生代GC(Minor GC): 指发生在新生代的垃圾收集动作, 因为Java对象大多都具备朝生夕灭的特性, 所以Minor GC非常频繁, 一般回收速度也比较快;   
+老年代GC(Major GC/Full GC): 指发生在老年代的GC, 出现了Major GC, 经常会伴随至少一次的Minor GC,  Major GC的速度一般会比Minor GC慢10倍以上;    
 
 ### 什么情况下触发垃圾回收  
 
 GC有两种类型: Scavenge GC 和 Full  GC  
 Scavenge GC  
 一般情况下, 当新对象生成, 并且在 Eden 申请空间失败时, 就会触发 Scavenge  GC,     
-对 Eden 区域进行GC, 清除非存活对象, 并且把尚且存活的对象移动到 Survivor 区, 然后整理 Survivor 的两个区。    
-这种方式的GC是对年轻代的 Eden 区进行, 不会影响到年老代。因为大部分对象都是从 Eden 区开始的, 同时 Eden 区不会分配的很大, 所以 Eden 区的GC会频繁进行。    
-因而, 一般在这里需要使用速度快、效率高的算法, 使 Eden 去能尽快空闲出来。  
+对 Eden 区域进行GC, 清除非存活对象, 并且把尚且存活的对象移动到 Survivor 区, 然后整理 Survivor 的两个区;     
+这种方式的GC是对年轻代的 Eden 区进行, 不会影响到年老代; 因为大部分对象都是从 Eden 区开始的, 同时 Eden 区不会分配的很大, 所以 Eden 区的GC会频繁进行;     
+因而, 一般在这里需要使用速度快、效率高的算法, 使 Eden 去能尽快空闲出来;   
 
 
 Full GC  
-对整个堆进行整理, 包括 Young、Old、Permanent。Full GC需要对整个对进行回收, 所以比 Scavenge  GC要慢, 因此应该尽可能减少Full GC的次数。  
-在对JVM调优的过程中, 很大一部分工作就是对于Full GC的调节。有如下原因可能导致Full GC: 
+对整个堆进行整理, 包括 Young, Old, Permanent; Full GC需要对整个对进行回收, 所以比 Scavenge  GC要慢, 因此应该尽可能减少Full GC的次数;   
+在对JVM调优的过程中, 很大一部分工作就是对于Full GC的调节; 有如下原因可能导致Full GC: 
 年老代(Old Generation)被写满
 持久代(Permanent Generation)被写满 
 System.gc()被显示调用 
 上一次GC之后Heap的各域分配策略动态变化
 
+System.gc();  //  告诉垃圾收集器打算进行垃圾收集, 而垃圾收集器进不进行收集是不确定的 
+System.runFinalization();  //  强制调用已经失去引用的对象的finalize方法  
 
+```
+public void runGc() {
+    Runtime.getRuntime().gc();
+    this.enqueueReferences();
+    System.runFinalization();
+}
+
+private void enqueueReferences() {
+    try {
+        Thread.sleep(100L);
+    } catch (InterruptedException var2) {
+        throw new AssertionError();
+    }
+}
+```  
 ### 参考  
 http://www.importnew.com/17770.html  
 http://www.cnblogs.com/dingyingsi/p/3760447.html  

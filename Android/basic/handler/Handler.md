@@ -211,7 +211,17 @@ Message next() {
 可见是, next 没有拿到即刻执行的消息, 或者没有拿到消息的时候, 会回调这个 IdleHandler 接口;   
 如果拿到了即刻的消息, 会立刻处理次条消息的;  
 另外, 如果 IdleHandler#queueIdle 如果返回 false, 那么处理完这个回调, 会把他从回调数组中移除, 返回 true, 则继续保留;  
-
+应用场景, 在页面初始化, 例如 activity 的 onCreate 方法做一些操作, 可能会占用几十或者上百毫秒,  
+不需要扔到子线程去执行, 又想减少用户等待, 所谓的等待, 就是等待 UI 的最终呈现, 这个时候用 idleHandler 最何时了;  
+ ```
+Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
+        @Override
+        public boolean queueIdle() {
+            Log.i("TEST_TAG", "queueIdle: ");
+            return false;
+        }
+    });
+```
 ### 消息池   
 Looper#loop  
 ```

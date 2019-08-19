@@ -1,6 +1,5 @@
-  ### HandlerThread 
- 
- ```
+### HandlerThread  
+```
  @Override
  protected void onCreate(@Nullable Bundle savedInstanceState) {
      super.onCreate(savedInstanceState);
@@ -30,7 +29,7 @@
      }
      super.onDestroy();
  }
- ```
+```
 ❀ HandlerThread 的特点  
 HandlerThread 将 loop 转到子线程中处理, 说白了就是将分担 mainLooper 的工作量, 降低了主线程的压力, 使主界面更流畅;  
 HandlerThread 拥有自己的消息队列, 它不会干扰或阻塞 UI 线程;  
