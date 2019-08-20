@@ -186,7 +186,7 @@ Merge remote-tracking branch 'origin/merge-review' into test
 2.. 
 git add . 
 git commit --amend  
-按 esc, 按: (冒号), 按 wq, 按 enter (回车);  
+按: (冒号), 按 wq, 按 enter (回车);  
 branchName 是分支名字, 写自己的分支名字, 例如 master  
 3.. 
 //  这里是 code review 的人员;  
