@@ -167,6 +167,7 @@ hash 数组的索引值, 还是 (length -1) & hash 值;
 
 ### 参考  
 http://yikun.github.io/2015/04/01/Java-HashMap工作原理及实现/  
+https://juejin.im/post/5d5d25e9f265da03f66dc517  
 
 HashMap类的注释翻译  
 http://blog.csdn.net/fan2012huan/article/details/510859243  

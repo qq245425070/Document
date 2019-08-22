@@ -79,3 +79,5 @@ void transform(Context context, Collection<TransformInput> inputs, Collection<Tr
 https://github.com/Leaking/Hunter  
 https://github.com/houjinyun/Android-AppLifecycleMgr  
 https://www.jianshu.com/p/16ed4d233fd1  
+https://github.com/yrom/shrinker  
+https://github.com/JieYuShi/Luffy    

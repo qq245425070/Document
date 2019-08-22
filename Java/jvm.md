@@ -1,11 +1,11 @@
 [Java内存模型(JMM)](jvm/jmm_concept.md)  
 [volatile 关键字](/Java/basic/library/volatile.md)  
-对象的创建;  对象的内存布局;  类加载的生命周期;  类加载器ClassLoader, 与双亲委派模型;  
+对象的创建;  对象的内存布局;  Java 对象结构; 类加载的生命周期;  类加载器 ClassLoader, 与双亲委派模型;  
 [链接](jvm/object_info.md)  
 
 [Class类文件结构](jvm/class_file_structure.md)    
-JVM 运行时数据区域:  程序计数器, Java 虚拟机栈, 本地方法栈, Java 堆(Heap), 方法区(Method Area), 直接接内存;  
 
+JVM 运行时数据区域:  程序计数器, Java 虚拟机栈, 本地方法栈, Java 堆(Heap), 方法区(Method Area), 直接接内存;  
 ### 程序计数器 (Program Counter Register)   
 
 程序计数器:  

@@ -3,7 +3,6 @@
 这个类的行为仍然是正确的, 那么这个类就是线程安全的;   
 
 [多线程架构图](basic/concurrent/ImageFiles/mt_001.png)  
-[锁-锁的概念](basic/concurrent/concept_lock.md)  
 ### 示例代码  
 [线程安全与线程不安全 demo](basic/concurrent/sample/safe_unsafe.md)   
 [简化封装 ThreadUtil](basic/concurrent/ThreadUtil.md)  
@@ -16,9 +15,8 @@
 [链接](basic/concurrent/sample/es_01.md)   
 
 ### 类逐个介绍  
-[Unsafe CAS 比较并交换](basic/concurrent/Unsafe.md)  
-
-synchronized; object#wait, object#notify 的实现原理;  
+synchronized; object#wait; object#notify 的实现原理;  
+锁-锁的概念;  Unsafe CAS 比较并交换;  
 [链接](basic/concurrent/synchronized.md)  
 
 [ThreadLocal](basic/concurrent/ThreadLocal.md)   
