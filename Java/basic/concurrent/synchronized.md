@@ -79,7 +79,8 @@ notify() 和 notifyAll()工作机制一样, 区别在于 notifyAll()会将等待
 注意, notifyAll() 比 notify() 更加常用, 因为notify()方法只会唤起一个线程, 且无法指定唤醒哪一个线程,  
 所以只有在多个执行相同任务的线程在并发运行时, 我们不关心哪一个线程被唤醒时, 才会使用notify();  
 
-### synchronized 优化  
+### jvm.对.synchronized.的优化  
+无锁(01), 偏向锁(01), 轻量锁(00), 重量锁(10), 
 ❀ 偏向锁:  
 有些时候, 在整个同步周期内是没有竞争的, 在这时只有一个线程在运行, 没有其他线程在和它争抢 cpu;  
 那么这个时候进行的加锁, 释放锁, 重入锁等等操作, 都是多余且降低性能的, 所以这个时候就进入了偏向锁的状态;  
@@ -117,12 +118,16 @@ notify() 和 notifyAll()工作机制一样, 区别在于 notifyAll()会将等待
 在经过若干次循环后, 如果得到锁, 就顺利进入临界区, 如果还不能获得锁, 那就会将线程在操作系统层面挂起, 这就是自旋锁的优化方式;  
 这种方式确实也是可以提升效率的, 最后没办法也就只能升级为重量级锁了;  
 
+❀ 重入锁  
+指的是同一线程外层函数获得锁之后, 内层递归函数仍然有具有该锁资源, 可重入锁最大的作用是避免申请锁资源和避免死锁;  
 
-锁消除:  
+❀ 锁消除:  
 消除锁是虚拟机另外一种锁的优化, 这种优化更彻底, Java虚拟机在JIT编译时(可以简单理解为当某段代码即将第一次被执行时进行编译, 又称即时编译);  
+锁消除的主要判断依据是来源于逃逸分析的数据支持, 如果判断在一段代码中, 堆上的所有数据都不会逃逸出去从而能被其他线程访问到;  
+那就可以把他们当做栈上数据对待, 认为他们是线程私有的, 不需要加锁;  
 通过对运行上下文的扫描, 去除不可能存在共享资源竞争的锁, 通过这种方式消除没有必要的锁, 可以节省毫无意义的请求锁时间;  
-如下 StringBuffer的 append 是一个同步方法, 但是在 add 方法中的 StringBuffer 属于一个局部变量, 并且不会被其他线程所使用;  
-因此 StringBuffer 不可能存在共享资源竞争的情景, JVM会自动将其锁消除;  
+如下 StringBuffer的 append 是一个同步方法, 但是在调用处 StringBuffer 属于一个局部变量, 并且不会被其他线程所使用;  
+因此 StringBuffer 不可能存在共享资源竞争的情景, JVM 会自动将其锁消除;  
 
 总结  
 简单来讲, 单线程时, 使用偏向锁;  
@@ -245,10 +250,14 @@ http://www.open-open.com/lib/view/open1352431526366.html
 https://blog.csdn.net/javazejian/article/details/72828483  
 https://juejin.im/post/5d5374076fb9a06ac76da894  
 https://blogs.oracle.com/dave/biased-locking-in-hotspot  
+https://zhuanlan.zhihu.com/p/29866981  
 
 cas.unsafe  
 https://www.jb51.net/article/136718.htm  
 https://juejin.im/post/5c7a86d2f265da2d8e7101a1  
 http://www.tianxiaobo.com/2018/05/15/Java-中的-CAS-原理分析/  
+
+锁  
+https://tech.meituan.com/2018/11/15/java-lock.html  
 
 
