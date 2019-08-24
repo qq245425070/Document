@@ -4,7 +4,7 @@ HashMap 同时允许 key, value 都可以为空;
 HashMap 不是 线程安全的, 可以用 synchronized 实现线程安全, 在高并发下, 应该用 ConcurrentHashMap, 建议不要再使用 Hashtable 了;  
 HashMap 的默认容量是16;  
 
-数组的每个元素, 称之为箱子(bucket), 箱子里存放着桶(bin);  
+数组的每个元素, 称之为桶(bucket), 箱子里存放着箱子(bin);  
 桶的数据结构有 2 种可能: 链表, 红黑树;  
 HashMap 使用 key 的 hashCode 来寻找存储位置;  
 不同的 key 可能具有相同的 hashCode, 这时候就出现哈希冲突了, 也叫做哈希碰撞, 为了解决哈希冲突;   
@@ -21,7 +21,7 @@ HashMap 使用 key 的 hashCode 来寻找存储位置;
 假设仍在上一个 hash 位置, 发生冲突, 则会继续进行树化, 再树化的时候, 这个时候, tab 的长度大于等于 64 了, 则真的是需要树化了;  
 假设仍在上一个 hash 位置, 发生冲突, 因为上一次冲突已经发生了树化, 所以这次的 node 是 treeNode, 一直在树上挂在节点,  
          一直到 hashMap 总元素的个数大于 threshold = capacity * 0.75, 则会进调用 resize 方法进行扩容;  
-在扩容的时候, 会检查箱子中, 桶的数量小于 6 的时候,  就会从树变成链表;  
+在扩容的时候, 会检查桶中, 箱子的数量小于 6 的时候,  就会从树变成链表;  
 
 put 操作的过程  
 如果是 key 已存在则修改旧值, 并返回旧值;  
@@ -54,6 +54,8 @@ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
 2.. h >>> 16;  无符号项右位移 16位,  右边的低位被丢弃, 左边的高位补 0;  
 3.. 再 把之前的 hashCode 异或 上 位移之后的结果值;  
 4.. 取当前的hash数组的长度 n, 当前的 index = (n-1) & hash;  
+hash 函数又叫扰动函数, 目的是让低位部分中掺杂高位部分的信息;  
+在计算 hash 位置的时候, 是 hash 值 & tab[].length-1, 所以为了让高位部分的信息表现出来, 增加 hash 的随机性, 使用这个扰动函数;  
 
 ### 扩容   
 因为 hash 值的计算规则是固定的, 所以在扩容的时候, 不需要再一次计算 hash 值;  
@@ -145,7 +147,6 @@ static final int MIN_TREEIFY_CAPACITY = 64;
 
 ### 参考  
 http://yikun.github.io/2015/04/01/Java-HashMap工作原理及实现/  
-https://juejin.im/post/5d5d25e9f265da03f66dc517  
 
 HashMap类的注释翻译  
 http://blog.csdn.net/fan2012huan/article/details/510859243  
@@ -184,4 +185,5 @@ http://blog.csdn.net/lianhuazy167/article/details/66967698
 hash 索引计算-扰动函数  
 https://www.cnblogs.com/zhengwang/p/8136164.html  
 https://my.oschina.net/u/232911/blog/2254278  
+https://www.zhihu.com/question/20733617  
 
