@@ -1,13 +1,13 @@
 ### ArrayList 
 
 简单描述   
-ArrayList 是一个可变数组, 实现List接口, 允许所有添加元素, 包括null;
-添加、删除元素的时间复杂度是O(n);修改元素的时间复杂度是O(1);
-默认容量是10, 以1.5倍系数增长;
-如果程序设计扩容情况, 最好在 ArrayList 初始化时, 给出适当的初始容量;
-ArrayList不是 线程安全的, 如果多线程操作访问同一个ArrayList, 需要手动实现, 如添加 synchronized 代码块;
-在多线程的情况下可以考虑使用 Collections.synchronizedList(List T)函数返回一个线程安全的ArrayList类,     
-也可以使用并发包下的CopyOnWriteArrayList类。  
+ArrayList 是一个可变数组 , 实现 List 接口 , 允许所有添加元素 , 包括 null;  
+添加, 删除元素的时间复杂度是 O(n);修改元素的时间复杂度是 O(1);  
+默认容量是 10, 以 1.5倍系数增长;  
+如果程序设计扩容情况 , 最好在 ArrayList 初始化时 , 给出适当的初始容量;  
+ArrayList 不是 线程安全的 , 如果多线程操作访问同一个 ArrayList, 需要手动实现 , 如添加 synchronized 代码块;  
+在多线程的情况下可以考虑使用 Collections.synchronizedList(List T)函数返回一个线程安全的 ArrayList 类 ,  
+也可以使用并发包下的 CopyOnWriteArrayList 类;     
 
 ArrayList 转换为数组  
 ```
