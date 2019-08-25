@@ -1,5 +1,6 @@
 ### Exchanger  
-◆ 示例    
+方便了两个共同操作线程之间的双向交换  
+❀ 示例    
 ```
 public static void main(String[] args) throws Exception {
     Exchanger<String> exchanger = new Exchanger<>();

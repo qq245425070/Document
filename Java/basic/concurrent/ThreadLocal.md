@@ -3,26 +3,24 @@
   
 当使用 ThreadLocal 维护变量时, ThreadLocal 为每个使用该变量的线程提供独立的变量副本, 就是单独 new 出来一个实例对象,   
 所以每一个线程都可以独立地改变自己的副本, 而不会影响其它线程所对应的副本, 因为是不同的示例对象, 所以互不影响;   
-  
 从线程的角度看, 每个线程都保持对其线程局部变量副本的隐式引用, 只要线程是活动的并且 ThreadLocal 实例是可访问的;   
 在线程消失之后, 其线程局部实例的所有副本都会被垃圾回收(除非存在对这些副本的其他引用);   
-  
-  
+
 通过 ThreadLocal.set()将这个新创建的对象的引用保存到各线程的自己的一个 map 中, 每个线程都有这样一个 map, 执行 ThreadLocal.get()时, 各线程从自己的 map 中取出放进去的对象,   
 因此取出来的是各自自己线程中的对象, ThreadLocal 实例是作为 map 的 key 来使用的;   
 如果 ThreadLocal.set()进去的东西本来就是多个线程共享的同一个对象, 那么多个线程的 ThreadLocal.get()取得的还是这个共享对象本身, 还是有并发访问问题;   
-  
-  
+
+
 总之, ThreadLocal 不是用来解决对象共享访问问题的, 而主要是提供了保持对象的方法和避免参数传递的对象访问方式; 归纳了两点:   
-1; 每个线程中都有一个自己的 ThreadLocalMap 类对象, 可以将线程自己的对象保持到其中, 各管各的, 线程可以正确的访问到自己的对象;   
-2; 将一个共用的 ThreadLocal 静态实例作为 key, 将不同对象的引用保存到不同线程的 ThreadLocalMap 中, 然后在线程执行的各处通过这个静态 ThreadLocal 实例的 get()方法,   
+1.. 每个线程中都有一个自己的 ThreadLocalMap 类对象, 可以将线程自己的对象保持到其中, 各管各的, 线程可以正确的访问到自己的对象;   
+2.. 将一个共用的 ThreadLocal 静态实例作为 key, 将不同对象的引用保存到不同线程的 ThreadLocalMap 中, 然后在线程执行的各处通过这个静态 ThreadLocal 实例的 get()方法,   
 取得自己线程保存的那个对象, 避免了将这个对象作为参数传递的麻烦;   
-  
+
 ### Thread#threadLocals  
 thread 内部有一个成员变量 threadLocals, 在线程退出的时候, 会被置空  
 ```  
 Thread#threadLocals  
-  
+
 /**  
  * This method is called by the system to give a Thread  
  * a chance to clean up before it actually exits.  
