@@ -72,43 +72,32 @@ HotSpot 虚拟机中默认 Eden 和 Survivor 的大小比例是 8:1:1;
 在年老代中, 因为对象存活率高, 没有额外空间对它进行分配担保, 就必须采用"标记-清除"或"标记-整理"算法来进行回收;   
 
 Java虚拟机的堆内存共划分为: 年轻代(Young Generation), 年老代(Tenured Generation), 永生代(Permanent Generation);    
-年轻代和年老代的划分, 对垃圾回收影响比较大;  
 新生对象被分配到 Young Generation 的 Eden 区, 大对象直接被分配到 Tenured Generation;  
-对象主要分配在年轻代的 Eden 区上, 大多数情况下, 对象在年轻代 Eden 区中分配;  当 Eden 区没有足够空间进行分配时, 虚拟机将发起一次 Minor GC;   
-大对象直接进入年老代, 所谓的大对象是指, 需要大量连续内存空间的 Java 对象, 最典型的大对象就是那种很长的字符串以及数组;     
-大对象对虚拟机的内存分配来说就是一个坏消息, 经常出现大对象容易导致内存还有不少空间时就提前触发垃圾收集以获取足够的连续空间来存储它们;     
-长期存活的对象将进入年老代, 如果对象在 Eden 出生并经过第一次 Minor GC 后仍然存活, 并且能被 Survivor 容纳的话, 将被移动到Survivor 空间中, 并且对象年龄设为1;     
-对象在 Survivor 区中每 "熬过" 一次 Minor GC, 年龄就增加1岁, 当它的年龄增加到一定程度(默认为15岁), 就将会被晋升到年老代中;      
+当 Eden 区没有足够空间进行分配时, 虚拟机将发起一次 Minor GC;   
+所谓的大对象是指, 需要大量连续内存空间的 Java 对象, 最典型的大对象就是那种很长的字符串以及数组, 直接分配到年老代, 是为了让年轻代有更大的内存空间, 减少 GC;  
+大对象对虚拟机的内存分配来说就是一个坏消息, 经常出现大对象容易导致内存还有不少空间时就提前触发垃圾收集以获取足够的连续空间来存储它们;  
+长期存活的对象将进入年老代, 如果对象在 Eden 出生并经过第一次 Minor GC 后仍然存活, 并且能被 Survivor 容纳的话, 将被移动到 Survivor 空间中, 并且对象年龄设为1;  
+对象在 Survivor 区中每 "熬过" 一次 Minor GC, 年龄就增加1岁, 当它的年龄增加到一定程度(默认为15岁), 就将会被晋升到年老代中;  
 动态对象年龄判定, 为了能更好地适应不同程序的内存状况, 如果在 Survivor 空间中相同年龄所有对象大小的总和大于 Survivor 空间的一半, 年龄大于或等于该年龄的对象就可以直接进入年老代;   
 空间分配担保, 在发生 Minor GC 之前, 虚拟机会先检查年老代最大可用的连续空间是否大于年轻代所有对象总空间, 如果这个条件成立, 那么 Minor GC 可以确保是安全的;   
 因此当出现大量对象在 Minor GC 后仍然存活的情况(最极端的情况就是内存回收后年轻代中所有对象都存活), 就需要年老代进行分配担保, 把 Survivor 无法容纳的对象直接进入年老代;   
  
-
 ❀ 年轻代  
-所有新生成的对象, 首先都是放在年轻代 Eden 区, 目的就是快速回收掉短命的对象;  
 年轻代分为:  1个 Eden 区和2个 Survivor 区(分别叫 from 和 to), 默认比例为 8:1:1;  
 一般情况下, 新创建的对象都会被分配到 Eden 区, 这些对象经过第一次 Minor GC 后, 如果仍然存活, 将会被移到 Survivor 区;   
-对象在 Survivor 区中每熬过一次 Minor GC, 年龄就会增加1岁, 当它的年龄增加到一定程度时, 就会被移动到年老代中;    
 因为年轻代中的对象大多数都很快被回收, 所以在年轻代的垃圾回收算法使用的是复制算法, 复制算法的基本思想就是将内存分为两块, 
 每次只用其中一块, 当这一块内存用完, 就将还活着的对象复制到另外一块上面; 复制算法不会产生内存碎片; 
-在 GC 开始的时候, 对象只会存在于 Eden 区和名为"From"的 Survivor 区, Survivor 区"To"是空的; 紧接着进行 GC, Eden 区中所有存活的对象都会被复制到"To",   
-而在"From"区中, 仍存活的对象会根据他们的年龄值来决定去向; 年龄达到一定值(年龄阈值, 可以通过-XX:MaxTenuringThreshold来设置)的对象会被移动到年老代中,   
-没有达到阈值的对象会被复制到"To"区域; 经过这次 GC 后, Eden 区和 From 区已经被清空; 这个时候, "From"和"To"会交换他们的角色, 也就是新的"To"就是上次GC前的"From",   
-新的"From"就是上次GC前的"To"; 不管怎样, 都会保证名为 To 的 Survivor 区域是空的; Minor GC 会一直重复这样的过程, 直到"To"区被填满,   
-"To"区被填满之后, 会将所有对象移动到年老代中;   
-
-❀ 年老代  
-在年轻代中经历了N次垃圾回收后仍然存活的对象, 就会被放到年老代中; 因此, 可以认为年老代中存放的都是一些生命周期较长的对象; 
 
 ❀ 永生代    
 用于存放静态文件, 如今Java类, 方法等; 持久代对垃圾回收没有显著影响, 但是有些应用可能动态生成或者调用一些class, 例如Hibernate等,   
 在这种时候需要设置一个比较大的持久代空间来存放这些运行过程中新增的类; 持久代大小通过-XX:MaxPermSize=<N>进行设置;   
 
 ### GC.分类    
-年轻代 GC(Minor GC): 指发生在年轻代的垃圾收集动作, 因为Java对象大多都具备朝生夕灭的特性, 所以 Minor GC 非常频繁, 一般回收速度也比较快;   
-年老代 GC(Major GC/Full GC): 指发生在年老代的 GC, 出现了 Major GC, 经常会伴随至少一次的 Minor GC,  Major GC 的速度一般会比 Minor GC慢10倍以上;    
+
+年轻代 GC(Minor GC): 指发生在年轻代的垃圾收集动作, 因为 Java 对象大多都具备朝生夕灭的特性, 所以 Minor GC 非常频繁, 一般回收速度也比较快;  
+年老代 GC(Major GC/Full GC): 指发生在年老代的 GC, 出现了 Major GC, 经常会伴随至少一次的 Minor GC,  Major GC 的速度一般会比 Minor GC 慢 10 倍以上;  
 ❀ Minor GC  
-从年轻代空间(包括 Eden 和 Survivor 区域)的内存回收, 被称为 Minor GC;   
+从年轻代空间(包括 Eden 和 Survivor 区域)的内存回收, 被称为 Minor GC;  
 1.. 当 JVM 无法为一个新的对象分配空间时会触发 Minor GC, 比如当 Eden 区满了, 所以分配率越高, 越频繁执行 Minor GC;  
 2.. 会触发 stop-the-world, 对系统几乎无影响;  
 
@@ -119,19 +108,44 @@ Full GC 是清理整个堆空间—包括年轻代和年老代;
 许多 Major GC 是由 Minor GC 触发的, 所以很多情况下将这两种 GC 分离是不太可能的;  
 由于 Major GC 会检查所有存活的对象, 因此会花费更长的时间, 圾回收期间让应用反应迟钝;  
 
-对于 Major GC 和 Full GC,  在最初的标记阶段, 会出现 stop-the-world, 停止所有应用程序的线程, 然后开始标记;    
+对于 Major GC 和 Full GC,  在最初的标记阶段, 会出现 stop-the-world, 停止所有应用程序的线程, 然后开始标记;  
 并行执行标记和清洗阶段, 这些都是和应用程序线程并行的;  
 最后 Remark 阶段, 会再次暂停所有的事件;  
 并行执行清理操作, 不会停止其他线程;  
 
+Full GC  
+对整个堆进行整理, 包括 Young, Old, Permanent;  
+在对 JVM 调优的过程中, 很大一部分工作就是对于 Full GC 的调节; 有如下原因可能导致 Full GC:   
+年老代(Old Generation)被写满;  
+持久代(Permanent Generation)被写满;   
+System.gc()被显示调用;   
+上一次 GC 之后 Heap 的各域分配策略动态变化;  
 
 1.. Full GC == Major GC 指的是对年老代/永久代的 stop the world 的 GC;  
-2.. Full GC 的次数 = 年老代GC时 stop the world 的次数;  
-3.. Full GC 的时间 = 年老代GC时 stop the world 的总时间;  
-4.. CMS 不等于 Full GC, 我们可以看到CMS分为多个阶段, 只有stop the world的阶段被计算到了Full GC的次数和时间, 而和业务线程并行的GC的次数和时间则不被认为是Full GC;  
-5.. Full GC 本身不会先进行 Minor GC, 我们可以配置, 让 Full GC 之前先进行一次Minor GC, 因为年老代很多对象都会引用到年轻代的对象, 先进行一次Minor GC可以提高年老代GC的速度;  
-      比如年老代使用CMS时, 设置CMSScavengeBeforeRemark优化, 让CMS remark之前先进行一次Minor GC;  
+2.. Full GC 的次数 = 年老代 GC 时 stop the world 的次数;  
+3.. Full GC 的时间 = 年老代 GC 时 stop the world 的总时间;  
+4.. CMS 不等于 Full GC, 我们可以看到 CMS 分为多个阶段, 只有 stop the world 的阶段被计算到了 Full GC 的次数和时间, 而和业务线程并行的 GC 的次数和时间则不被认为是 Full GC;  
+5.. Full GC 本身不会先进行 Minor GC, 我们可以配置, 让 Full GC 之前先进行一次 Minor GC, 因为年老代很多对象都会引用到年轻代的对象, 先进行一次 Minor GC 可以提高年老代 GC 的速度;  
+      比如年老代使用 CMS 时, 设置 CMSScavengeBeforeRemark 优化, 让 CMS remark 之前先进行一次 Minor GC;  
 
+### 手动尝试垃圾回收  
+System.gc();  //  告诉垃圾收集器打算进行垃圾收集, 而垃圾收集器进不进行收集是不确定的 
+System.runFinalization();  //  强制调用已经失去引用的对象的finalize方法  
+```
+public void runGc() {
+    Runtime.getRuntime().gc();
+    this.enqueueReferences();
+    System.runFinalization();
+}
+
+private void enqueueReferences() {
+    try {
+        Thread.sleep(100L);
+    } catch (InterruptedException var2) {
+        throw new AssertionError();
+    }
+}
+```
 
 ### 垃圾收集器  
 
@@ -152,14 +166,13 @@ ParNew 收集器除了多线程收集之外, 其他与 Serial 收集器相比并
 
 
 ❀ Parallel Scavenge 收集器  
-Parallel Scavenge 收集器是一个年轻代收集器, 它也是使用复制算法的收集器, 又是并行的多线程收集器  
+Parallel Scavenge 收集器是一个年轻代收集器, 它也是使用复制算法的收集器, 又是并行的多线程收集器;  
 CMS 等收集器的关注点是尽可能地缩短垃圾收集时用户线程的停顿时间, 而 Parallel Scavenge 收集器的目标则是达到一个可控制的吞吐量(Throughput);    
-所谓吞吐量就是 CPU 用于运行用户代码的时间与 CPU 总消耗时间的比值, 即吞吐量=运行用户代码时间/(运行用户代码时间+垃圾收集时间),   
+所谓吞吐量就是 CPU 用于运行用户代码的时间与 CPU 总消耗时间的比值, 即吞吐量 = 运行用户代码时间/(运行用户代码时间+垃圾收集时间);   
 虚拟机总共运行了 100 分钟, 其中垃圾收集花掉1分钟, 那吞吐量就是 99%;   
-
-停顿时间越短就越适合需要与用户交互的程序, 良好的响应速度能提升用户体验, 而高吞吐量则可以高效率地利用CPU时间, 尽快完成程序的运算任务,   
-主要适合在后台运算而不需要太多交互的任务;     
-
+停顿时间越短就越适合需要与用户交互的程序, 良好的响应速度能提升用户体验, 而高吞吐量则可以高效率地利用 CPU 时间, 尽快完成程序的运算任务,   
+主要适合在后台运算而不需要太多交互的任务, Parallel Scavenge 被称为吞吐量优先的收集器;     
+Parallel Scavenge 可以设置最大-垃圾收集停顿-时间, 
 
 ❀ Serial Old 收集器  
 年老代单线程收集器, Serial 收集器的年老代版本;  
