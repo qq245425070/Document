@@ -4,6 +4,9 @@ https://github.com/AndroidAdvanceWithGeektime/Chapter37
 https://github.com/whataa/pandora  
 https://github.com/guxiaonian/MobileInfo  
 
+Android - 一种新奇的冷启动速度优化思路(Fragment极度懒加载 + Layout子线程预加载)  
+https://juejin.im/post/5d63cdf7f265da03ed195f68#heading-15  
+
 开发者助手  
 https://www.coolapk.com/apk/com.toshiba_dealin.developerhelper  
 https://github.com/eleme/UETool  
