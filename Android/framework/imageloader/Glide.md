@@ -1,9 +1,8 @@
 ### Glide 相关知识
-
 [源码设计简单描述](glide/source_design_desc.md)   
-[使用:  参数设置](glide/sample.md)  
+[使用与设置](glide/sample.md)  
 
-◆ 参考  
+### 参考  
 http://bumptech.github.io/glide/dev/snapshots.html  
 http://www.lightskystreet.com/2015/10/12/glide_source_analysis/  
 https://blog.csdn.net/github_33304260/article/details/78116312  
@@ -26,7 +25,7 @@ https://www.jishux.com/p/f8a2821db7f64e28
 old  
 http://blog.csdn.net/column/details/15318.html  
 http://blog.csdn.net/guolin_blog/article/details/53759439  
-### 使用 
+使用 
 https://meta.tn/a/47683ed7f090d678990ce7668e19ea3227a93f3ddeba1d7cecf23d9c6016be71  
 https://muyangmin.github.io/glide-docs-cn/doc/configuration.html#applications  
 https://muyangmin.github.io/glide-docs-cn/doc/configuration.html#memory-cache  
@@ -58,9 +57,6 @@ http://blog.csdn.net/theone10211024/article/details/45557859
 https://muyangmin.github.io/glide-docs-cn/  
 https://github.com/sfsheng0322/GlideImageView  
 https://github.com/yuerLoveCoding/MyCircleWaveDiverge  
-
-
-
 
 mingyunxiaohai  chsmy2018  系列, 比较差  
 Android图片加载框架最全解析（四）  系列, 看完了, 没什么用  

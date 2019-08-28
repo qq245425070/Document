@@ -8,7 +8,6 @@
 [参数传递](basic/library/fun_params.md)  
 [单元测试](basic/library/test_junit.md)  
 [hashCode的问题](basic/library/java_hashCode.md)  
-[volatile 关键字](/Java/basic/library/volatile.md)  
 [String](basic/library/String.md)  
 [Stream](basic/library/Stream.md)  
 ### Reflect;  反射机制;  动态代理;  
@@ -47,16 +46,10 @@ Exception 用于标识那些, 需要被程序捕获处理的问题, 为了保证
 
 ### System#arraycopy  
 为什么, System#arraycopy 会比较快?  
-System.arrayCopy 属于浅复制, 是内存地址的拷贝, 避免引用数据在内存中搬来搬去, 自然就会更快;  
-在 int double 等基础数据类型上表现, 不明显, 甚至不一定比 for 循环速度快, 但是, 在引用数组的拷贝上, 表现很明显了;  
-
-参考  
-https://blog.csdn.net/jianghuxiaojin/article/details/53541930  
-https://blog.csdn.net/wangyangzhizhou/article/details/79504818  
-
+native 实现, 时间复杂度是 O(n), 属于浅复制, 是内存地址的拷贝, 避免引用数据在内存中搬来搬去, 自然就会更快;  
+在 int double 等基础数据类型上表现不明显, 因为有一些方法栈要调用, 甚至不一定比 for 循环速度快, 但是在引用数组的拷贝上, 表现很明显了;  
 
 ### 克隆  
-
 基本数据类型, String 默认实现深克隆;  
 浅克隆, 只是给原始引用数据多了一份指针, 多了一个对象的引用, 否则要实现 Cloneable 接口, 重写 clone 方法;  
 引用数据类型, 深克隆后, 会出现2个对象, 修改新的对象数值, 对原始对象没有任何影响,   
@@ -181,4 +174,8 @@ javap -c  classPath
 ```
 ### 参考  
 http://blog.csdn.net/u012152619/article/details/47253811  
+
+System#arraycopy  
+https://blog.csdn.net/jianghuxiaojin/article/details/53541930  
+https://blog.csdn.net/wangyangzhizhou/article/details/79504818  
 

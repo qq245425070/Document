@@ -4,7 +4,6 @@ thread 之间通信, 怎么通信;
 四大组件, 原理;  
 view 测量-绘制原理;  
 okHttp 怎么做的3次握手, 什么时候做, socket有哪些api;  
-除了 thread.start, 你还用过哪些 api, 对 join 有了解吗?  
 Glide 是不是后进来的任务, 优先执行? 
 
 HTTP, keep-Alive 怎么实现的 长连接 和 复用;  
@@ -14,16 +13,11 @@ FragmentPagerAdapter 缓存机制,  怎么做 Fragment 的缓存;
 bindService 和 startService 的区别, 在 生命周期上的表现;  
 IPC, 有哪些, binder 机制的了解有多少;  
 有哪些 OOM, 除了 bitmap string+string, 还有别的么? 
-thread 申请过多, 会不会造成 OOM, 为什么?  
 你有过哪些性能优化的案例, 能不能再说一些有深入性的案例;  
 
 
 红黑树, 你了解多少, 时间复杂度 O(lg n), 是怎么推导出来的;  
-
-对象的比较, equals 和 hashCode, 如果, 只重写了 equals, 没有重写 hashCode, a1==a2, 这样的运算, 系统会怎么处理, 为什么?   
-hashCode 的重写规则, 哪些时候, 会用到 hashCode, 简单说一下;  
-
-System#arraycopy  实现机制, 时间复杂度  
+ 
 
 https://juejin.im/post/5d48e9c36fb9a06af13d50f9  
 https://github.com/JsonChao/Awesome-Android-Interview
