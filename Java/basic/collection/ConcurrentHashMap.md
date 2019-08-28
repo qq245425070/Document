@@ -3,37 +3,38 @@ ConcurrentHashMap 在 java8 已经摒弃了 Segment 的概念, 而是直接使�
 使用 synchronized 和 CAS 控制并发操作;  
 
 ### 名词解释  
-private transient volatile int sizeCtl;  
-负数代表正在进行初始化或扩容操作;  
--1 代表正在初始化;  
--N 表示有 N-1 个线程正在进行扩容操作;  
-0 代表 hash 表还没有被初始化;  
-当为正数时, 表示初始化或者下一次进行扩容的大小;  
-
-private static final int MAX_RESIZERS = (1 << (32 - RESIZE_STAMP_BITS)) - 1;  
-2^15-1，help resize的最大线程数  
-
-private static final int RESIZE_STAMP_SHIFT = 32 - RESIZE_STAMP_BITS;  
-32-16=16，sizeCtl中记录size大小的偏移量;  
-
-ForwardingNode  
-一个特殊的 Node 节点, hash 值为 -1, 其中存储 nextTable 的引用, 只有 table 发生扩容的时候, ForwardingNode 才会发挥作用;  
-作为一个占位符放在 table 中表示当前节点为 null 或则已经被移动;  
+private transient volatile int sizeCtl;    
+负数代表正在进行初始化或扩容操作;    
+-1 代表正在初始化;    
+-N 表示有 N-1 个线程正在进行扩容操作;    
+0 代表 hash 表还没有被初始化;    
+当为正数时 , 表示初始化或者下一次进行扩容的大小;    
+  
+private static final int MAX_RESIZERS = (1 << (32 - RESIZE_STAMP_BITS)) - 1;    
+2^15-1, help resize 的最大线程数    
+  
+private static final int RESIZE_STAMP_SHIFT = 32 - RESIZE_STAMP_BITS;    
+32-16=16, sizeCtl 中记录 size 大小的偏移量;    
+  
+ForwardingNode    
+一个特殊的 Node 节点 , hash 值为 -1, 其中存储 nextTable 的引用 , 只有 table 发生扩容的时候 , ForwardingNode 才会发挥作用;    
+作为一个占位符放在 table 中表示当前节点为 null 或则已经被移动;    
 
 
 
 CAS  
 在 ConcurrentHashMap 中, 大量使用了 U.compareAndSwapXXX 的方法, 这个方法是利用一个 CAS 算法实现无锁化的修改值的操作, 他可以大大降低锁代理的性能消耗;   
 ### 扩容函数 transfer   
-支持多线程进行扩容操作，并没有加锁 ，这样做的目的不仅仅是为了满足concurrent的要求，而是希望利用并发处理去减少扩容带来的时间影响。  
-单线程扩容的大体思想就是遍历、复制的过程。首先根据运算得到需要遍历的次数i，然后利用tabAt方法获得i位置的元素：  
 
-如果这个位置为空，就在原table中的i位置放入forwardNode节点，这个也是触发并发扩容的关键点；  
-如果这个位置是Node节点（fh>=0），如果它是一个链表的头节点，就构造一个反序链表，把他们分别放在nextTable的i和i+n的位置上  
-如果这个位置是TreeBin节点（fh<0），也做一个反序处理，并且判断是否需要untreefi，把处理的结果分别放在nextTable的i和i+n的位置上  
-遍历过所有的节点以后就完成了复制工作，这时让nextTable作为新的table，并且更新sizeCtl为新容量的0.75倍，完成扩容。  
-多线程遍历节点，处理了一个节点，就把对应点的值set为forward，另一个线程看到forward，就向后继续遍历，再加上给节点上锁的机制，就完成了多线程的控制。
-这样交叉就完成了复制工作。而且还很好的解决了线程安全的问题。  
+支持多线程进行扩容操作, 并没有加锁 , 这样做的目的不仅仅是为了满足 concurrent 的要求, 而是希望利用并发处理去减少扩容带来的时间影响;     
+单线程扩容的大体思想就是遍历, 复制的过程; 首先根据运算得到需要遍历的次数 i, 然后利用 tabAt 方法获得 i 位置的元素:     
+  
+如果这个位置为空, 就在原 table 中的 i 位置放入 forwardNode 节点, 这个也是触发并发扩容的关键点;     
+如果这个位置是 Node 节点(fh>=0), 如果它是一个链表的头节点, 就构造一个反序链表, 把他们分别放在 nextTable 的 i 和 i+n 的位置上    
+如果这个位置是 TreeBin 节点(fh<0), 也做一个反序处理, 并且判断是否需要 untreefi, 把处理的结果分别放在 nextTable 的 i 和 i+n 的位置上    
+遍历过所有的节点以后就完成了复制工作, 这时让 nextTable 作为新的 table, 并且更新 sizeCtl 为新容量的 0.75倍, 完成扩容;     
+多线程遍历节点, 处理了一个节点, 就把对应点的值 set 为 forward, 另一个线程看到 forward, 就向后继续遍历, 再加上给节点上锁的机制, 就完成了多线程的控制;   
+这样交叉就完成了复制工作; 而且还很好的解决了线程安全的问题;     
 
 
 ### spread  
@@ -48,12 +49,12 @@ static final int spread(int h) {
 }
 ```
 ### putVal  
-如果没有初始化就先调用initTable（）方法来进行初始化过程  
-如果没有hash冲突就直接CAS插入  
-如果还在进行扩容操作就先进行扩容  
-如果存在hash冲突, 就加锁来保证线程安全, 这里有两种情况, 一种是链表形式就直接遍历到尾端插入, 一种是红黑树就按照红黑树结构插入,   
-最后一个如果该链表的数量大于阈值8, 就要先转换成黑红树的结构, break再一次进入循环  
-如果添加成功就调用addCount（）方法统计size, 并且检查是否需要扩容  
+如果没有初始化就先调用 initTable()方法来进行初始化过程    
+如果没有 hash 冲突就直接 CAS 插入    
+如果还在进行扩容操作就先进行扩容    
+如果存在 hash 冲突 , 就加锁来保证线程安全 , 这里有两种情况 , 一种是链表形式就直接遍历到尾端插入 , 一种是红黑树就按照红黑树结构插入 ,     
+最后一个如果该链表的数量大于阈值 8, 就要先转换成黑红树的结构 , break 再一次进入循环    
+如果添加成功就调用 addCount()方法统计 size, 并且检查是否需要扩容    
 ```
 final V putVal(K key, V value, boolean onlyIfAbsent) {
     if (key == null || value == null) throw new NullPointerException();

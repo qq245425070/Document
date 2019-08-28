@@ -123,6 +123,7 @@ tar -cvf leet.zip /Users/alex/leetcode
 cd /Users/alex 
 tar -jcvf leet.tar.bz2 leetcode
 tar -jcvf AndFun.tar.bz2 AndFun
+tar -zcvf AndFun.tar.gz AndFun
 
 
 -c, --create  create a new archive 创建一个归档文件

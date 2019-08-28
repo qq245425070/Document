@@ -1,13 +1,10 @@
 ### 综合  
 ConcurrentHashMap;  
-HTTP-三次握手-四次挥手;  
-HTTPS;   CA证书有什么用;  
 thread 之间通信, 怎么通信;  
 四大组件, 原理;  
 view 测量-绘制原理;  
 okHttp 怎么做的3次握手, 什么时候做, socket有哪些api;  
 除了 thread.start, 你还用过哪些 api, 对 join 有了解吗?  
-message.obtain 源码, 怎么区分 队列中 消息池中的状态;  
 Glide 是不是后进来的任务, 优先执行? 
 
 HTTP, keep-Alive 怎么实现的 长连接 和 复用;  
@@ -21,8 +18,6 @@ thread 申请过多, 会不会造成 OOM, 为什么?
 你有过哪些性能优化的案例, 能不能再说一些有深入性的案例;  
 
 
-HashMap 什么时候会扩容, 怎么扩容的, 细节;  
-HashMap hash 值重复的地方, 之前是链表存储, 为什么要做树化?  
 红黑树, 你了解多少, 时间复杂度 O(lg n), 是怎么推导出来的;  
 
 对象的比较, equals 和 hashCode, 如果, 只重写了 equals, 没有重写 hashCode, a1==a2, 这样的运算, 系统会怎么处理, 为什么?   
@@ -115,7 +110,6 @@ AlertDialog, popupWindow, 在 Activity 中的区别;
 
 多线程断点续传原理;  
 
-EventBus;  
 
 Https请求慢的解决办法, DNS, 携带数据, 直接访问IP;  
 
