@@ -3,6 +3,11 @@
 单行字母个数  
 Editor -> Code Style 右边-Default Option-Right margin columns 200  
 
+code panel 中间有一根竖线  
+Preferences | Editor | General | Appearance  
+去掉 show hard wrap guide (configuration in code style options)  
+
+
 空方法体-单行方法体, 代码折叠  
 Editor -> General -> Code Folding 右边 One-line methods 选中时默认折叠; 勾掉时默认展开;  
 

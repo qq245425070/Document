@@ -19,6 +19,7 @@ synchronized; object#wait; object#notify 的实现原理;
 锁-锁的概念;  Unsafe CAS 比较并交换;  
 [链接](basic/concurrent/synchronized.md)  
 
+[Thread](basic/concurrent/Thread.md)  
 [ThreadLocal](basic/concurrent/ThreadLocal.md)   
 [Executors](basic/concurrent/Executors.md)  
 [ExecutorService](basic/concurrent/ExecutorService.md)  
