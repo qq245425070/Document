@@ -3,8 +3,9 @@ java 内存结构, java 内存模型, java 对象模型;
 ![java 内存模型](jvm/ImageFiles/java_memory_model.png)  
 ![java 对象模型](jvm/ImageFiles/java_object_model.jpeg)  
 
-[Java 内存模型(JMM)](jvm/jmm_concept.md)  
-[volatile 关键字](/Java/basic/library/volatile.md)  
+Java 内存模型(JMM);  volatile 关键字;  
+[链接](jvm/jmm_concept.md)  
+
 对象的创建;  对象的内存布局;  Java 对象结构; 类加载的生命周期;  类加载器 ClassLoader, 与双亲委派模型;  
 [链接](jvm/object_info.md)  
 
