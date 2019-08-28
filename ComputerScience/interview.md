@@ -70,12 +70,8 @@ ConcurrentHashMap;
 什么年龄代, 用什么回收策略, 什么回收器;  
 TreeMap;  
 
-synchronized 与 Lock的区别;  
-为什么要有 工作内存 和 主存;  
 String 为什么要设计成不可变的;  
 泛型, 如果不想 类型擦除, 怎么办;  
-
-说说你对Java反射的理解; 
 
 内部类的作用;  
 Java深拷贝和浅拷贝;  
