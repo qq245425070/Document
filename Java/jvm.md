@@ -1,3 +1,8 @@
+java 内存结构, java 内存模型, java 对象模型;  
+![java 内存结构](jvm/ImageFiles/java_memory_structure.png)  
+![java 内存模型](jvm/ImageFiles/java_memory_model.png)  
+![java 对象模型](jvm/ImageFiles/java_object_model.jpeg)  
+
 [Java 内存模型(JMM)](jvm/jmm_concept.md)  
 [volatile 关键字](/Java/basic/library/volatile.md)  
 对象的创建;  对象的内存布局;  Java 对象结构; 类加载的生命周期;  类加载器 ClassLoader, 与双亲委派模型;  
@@ -9,8 +14,11 @@
 finalize;  内存分配与回收策略;  手动尝试垃圾回收;  
 [链接](jvm/garbage_collection.md)  
 
+
+### java 内存结构  
 JVM 运行时数据区域:  程序计数器, Java 虚拟机栈, 本地方法栈, Java 堆(Heap), 方法区(Method Area), 直接接内存;  
-### 程序计数器 (Program Counter Register)  
+
+#### 程序计数器 (Program Counter Register)  
 
 程序计数器:  
 程序计数器是一块较小的内存空间, 它可以看作是, 当前线程所执行的字节码, 的行号指示器;  
@@ -26,7 +34,7 @@ JVM 运行时数据区域:  程序计数器, Java 虚拟机栈, 本地方法栈,
 如果正在执行的是 Native 方法, 这个计数器值则为空(Undefined);  
 此内存区域是, 唯一一个在 Java 虚拟机规范中, 没有规定任何 OutOfMemoryError 情况的区域;  
 
-### Java.虚拟机栈 (Java Virtual Machine Stacks)  
+#### Java.虚拟机栈 (Java Virtual Machine Stacks)  
 与程序计数器一样, Java 虚拟机栈(Java Virtual Machine Stacks), 也是线程私有的, 它的生命周期与线程相同;  
 每个方法被执行的时候, 都会创建一个栈帧(Stack Frame), 用于存储: 局部变量表, 操作数栈, 动态链接, 方法地址等信息;  
 每一个方法的执行过程, 就对应着一个栈帧, 的入栈和出栈的过程;  
@@ -68,12 +76,12 @@ JVM 运行时数据区域:  程序计数器, Java 虚拟机栈, 本地方法栈,
 调整 PC 计数器的值, 指向方法调用指令, 后面的一条指令等;  
 
 
-### 本地方法栈  
+#### 本地方法栈  
 本地方法栈(Native Method Stacks), 与虚拟机栈所发挥的作用是非常相似的,  
 其区别不过是, 虚拟机栈为虚拟机执行 Java 方法(也就是字节码)服务, 而本地方法栈, 则是为虚拟机使用到的 Native 方法服务;  
 本地方法栈区域, 也可能会抛出 StackOverflowError 和 OutOfMemoryError 异常;  
 
-### Java 堆(Heap)  
+#### Java 堆(Heap)  
 对于大多数应用来说, Java 堆是 Java 虚拟机所管理的内存中, 最大的一块, Java 堆是被所有线程共享的一块内存区域;  
 在虚拟机启动时, 创建此内存区域的唯一目的, 就是存放对象实例, 几乎所有的对象实例, 以及数组都在这里分配内存;  
 
@@ -83,7 +91,7 @@ Java 堆是垃圾收集器管理的主要区域, 现在的垃圾收集器, 基�
 Java 堆可以处于, 物理上不连续的内存空间中, 只要逻辑上是连续的即可;  
 如果在堆中没有内存完成实例分配, 并且堆也无法再扩展时, 将会抛出 OutOfMemoryError 异常;  
 
-### 方法区(Method Area)  
+#### 方法区(Method Area)  
 与 Java 堆一样, 是线程间共享的内存区域, 它用于存储已被虚拟机加载的, 类信息, 常量, 静态变量, 即时编译器, 编译后的代码等数据;  
 Java 虚拟机规范对这个区域, 的限制非常宽松, 除了和 Java 堆一样不需要连续的内存, 可以选择固定大小或者可扩展外, 还可以选择不实现垃圾收集;  
 相对而言, 垃圾收集行为在这个区域是比较少出现的, 但并非数据进入了方法区就如永久代的名字一样 "永久" 存在了;  
@@ -99,7 +107,7 @@ Java 虚拟机对 Class 文件每一部分(包括常量池)的格式都有严格
 这种特性被开发人员利用得比较多的, 便是 String 类的 intern()方法;  
 既然运行时常量池是方法区的一部分, 自然受到方法区内存的限制, 当常量池无法再申请到内存时会抛出 OutOfMemoryError 异常;  
 
-### 直接内存(DirectMemory)  
+#### 直接内存(DirectMemory)  
 直接内存(Direct Memory)并不是虚拟机运行时数据区的一部分, 也不是 Java 虚拟机规范中定义的内存区域;  
 但是这部分内存也被频繁地使用, 而且也可能导致 OutOfMemoryError 异常出现,  
 在 JDK 1.4 中新加入了 NIO(New Input/Output)类, 引入了一种基于通道(Channel)与缓冲区(Buffer)的 I/O 方式,  

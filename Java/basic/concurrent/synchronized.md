@@ -22,9 +22,8 @@ synchronized(A.this) {
 每个对象有其独立的对象锁, 互不干扰;  
 
 ### 实现原理  
-
-同步代码块:  
 同步代码块, 是使用 monitorenter 和 monitorexit 指令实现的;  
+提供了两个高级的字节码指令 monitorenter和monitorexit, 保证了内存模型中的原子性;  
 monitorenter 指令插入到, 同步代码块的开始位置, monitorexit 指令插入到, 同步代码块的结束位置;  
 JVM 需要保证每一个 monitorenter 都有一个 monitorexit 与之相对应;  
 任何对象都有一个 monitor 与之相关联, 当且一个 monitor 被持有之后, 他将处于锁定状态;  
