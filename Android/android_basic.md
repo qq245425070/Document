@@ -52,6 +52,7 @@ MVVM;  DataBinding;  LiveData;
 
 View 绘制原理, View 绘制时机, 屏幕刷新机制;   fps;  
 invalidate;  requestLayout;  
+为什么 view.post 可以得到控件真是宽高;  
 [链接](basic/view_window/invalidate_requestLayout.md)  
 
 Activity#setContentView 机制;  

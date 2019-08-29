@@ -1465,6 +1465,11 @@ layout 的坐标系,是相对于父窗体的;
 协商测量:  在 父窗体的 measure 里面可以拿到 子控件的 layoutParams, 如果发现其宽高超限, 可以调用 child.measure 传给他一个新的宽高, 强制修改child的大小;   
 
 ### 为什么 view.post 可以得到控件真是宽高  
+如果 View 已经挂载到 View 树上, 直接调用 handler 执行 runnable 接口;  
+如果 还未挂载到 View 树, 则会把 runnable 放到 HandlerActionQueue 中, 事实上最终会放在数组中存储;  
+当某种机制调用到 requestLayout 的时候, 会触发 ViewRootImpl 执行遍历 View 树, 在 performTraversals 中, measure 之后会触发执行 handlerActionQueue;  
+把之前放到 handlerActionQueue 里面的 runnable 接口, 取出来, 执行其 run 方法;  
+所以 view.post 可以获取控件的真是宽高;  
 ```
 public boolean post(Runnable action) {
     final AttachInfo attachInfo = mAttachInfo;
@@ -1476,6 +1481,15 @@ public boolean post(Runnable action) {
     // Assume that the runnable will be successfully placed after attach.
     getRunQueue().post(action);
     return true;
+}
+android.view.ViewRootImpl#performTraversals{
+    host.dispatchAttachedToWindow(mAttachInfo, 0);  
+}
+android.view.View#dispatchAttachedToWindow{
+    if (mRunQueue != null) {
+        mRunQueue.executeActions(info.mHandler);
+        mRunQueue = null;
+    }
 }
 ```
 
