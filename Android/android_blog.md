@@ -49,7 +49,8 @@ Spannable;  文本相关;  文字变换特效;  中文排版;  字号;  AutoSize
 [链接](blog/keyboard.md)    
 
 
-鼻涕虫效果;  Ripple-水波;  碎玻璃效果;  动画库;  动画效果;  粒子爆炸  阴影效果 
+鼻涕虫效果;  Ripple-水波;  碎玻璃效果;  动画库;  动画效果;  粒子爆炸  阴影效果;  
+一闪一闪;   
 [链接](blog/view_render.md)    
 
 轮播图;  画廊效果;  旋转木马  
@@ -65,7 +66,7 @@ Layout相关;  展开与折叠的Layout;  斜线布局;  虚线控件;  圆角�
 
 滑动返回;  拖动排序;  滑动删除;  通讯录;  联系人;  MapView;  地图;  课程表;  流式布局;  自由拖动;  仿支付宝选票;  拖拽的gridView;   
 列表;  翻页;  滚动效果;  可以拖动的 TreeView;  下拉效果;  视觉差;  下拉刷新;  下拉放大;  视觉差列表;  
-sticky listView;   sticky header;  item加载效果;  Shimmer;             
+sticky listView;   sticky header;  item加载效果;  Shimmer;                
 [链接](blog/swipe_back_sort_list.md)   
 
 

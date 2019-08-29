@@ -179,7 +179,8 @@ com.android.internal.view.SurfaceFlingerVsyncChoreographer
 android.view.Choreographer  
 
 
-### ViewRootImpl.performTraversals  
+### ViewRootImpl
+#### ViewRootImpl.performTraversals  
 API=18:  onMeasure-onMeasure-onLayout-onDraw  
 暂时理解为, 第一次 onMeasure 是从上而下, 传递父窗体有多大的空间, 然后根据测量模式, 计算当前 View 自己需要多大的空间;  
 对于 wrap_content 也就是 AT_MOST 情况, 父窗体会调整空间, 并传向下传递;  
@@ -911,7 +912,7 @@ private void performTraversals() {
 }
 ```
 
-### ViewRootImpl.getRootMeasureSpec  
+#### ViewRootImpl.getRootMeasureSpec  
 DecorView 根布局宽和高都是 MATCH_PARENT, 因此 DecorView 根布局的测量模式就是 MeasureSpec.EXACTLY, 测量大小一般都是整个屏幕大小,  
 所以一般我们的 Activity 窗口都是全屏的;  
 ```
@@ -938,7 +939,7 @@ private static int getRootMeasureSpec(int windowSize, int rootDimension) {
     return measureSpec;
 }
 ```
-### ViewRootImpl.measureHierarchy  
+#### ViewRootImpl.measureHierarchy  
 ```
 private boolean measureHierarchy(final View host, final WindowManager.LayoutParams lp,
 		final Resources res, final int desiredWindowWidth, final int desiredWindowHeight) {
@@ -1463,6 +1464,20 @@ layout 的坐标系,是相对于父窗体的;
 3.. 父控件是 RelativeLayout, 子控件值展示的是, 和父控件内切的实心圆;
 协商测量:  在 父窗体的 measure 里面可以拿到 子控件的 layoutParams, 如果发现其宽高超限, 可以调用 child.measure 传给他一个新的宽高, 强制修改child的大小;   
 
+### 为什么 view.post 可以得到控件真是宽高  
+```
+public boolean post(Runnable action) {
+    final AttachInfo attachInfo = mAttachInfo;
+    if (attachInfo != null) {
+        return attachInfo.mHandler.post(action);
+    }
+
+    // Postpone the runnable until we know on which thread it needs to run.
+    // Assume that the runnable will be successfully placed after attach.
+    getRunQueue().post(action);
+    return true;
+}
+```
 
 ### 参考  
 VSync: 即V-Sync垂直同步;  垂直同步信号;  

@@ -4,7 +4,7 @@ thread 之间通信, 怎么通信;
 四大组件, 原理;  
 view 测量-绘制原理;  
 okHttp 怎么做的3次握手, 什么时候做, socket有哪些api;  
-Glide 是不是后进来的任务, 优先执行? 
+
 
 HTTP, keep-Alive 怎么实现的 长连接 和 复用;  
 FragmentPagerAdapter 缓存机制,  怎么做 Fragment 的缓存;  
@@ -12,7 +12,9 @@ FragmentPagerAdapter 缓存机制,  怎么做 Fragment 的缓存;
 清单文件, 什么时候被解析, 什么时候生效;  
 bindService 和 startService 的区别, 在 生命周期上的表现;  
 IPC, 有哪些, binder 机制的了解有多少;  
-有哪些 OOM, 除了 bitmap string+string, 还有别的么? 
+有哪些 OOM, 除了 bitmap string+string, 还有别的么?  
+创建线程过多, 也会引起 OOM;  
+  
 你有过哪些性能优化的案例, 能不能再说一些有深入性的案例;  
 
 
@@ -61,16 +63,10 @@ https://github.com/Ellen2018/AndroidFaceInterview
 
 ### Java  
 ConcurrentHashMap;  
-什么年龄代, 用什么回收策略, 什么回收器;  
 TreeMap;  
 
 String 为什么要设计成不可变的;  
 泛型, 如果不想 类型擦除, 怎么办;  
-
-内部类的作用;  
-Java深拷贝和浅拷贝;  
-Java finally与return执行顺序;  
-类加载机制;  
 
 责任链设计模式, 手写;  
 https://github.com/crossoverJie/Java-Interview  
@@ -111,13 +107,6 @@ Https请求慢的解决办法, DNS, 携带数据, 直接访问IP;
 6.. 系统启动过程, system_server启动过程;  
 7.. Window系统, Window创建过程;  
 8.. 资源管理系统, 资源加载机制等;  
-
-项目相关(Android)  
-RecyclerView 的 item 包含一个 横向的列表:  
-1.. 如果 item 是 recyclerView , 上下滑动的时候, 会不会卡顿, 为什么;  
-2.. 你打算, 怎么处理;  用 LinearLayout 通过 add 和 remove;  
-2.. 你打算, 怎么处理;  用 LinearLayout 通过 visible 和 gone;  
-如果有 RecyclerView 嵌套, 推荐用 recyclerViewPool;  
 
 图片加解码;  
 如果 用列表页面, 播放视频, 怎么做, 可以保证流畅度  占用内存小;  
