@@ -12,7 +12,7 @@ Completion 提示补全  保留 Basic 去掉 SmartType，修改成  control + sp
 显示类的继承关系  control + H  
 打开调用处  command + 触板单击    
 查找调用处  command + option + 触板单击  
-◆ 编辑代码  
+❀ 编辑代码  
 定位到 上次编辑的位置  command + option + 左右  
 参数提示 command + P  
 多行注释 control + shift + /  
@@ -29,8 +29,18 @@ Completion 提示补全  保留 Basic 去掉 SmartType，修改成  control + sp
 批量选中  option + 触板选择  
 切换窗口  Command + ~ `     
 关闭当前面板， 例如在看log，想关闭这个面板   shift + esc  
-★ 修改快捷键  
-key map 搜索  run  添加 command + enter  
+### 修改快捷键  
+key map 搜索  
+close 添加 command + W  
+close 添加 command + shift + W    
+//  这个是运行上一次的 main 函数;  
+run  添加 command + enter  
+//  这个是运行当前面板下的 main 函数;  
+run context configuration  添加 shift + command + enter  
+//  切换 code tab code 面板;  
+window  editor tabs select next tab  添加 option + →  
+window  editor tabs select previous tab  添加 option + ←  
 
-◆ http://blog.csdn.net/shulianghan/article/details/47321177  
+### 参考  
+http://blog.csdn.net/shulianghan/article/details/47321177  
 

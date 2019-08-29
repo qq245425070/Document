@@ -40,3 +40,7 @@ Ctrl+N：搜索类名（包括内部类）、枚举名。
 Shift+Shift：Search Everywhere，搜索所有地方。它是Ctrl+E、Ctrl+Alt+Shift+N、Ctrl+N、Ctrl+Shift+A的综合，此外，它还可以搜索AS的工具，如Debug是可以搜出AS的Debug工具的，点击还能运行。
 Ctrl+Shift+F：全局搜索，不过仅仅针对的是文件内容，比如上面的搜索方式无法是无法搜索build.gradle里面的内容，但是这个却可以。清单文件的信息也需要用这个进行搜索的。
 
+★ 修改快捷键  
+key map 搜索  run  添加 command + enter  
+run context configuration  添加 shift + command + enter  
+◆ http://blog.csdn.net/shulianghan/article/details/47321177  
