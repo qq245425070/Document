@@ -10,7 +10,10 @@ Application 内存回收机制; 内存回调;
 
 Activity;  Fragment;  Context;  Application;  
 [链接](basic/context/Activity.md)  
-[Service](basic/ipc_service/Service.md)  
+
+Service;  IntentService;  进程保活;  
+[链接](basic/ipc_service/Service.md)  
+
 [BroadcastReceiver](basic/ipc_service/BroadcastReceiver.md)  
 [ContentProvider](basic/ipc_service/ContentProvider.md)  
 [PackageManagerService](basic/ipc_service/PackageManagerService.md)   
@@ -32,6 +35,7 @@ apk 打包流程;  65535 问题;  multiDex 问题;
 [链接](basic/sharePreference.md)  
 
 优化稳定性;  低功耗;  性能优化;  冷启动介绍;  冷启动优化;  ANR;  内存泄露;  
+apk 压缩;  
 [链接](basic/optimize_stability_lowPower.md)  
 
 插件化; 热更新; 热修复; Plugin; ClassLoader;  dalvik ART 虚拟机;  系统;  

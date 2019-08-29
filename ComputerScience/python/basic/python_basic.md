@@ -1,5 +1,6 @@
 ### python 基础知识  
 [环境变量](library/env_path.md)  
+[基础](library/begin.md)  
 [io](library/io.md)  
 [表达式](library/expression.md)  
 [数据结构](library/collection.md)  

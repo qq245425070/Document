@@ -9,8 +9,7 @@ okHttp 怎么做的3次握手, 什么时候做, socket有哪些api;
 HTTP, keep-Alive 怎么实现的 长连接 和 复用;  
 FragmentPagerAdapter 缓存机制,  怎么做 Fragment 的缓存;  
 清单文件注册的广播, 什么时候回生效;  
-清单文件, 什么时候被解析, 什么时候生效;  
-bindService 和 startService 的区别, 在 生命周期上的表现;  
+清单文件, 什么时候被解析, 什么时候生效;    
 IPC, 有哪些, binder 机制的了解有多少;  
 有哪些 OOM, 除了 bitmap string+string, 还有别的么?  
 创建线程过多, 也会引起 OOM;  

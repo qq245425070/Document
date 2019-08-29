@@ -250,6 +250,7 @@ https://blog.csdn.net/javazejian/article/details/72828483
 https://juejin.im/post/5d5374076fb9a06ac76da894  
 https://blogs.oracle.com/dave/biased-locking-in-hotspot  
 https://zhuanlan.zhihu.com/p/29866981  
+https://github.com/interviewandroid/AndroidInterView/blob/master/android/synchronize.md  
 
 cas.unsafe  
 https://www.jb51.net/article/136718.htm  

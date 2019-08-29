@@ -170,6 +170,8 @@ https://github.com/SusionSuc/AdvancedAndroid/tree/master/插件化
 https://blog.csdn.net/jason0539/article/details/50440669  
 https://yq.aliyun.com/articles/663995  
 https://juejin.im/post/5d4bdb23e51d453c2577b747  
+https://github.com/interviewandroid/AndroidInterView/blob/master/android/dalvik.md  
+https://github.com/interviewandroid/AndroidInterView/blob/master/android/artordalvik.md  
 
 GC  
 https://yq.aliyun.com/articles/179805  
@@ -181,6 +183,10 @@ http://w4lle.com/2017/05/04/hotpatch-summary/
 instant run 原理  
 https://blog.csdn.net/nupt123456789/article/details/51828701  
 https://blog.csdn.net/xiangzhihong8/article/details/64906131  
+
+tinker 原理  
+https://github.com/interviewandroid/AndroidInterView/blob/master/tencent/tinker.md  
+
 
 废物  
 https://juejin.im/post/5bf22bb5e51d454cdc56cbd5   

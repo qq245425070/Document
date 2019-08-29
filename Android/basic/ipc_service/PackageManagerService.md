@@ -16,4 +16,11 @@ android 每次启动时, 都会把所有的 apk 文件解析一遍;
 
 PackageManagerService 在启动后会扫描系统和第三方的app信息, 在 scanPackageLI 方法中实例化 PackageParser 对象 pp, 使用 pp 对包进行解析;  
 PackageParser 的 parseBaseApk 在调用之后解析 AndroidManifest.xml, 返回一个 Package 对象, 将手机中所有的 app 的 AndroidManifest.xml 解析完毕, 构建出一个手机中所有 app 的信息树;  
-从这颗棵树上
+从这颗棵树上  
+
+
+### 参考  
+https://github.com/interviewandroid/AndroidInterView/blob/master/android/pms.md  
+
+
+

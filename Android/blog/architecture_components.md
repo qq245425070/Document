@@ -41,9 +41,6 @@ https://github.com/ljqloveyou123/LiujiaqiAndroid
 https://github.com/ManbangGroup/Phantom  
 
 ### 热修复  
-如果不考虑增大apk的体积, 只是简单的修复代码, 不修复so和资源, 选择Robust是最稳定的, 否则的话选择Tinker是一个不错的方案;  
-虽然阿里Sophix横空出世, 但是它不开源, 而且商业收费, 所以一般不是很赚钱的app选择收费的可能就很小了;  
-
 
 http://w4lle.com/2017/05/04/hotpatch-summary/  
 Tinker  
