@@ -38,8 +38,8 @@ run  添加 command + enter
 //  这个是运行当前面板下的 main 函数;  
 run context configuration  添加 shift + command + enter  
 //  切换 code tab code 面板;  
-window  editor tabs select next tab  添加 option + →  
-window  editor tabs select previous tab  添加 option + ←  
+window  editor tabs select next tab  添加 control + shift + →  
+window  editor tabs select previous tab  添加 control + shift  + ←  
 
 ### 参考  
 http://blog.csdn.net/shulianghan/article/details/47321177  
