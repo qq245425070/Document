@@ -97,12 +97,15 @@ GET 请求
 用于获取消息实体;  
 参数在长链接之后 的 ? 之后, 用 key=value 形式并用 & 符号分割;  
 如果要传中文参数, 必须要用 URLEncoding  和 URLDecoding 进行交互;  
-不能添加body;    
+不能添加body;  
+只发送一次 TCP 数据包, 把 http header 和 query params 一起发送出去, 服务器响应 200;  
+
 
 POST 请求  
 用来传输消息实体;  
 参数可以放在长链接之后, 和 GET 请求一样;    
 参数可以放在并 body, 参数的编码形式, 要和后端统一, 最好要用UTF-8;  
+有一些浏览器上, 发送两次 tcp 数据包, 先发送 header 服务器响应 100 continue, 继续发送 body, 服务器响应 200, 但是 Firefox 只发送一次 tcp 数据包;  
 
 PUT 请求  
 PUT 方法用来传输文件;  

@@ -1,14 +1,13 @@
-- [必须包含一个数字](library/regex_001.md)
-- [只能是纯数字（大于等于1个字符）](library/regex_002.md)
-- [必须包含一个英文 和 一个数字（一共2个字符以上，只能包含英文和数字）](library/regex_003.md)
-- [必须包含一个英文 和 一个数字（一共2个字符以上，任意字符）](library/regex_004.md)
-- [是正整数（单个字符）](library/regex_005.md)
-- [只能是纯数字（大于等于1个字符）](library/regex_006.md)
-- [非0开头的纯数字（大于等于1个字符）](library/regex_007.md)
-- [是手机号码（第0位是1，第1位是：3456789  剩下9位是0-9），长度必须是11位](library/regex_008.md)
+[必须包含一个数字](library/regex_001.md)  
+[只能是纯数字(大于等于 1 个字符)](library/regex_002.md)  
+[必须包含一个英文 和 一个数字(一共 2 个字符以上, 只能包含英文和数字)](library/regex_003.md)  
+[必须包含一个英文 和 一个数字(一共 2 个字符以上, 任意字符)](library/regex_004.md)  
+[是正整数(单个字符)](library/regex_005.md)  
+[只能是纯数字(大于等于 1 个字符)](library/regex_006.md)  
+[非 0 开头的纯数字(大于等于 1 个字符)](library/regex_007.md)  
+[是手机号码(第 0 位是 1, 第 1 位是: 3456789  剩下 9 位是 0-9), 长度必须是 11 位](library/regex_008.md)  
 
-> 正则规则
-
+正则规则
 ^ 匹配起始位置   
 $ 匹配结束位置  
 \d 匹配数字 0-9  
@@ -33,3 +32,5 @@ $ 匹配结束位置
 x(?=y) 正向前查匹配，例如：Hello(?=World)  只有HelloWorld才能匹配成功  
 x(?!y) 反向前查配，Hello(?!World)   Hello后面不能跟World  
 
+### 参考  
+https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md  
