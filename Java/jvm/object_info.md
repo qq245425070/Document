@@ -133,16 +133,18 @@ d. 符号引用验证
 
 ❀ 解析  
 虚拟机将常量池内的符号引用替换为直接引用的过程;   
-"动态解析" 的含义就是必须等到程序实际运行到这条指令的时候, 解析动作才能进行; 相对的, 其余可触发解析的指令都是 "静态" 的,  
-可以在刚刚完成加载阶段, 还没有开始执行代码时就进行解析;   
+"动态解析" 的含义就是必须等到程序实际运行到这条指令的时候, 解析动作才能进行;  
+相对的, 其余可触发解析的指令都是 "静态" 的, 可以在刚刚完成加载阶段, 还没有开始执行代码时就进行解析;   
 
 ❀ 初始化  
 类加载过程中的最后一步;   
 初始化阶段是执行类构造器<clinit>()方法的过程;   
 <clinit>()方法是由编译器自动收集类中的所有类变量的赋值动作和静态语句块中的语句合并产生的;   
-()与类的构造函数不同, 它不需要显示地调用父类构造器, 虚拟机会保证在子类的()方法执行之前, 父类的()方法已经执行完毕;   
-
+<clinit>()与类的构造函数不同, 它不需要显示地调用父类构造器, 虚拟机会保证在子类的<clinit>()方法执行之前, 父类的<clinit>()方法已经执行完毕;   
 简单地说, 初始化就是对类变量进行赋值及执行静态代码块;   
+虚拟机会保证一个类的<clinit>()方法在多线程环境中, 被正确的枷锁, 同步, 如果多线程同时会初始化一个类, 那么只会有一个线程去执行这个类的<clinit>()方法,  
+其他线程都需要阻塞等待, 直到活动线程执行完<clinit>()方法, 如果一个类的<clinit>()方法耗时很长, 就可能造成多个线程阻塞;  
+在活动线程执行完<clinit>()方法, 其他线程被唤醒之后, 不会再次进入<clinit>()方法, 同一个类加载器下, 一个类只会被初始化一次;  
 
 ### ClassLoader  
 ```
@@ -156,8 +158,13 @@ java.lang.ClassLoader
 JVM 存在两种不同的类加载器:  
 一种是 启动类加载器(Bootstrap Classloader), 这个类加载器使用 C++语言实现, 是 JVM 自身的一部分;  
 一种是 其他类加载器, 这些类加载器都是 Java 语言实现的, 独立于 JVM 之外, 并且全部继承于 ClassLoader ;  
+常用类加载器:  
+启动类加载器(Bootstrap ClassLoader)  这个类 加载 放在 JAVA_HOME/lib 下的 class 文件;  
+扩展类加载器(Extension ClassLoader)这个加载器由 sun.misc.Launcher$ExtClassLoader 实现, 负责加载 放在 JAVA_HOME\lib\ext 下的 class 文件;  
+应用程序类加载器(Application ClassLoader)这个类加载器由 sun.misc.Launcher$AppClassLoader 实现,  
+负责加载 ClassPath 上所指定的 class 文件, 如果开发者没有指定类加载器, 那么默认就是使用这个类加载器,  
 
-每一个 ClassLoader 都有一个 parent, parent 并不是父类的意思;  
+每一个 ClassLoader 都有一个 parent, parent 并不是父类的意思, 而是父加载器;  
 String.class.getClassLoader();  是 null;  
 所有 java 包下面的类, classLoader 都是 null;  
 因为他们都是 Bootstrap ClassLoader 加载的,  
@@ -172,17 +179,9 @@ while (loader != null) {
 sun.misc.Launcher$AppClassLoader@18b4aac2  
 sun.misc.Launcher$ExtClassLoader@2f0e140b  
 ```
-常用类加载器:  
-启动类加载器(Bootstrap ClassLoader)  这个类 加载 放在 JAVA_HOME/lib 下的 class 文件;  
-扩展类加载器(Extension ClassLoader)这个加载器由 sun.misc.Launcher$ExtClassLoader 实现, 负责加载 放在 JAVA_HOME\lib\ext 下的 class 文件;  
-应用程序类加载器(Application ClassLoader)这个类加载器由 sun.misc.Launcher$AppClassLoader 实现,  
-负责加载 ClassPath 上所指定的 class 文件, 如果开发者没有指定类加载器, 那么默认就是使用这个类加载器,  
-
 ![双亲委派模型](ImageFiles/class_loader_001.png)  
-
-
 双亲委派模型的工作过程:  
-如果一个类加载器收到了类加载的请求, 它首先不会自己去尝试加载这个类, 而是把这个请求委派给父类加载器去完成;  
+如果一个类加载器收到了类加载的请求, 它首先不会自己去尝试加载这个类, 而是把这个请求委派给父加载器去完成;  
 每一个层次的类加载器都是如此, 因此所有的加载请求最终都应该传送到顶层的启动类加载器中;  
 只有当父加载器反馈自己无法完成这个加载请求时, 子加载器才会尝试自己去加载;  
 
