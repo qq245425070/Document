@@ -199,7 +199,7 @@ BINDER_WRITE_READ   读写操作;
 BINDER_SET_MAX_THREADS   设置最大线程数;  
 BINDER_SET_CONTEXT_MGR   ServiceManager 专用, 变成上下文管理者;  
 
-### Binder#协议  
+Binder.协议  
 Binder 协议基本格式是(命令+数据), 使用 ioctl(fd, cmd, arg)函数实现交互;  
 命令由参数 cmd 承载, 数据由参数 arg 承载, 随 cmd 不同而不同;  
 ```
@@ -210,11 +210,11 @@ BINDER_THREAD_EXIT  通知 Binder 驱动当前线程退出了;
 BINDER_VERSION  获得 Binder 驱动的版本号;  
 ```
 
-### Binder#实体  
+Binder.实体  
 Binder 实体, 是各个 Server 以及 ServiceManager 在 Binder 驱动中的存在形式, 内核通过 Binder 实体, 可以找到用户空间的 Server 对象;  
 Binder 实体, 实际上是内核中 binder_node 结构体的对象, 它的作用是在内核中保存 Server 和 ServiceManager 的信息, 例如: Binder 实体中保存了 Server 对象在用户空间的地址;  
 
-### Binder#引用 
+Binder.引用 
 说到 Binder 实体, 就不得不说"Binder引用", 所谓 Binder 引用, 实际上是内核中 binder_ref 结构体的对象;  
 换句话说, 每一个 Binder 引用, 都是某一个 Binder 实体的引用, 通过 Binder 引用, 可以在内核中找到它对应的 Binder 实体;  
 如果将 Server 看作是 Binder 实体的话, 那么 Client 就好比 Binder 引用;  
@@ -348,42 +348,46 @@ android_util_Binder.cpp    http://androidxref.com/8.0.0_r4/xref/frameworks/base/
 Binder Driver  
 binder_proc        binder_thread        binder_node        
 
-BinderProxy 继承自 Java 层的IBinder接口,   BpBinder 继承自 Native 层的接口;  
+BinderProxy 继承自 Java 层的 IBinder 接口;  
+BBinder 代表着服务端,  
+BpBinder 继承自 Native 层的接口;
+BpBinder 是 BBinder 在客户端的代理;   
+是由 ProcessState 创建的,  BinderProxy 是由 javaObjectForIBinder 函数通过 JNI 的 NewObject() 创建的;  
+属于 client 进程, 但是持有 remote server;    
+BpBinder 是 Native 层的代理, 又由 javaObjectForIBinder 函数转化成 Java 层的 BinderProxy;  
+客户程序通过 BpBinder 的 transact()发起请求, 而服务器端的 BBinder 在 onTransact()里响应请求, 并将结果返回;  
 
-BpBinder   
-是由ProcessState创建的,  BinderProxy是由javaObjectForIBinder函数通过JNI的NewObject() 创建的;  
-属于client进程, 但是持有 remote server;  
-BpBinder 是Native层的代理, 又由javaObjectForIBinder函数转化成Java层的BinderProxy;  
+binder_proc 是描述进程上下文信息的, 每一个用户空间的进程都对应一个 binder_proc 结构体;    
+binder_node 是 Binder 实体对应的结构体, 它是 Server 在 Binder 驱动中的体现;    
+binder_ref 是 Binder 引用对应的结构体, 它是 Client 在 Binder 驱动中的体现;    
 
-binder_proc是描述进程上下文信息的, 每一个用户空间的进程都对应一个binder_proc结构体;  
-binder_node是Binder实体对应的结构体, 它是Server在Binder驱动中的体现;  
-binder_ref是Binder引用对应的结构体, 它是Client在Binder驱动中的体现;  
+Process 负责打开 Binder Device 驱动设备, 进行 mmap 等准备工作;    
+IPCThreadState 负责 Binder 驱动的具体命令的通信;    
+在 getService()场景中, 调用者从 Java 层的 IBinder.transact()开始, 层层往下调用到 IPCThreadState.transact(),     
+然后通过 waitForResponse 进入主循环, 直到 ServiceManager 恢复后, 才结束, 之后将结果回传给 Java 层;    
 
-Process 负责打开 Binder Device驱动设备, 进行mmap等准备工作;  
-IPCThreadState 负责Binder驱动的具体命令的通信;  
-在getService()场景中, 调用者从Java层的IBinder.transact()开始, 层层往下调用到 IPCThreadState.transact(),   
-然后通过waitForResponse进入主循环, 直到ServiceManager恢复后, 才结束, 之后将结果回传给Java层;  
+AIDL:     
+IInterface--Stub--Proxy--Stub 具体实现    
+ContentProvider:     
+IContentProvider--ContentProviderNative--ContentProviderProxy--ContentProvider.Transport    
+管理四大组件的 AMS:     
+IActivityManager--ActivityManagerNative--ActivityManagerProxy--ActivityManagerService    
+负责 ActivityThread 和 AMS 之间的通讯    
+IApplicationThread--ApplicationThreadNative--ApplicationThreadProxy--ApplicationThread    
 
-AIDL:   
-IInterface--Stub--Proxy--Stub具体实现  
-ContentProvider:   
-IContentProvider--ContentProviderNative--ContentProviderProxy--ContentProvider.Transport  
-管理四大组件的AMS:   
-IActivityManager--ActivityManagerNative--ActivityManagerProxy--ActivityManagerService  
-负责ActivityThread和AMS之间的通讯  
-IApplicationThread--ApplicationThreadNative--ApplicationThreadProxy--ApplicationThread  
+IBinder 代表跨进程传输的能力;  
+IInterface 则代表远程服务端具备的能力;  
+BnInterface 
+Binder 是 IBinder 的实现类, 因此它具备跨进程传输的能力, 它实际上就是远程 Server 端的 Binder 对象本身;    
+Binder 对象是 Server 端对象本身, 是 Server 进程用的, 与此对应的 BinderProxy 则是远程 Binder 的代理对象;    
 
-IBinder代表跨进程传输的能力,   
-IInterface则代表远程服务端具备的能力;    
-
-Binder是IBinder的实现类, 因此它具备跨进程传输的能力, 它实际上就是远程Server端的Binder对象本身;  
-Binder对象是Server端对象本身, 是Server进程用的, 与此对应的BinderProxy则是远程Binder的代理对象;  
 ActivityManager  
 
 https://developer.android.com/guide/components/bound-services?utm_campaign=adp_series_processes_012016&utm_source=medium&utm_medium=blog  
 
 
 ### 参考#binder  
+https://www.cnblogs.com/samchen2009/p/3316001.html  
 https://blog.csdn.net/zhgxhuaa/article/details/23617557  
 https://blog.csdn.net/u011240877/article/details/72801425  
 http://wangkuiwu.github.io/2014/09/01/Binder-Introduce/  

@@ -70,6 +70,8 @@ public interface IDownloadEntityAidlInterface extends android.os.IInterface {
                 return null;
             }
             android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
+            //  如果 在同一个进程, iin 一定不为空;  
+            //  如果 不在同一个进程, iin 一定为空;  
             if (((iin != null) && (iin instanceof com.alex.andfun.service.huggles.model.IDownloadEntityAidlInterface))) {
                 return ((com.alex.andfun.service.huggles.model.IDownloadEntityAidlInterface) iin);
             }
