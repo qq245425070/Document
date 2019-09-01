@@ -384,6 +384,7 @@ https://developer.android.com/guide/components/bound-services?utm_campaign=adp_s
 
 
 ### 参考#binder  
+https://blog.csdn.net/zhgxhuaa/article/details/23617557  
 https://blog.csdn.net/u011240877/article/details/72801425  
 http://wangkuiwu.github.io/2014/09/01/Binder-Introduce/  
 http://blog.csdn.net/universus/article/details/6211589  
@@ -440,6 +441,7 @@ https://blog.csdn.net/desler/article/details/47908017
 https://blog.csdn.net/freekiteyu/article/details/70082302  
 
 ### 参考#zygote  
+https://www.cnblogs.com/samchen2009/p/3294713.html  
 https://lrh1993.gitbooks.io/android_interview_guide/content/android/advance/app-launch.html  
 https://juejin.im/post/5c3832e66fb9a049e308510b  
 https://github.com/LRH1993/android_interview/blob/master/android/advance/app-launch.md  

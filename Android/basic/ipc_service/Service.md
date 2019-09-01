@@ -334,6 +334,7 @@ http://www.jianshu.com/p/28c5377c77c4
 https://www.jianshu.com/p/c1a9e3e86666      
 
 保活  
+https://github.com/ShihooWang/DaemonLibrary  
 https://github.com/interviewandroid/AndroidInterView/blob/master/android/process.md  
 https://www.jianshu.com/p/76af1e7503a5  
 https://www.jianshu.com/p/b5371df6d7cb  
