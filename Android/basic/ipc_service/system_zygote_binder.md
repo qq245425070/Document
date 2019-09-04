@@ -127,63 +127,83 @@ App 进程的 ApplicationThread(binder 线程) 收到请求后, 通过 handler �
 Activity 启动流程, 详见  
 [链接](/Android/basic/context/Activity.md)  
 
-### 为什么是#binder  
-1.. Activity, BroadcastReceiver, ContentProvider, Service, Messenger, AIDL (这几种, 底层全是 binder 机制);  
-2.. socket 方式;  
-3.. 基于文件共享的方式;  
-
-传统的 IPC 机制, 只能适用于父子, 兄弟之间的亲属关系的进程之间通信, 有:  
-管道 (Pipe), 信号 (Signal), 跟踪 (Trace);    
-后来新增:  命名管道 (Named Pipe), 报文队列 (Message), 共享内存 (Share Memory), 信号量 (Semaphore), 套接字 (Socket);  
-
-❀ 性能考虑  
-1.. socket  
-socket 作为一个通用接口, 传输效率低, 开销大, 主要用在跨网络的进程间通信, 和本机上的低速通信;   
-
-2.. 消息队列和管道  
+### binder.机制  
+四大组件的操作都会用到 Binder;  
+Activity, BroadcastReceiver, ContentProvider, Service, Messenger, AIDL (这几种, 底层全是 binder 机制);  
+#### 为什么是#binder  
+性能考虑  
+socket 作为一个通用接口, 传输效率低, 开销大, 主要用在跨网络的进程间通信, 和本机上的低速通信;     
 消息队列和管道通信, 采用存储 - 转发方式, 即数据先从发送方缓存区, 拷贝到内核开辟的缓存区中, 至少有两次拷贝过程;   
 而采用 Binder 机制的话, 则只需要经过1次内存拷贝即可,  从发送方的缓存区, 拷贝到内核的缓存区, 而接收方的缓存区, 与内核的缓存区, 是映射到同一块物理地址的;  
-
-3.. 共享内存  
 共享内存虽然无需拷贝, 但控制复杂, 难以使用;  
 
-❀ 从稳定性的角度  
+从稳定性和安全的角度考虑  
 Binder 是基于C/S架构的, 是指客户端(Client)和服务端(Server)组成的架构;  
 Client 端有什么需求, 直接发送给 Server 端去完成, 架构清晰, Server 端与 Client 端相对独立, 稳定性较好;  
 Android 系统中对外只暴露 Client 端, Client 端将任务发送给 Server 端, Server 端会有一些列的权限控制策略, 来控制访问权限;  
 目前权限控制很多时候, 是通过弹出权限询问对话框, 让用户选择是否运行;  
-
-❀ 安全考虑  
 传统 IPC 没有任何安全措施, 完全依赖上层协议;  
 传统 IPC 的接收方无法获得对方进程可靠的 UID/PID (用户ID/进程ID), 从而无法鉴别对方身份;  
 Android 为每个安装好的应用程序分配了自己的 UID, 故进程的 UID 是鉴别进程身份的重要标志;  
-
-❀ 结论  
-并不是 Linux 现有的 IPC 机制不够好, 每种 Linux 的 IPC 机制都有存在的价值, 同时在 Android 系统中也依然采用了大量 Linux 现有的 IPC 机制,    
+并不是 Linux 现有的 IPC 机制不够好, 每种 Linux 的 IPC 机制都有存在的价值, 同时在 Android 系统中也依然采用了大量 Linux 现有的 IPC 机制;  
 根据每类 IPC 的原理特性, 因时制宜, 不同场景特性往往会采用其下最适宜的;  
 比如在 Android OS 中的 Zygote 进程的 IPC 采用的是 Socket 机制, Android 中的 Kill Process 采用的 signal 机制等等;  
 而 Binder 更多则用在 system_server 进程与 App 层的 IPC 交互;  
-基于以上原因, Android 建立一套新的IPC机制来满足系统对通信方式, 传输性能和安全性的要求, 采用基于 OpenBinder 实现的 Binder 通信机制;  
+基于以上原因, Android 建立一套新的 IPC 机制来满足系统对通信方式, 传输性能和安全性的要求, 采用基于 OpenBinder 实现的 Binder 通信机制;  
 Binder 基于 Client-Server 通信模式, 传输过程只需一次拷贝, 为发送发添加UID/PID身份, 既支持实名 Binder 也支持匿名 Binder, 安全性高;  
-
-
-### Binder#通信流程概述  
+#### Binder.通信流程概述  
 按下电源键  ⤑  init进程  ⤑  Zygote进程  和  ServiceManager 进程   
-RAM 可以分为用户空间 和 内核空间, 每一个进程只能运行在自己的工作空间, 当然是在用户空间分配的, 要想跨进程通信, 只能通过内核空间;  
-bindService, startActivity, sendBroadcast 等操作都会用到 Binder;  
+RAM 可以分为用户空间 和 内核空间, 每一个进程只能运行在自己的用户空间, 要想跨进程通信, 只能通过内核空间;  
 Binder 机制主要涉及到了四种角色: Client, Server, ServiceManager,  Binder driver;  
-
-client 通过获得一个 server 的代理接口, 与 server 进行直接调用;  
-代理接口中定义的方法与 server 中定义的方法是一一对应的;  
+client 通过获得一个 server 的代理接口, 与 server 进行通信的;  
 client 调用某个代理接口中的方法时, 代理接口的方法会将 client 传递的参数打包成为 Parcel 对象, 并发送给内核中的 binder driver;  
-server 会读取 binder driver 中的请求数据, 如果是发送给自己的, 解包Parcel对象, 处理并将结果返回;  
+service_manager 会找到对应的 server并读取 binder driver 中的请求数据, 解包 Parcel 对象, 处理并将结果返回;  
 整个的调用过程是一个同步过程, 在 server 处理的时候, client 会 block 住;  
+当 A 进程想要获取 B 进程中的 object 时, 驱动并不会真的把 b object 返回给 A, 而是返回了一个跟 b 看起来一模一样的代理对象 objectProxy;  
+这个 objectProxy 具有和 b 一摸一样的方法, 但是这些方法并没有 B 进程中 object 对象那些方法的能力, 这些方法只需要把把请求参数交给驱动即可;  
+对于 A 进程来说和直接调用 b 中的方法是一样的, 当 Binder 驱动接收到 A 进程的消息后, 发现这是个 b objectProxy 就去查询自己维护的表单;  
+一查发现这是 B 进程 object 的代理对象, 于是就会去通知 B 进程调用 object 的方法, 并要求 B 进程把返回结果发给自己;  
+当驱动拿到 B 进程的返回结果后就会转发给 A 进程, 一次通信就完成了;  
 
-### BinderDriver  
+
+通信模型  
+01.. Server 进程启动之后, 会进入挂起状态, 等待 Client 的请求;  
+02.. 当 Client 需要和 Server 通信时, 会将请求发送给 Binder 驱动;  
+03.. Binder 驱动收到请求之后, 会唤醒 Server 进程;  
+04.. 接着 Binder 驱动还会反馈信息给 Client, 告诉 Client, 它发送给 Binder 驱动的请求, Binder 驱动已经收到;  
+05.. Client 将请求发送成功之后, 就进入等待状态, 等待 Server 的回复;   
+06.. Binder 驱动唤醒 Server 之后, 就将请求转发给 Server 进程;  
+07.. Server 进程解析出请求内容, 并将回复内容发送给 Binder 驱动;  
+08.. Binder 驱动收到回复之后, 唤醒 Client进程;  
+09.. 接着 Binder 驱动还会反馈信息给 Server, 告诉 Server, 它发送给 Binder 驱动的回复, Binder 驱动已经收到;  
+10.. Server 将回复发送成功之后, 再次进入等待状态, 等待 Client 的请求;  
+11.. 最后, Binder 驱动将回复转发给 Client;  
+binder 类, 通过 transact 方法, 发送数据给 binder 驱动, 等待 onTransact 回传结果, 此过程是顺序执行的, 并支持地柜调用;  
+Binder 驱动是整个 Binder 机制的核心,  
+当 Client 向 Server 发起 IPC 请求时, Client 会先将请求数据从用户空间拷贝到内核空间;  
+
+#### Binder.跨进程通讯流程主要为如下 4 步  
+ServiceManager 初始化   
+当该应用程序启动时, ServiceManager 会和 Binder 驱动进行通信, 告诉 Binder 驱动它是服务管理者  
+Binder 驱动新建 ServiceManager 对应的 Binder 实体  
+
+Server 向 ServiceManager 申请注册   
+Server 向 Binder 驱动发起注册请求, Binder 为它创建 Binder 实体;  
+然后 ServiceManager 会根据这个 Server 的名称, 创建一个 Binder 引用, 并添加到 Binder 引用表;  
+
+Client 获取远程服务   
+Client 首先会向 Binder 驱动发起获取服务的请求, 传递要获取的服务名称;  
+Binder 驱动将该请求转发给 ServiceManager 进程;  
+ServiceManager 查找到 Client 需要的 Server 对应的 Binder 实体的 Binder 引用信息, 然后通过 Binder 驱动反馈给 Client;  
+Client 收到 Server 对应的 Binder 引用后, 会创建一个 Server 对应的远程服务, 即 Server 在当前进程的代理;  
+
+Client 通过代理调用 Server   
+Client 调用远程服务, 远程服务收到 Client 请求之后, 会和 Binder 驱动通信;  
+因为远程服务中有 Server 的 Binder 引用信息, 因此驱动就能轻易的找到对应的 Server, 进而将Client 的请求内容发送 Server;  
+
+#### BinderDriver  
 尽管名叫驱动, 实际上和硬件设备没有任何关系, 只是实现方式和设备驱动程序是一样的;  
 它工作于内核空间, 向外提供一些标准文件操作函数, open(), mmap(), poll(), ioctl()等, 以字符驱动设备中的 misc 设备注册在设备目录/dev 下, 用户通过/dev/binder 访问该它;  
-驱动负责进程之间 Binder 通信的建立, Binder 在进程之间的传递, Binder 引用计数管理, 数据包在进程之间, 的传递和交互等一系列底层支持;  
-
 Binder Driver 会将自己注册成 misc device, 并向上层提供一个/dev/binder 节点, Binder 节点对应的不是硬件设备, 而是运行于内核态;  
 Binder Driver 的代码位于 linux 目录的 drivers/misc/binder.c 中;  
 
@@ -209,7 +229,6 @@ BINDER_SET_CONTEXT_MGR   ServiceManager 专用, 变成上下文管理者;
 BINDER_THREAD_EXIT  通知 Binder 驱动当前线程退出了;  
 BINDER_VERSION  获得 Binder 驱动的版本号;  
 ```
-
 Binder.实体  
 Binder 实体, 是各个 Server 以及 ServiceManager 在 Binder 驱动中的存在形式, 内核通过 Binder 实体, 可以找到用户空间的 Server 对象;  
 Binder 实体, 实际上是内核中 binder_node 结构体的对象, 它的作用是在内核中保存 Server 和 ServiceManager 的信息, 例如: Binder 实体中保存了 Server 对象在用户空间的地址;  
@@ -224,7 +243,7 @@ Binder 实体和 Binder 引用都是内核(即, Binder驱动)中的数据结构;
 每一个 Server 在内核中就表现为一个 Binder 实体, 而每一个 Client 则表现为一个 Binder 引用;  
 这样每个 Binder 引用都对应一个 Binder 实体, 而每个 Binder 实体则可以多个 Binder 引用;  
 
-### Server 注册到 ServiceManager 中  
+#### Server.注册到 ServiceManager 中  
 Server 首先会向 Binder 驱动发起注册请求, 而 Binder 驱动在收到该请求之后, 就将该请求转发给 ServiceManager;  
 但是 Binder 驱动怎么才能知道该请求是要转发给 ServiceManager 的呢?  
 这是因为 Server 在发送请求的时候, 会告诉 Binder驱动这个请求是交给 0号 Binder 引用对应的进程来进行处理的;  
@@ -237,7 +256,7 @@ Server 首先会向 Binder 驱动发起注册请求, 而 Binder 驱动在收到�
 当 ServiceManager 收到 Binder 驱动转发的注册请求之后, 它就将该 Server 的相关信息注册到"Binder引用组成的单链表"中;  
 这里所说的 Server 相关信息主要包括两部分: Server 对应的服务名 + Server 对应的 Binder 实体的一个 Binder 引用;  
 
-### Client.获取远程服务   
+#### Client.获取远程服务的代理对象   
 Client 要和某个 Server 通信, 需要先获取到该 Server 的远程服务, 那么 Client 是如何获取到 Server 的远程服务的呢?  
 Client 首先会向 Binder 驱动发起获取服务的请求, Binder 驱动在收到该请求之后也是该请求转发给 ServiceManager 进程;  
 ServiceManager 在收到 Binder 驱动转发的请求之后, 会从"Binder引用组成的单链表"中, 找到要获取的 Server 的相关信息;  
@@ -248,20 +267,7 @@ ServiceManager 在收到 Binder 驱动转发的请求之后, 会从"Binder引用
 这个远程服务就是 Server 的代理, Client 通过调用该远程服务的接口, 就相当于在调用 Server 的服务接口一样;  
 因为 Client 调用该 Server 的远程服务接口时, 该远程服务会对应的通过 Binder 驱动, 和真正的 Server 进行交互, 从而执行相应的动作;  
 
-### Binder.通讯模型  
-01.. Server 进程启动之后, 会进入挂起状态, 等待 Client 的请求;  
-02.. 当 Client 需要和 Server 通信时, 会将请求发送给 Binder 驱动;  
-03.. Binder 驱动收到请求之后, 会唤醒 Server 进程;  
-04.. 接着 Binder 驱动还会反馈信息给 Client, 告诉 Client, 它发送给 Binder 驱动的请求, Binder 驱动已经收到;  
-05.. Client 将请求发送成功之后, 就进入等待状态, 等待 Server 的回复;   
-06.. Binder 驱动唤醒 Server 之后, 就将请求转发给 Server 进程;  
-07.. Server 进程解析出请求内容, 并将回复内容发送给 Binder 驱动;  
-08.. Binder 驱动收到回复之后, 唤醒 Client进程;  
-09.. 接着 Binder 驱动还会反馈信息给 Server, 告诉 Server, 它发送给 Binder 驱动的回复, Binder 驱动已经收到;  
-10.. Server 将回复发送成功之后, 再次进入等待状态, 等待 Client 的请求;  
-11.. 最后, Binder 驱动将回复转发给 Client;  
-
-### ProcessState  
+#### ProcessState  
 ProcessState 是以单例模式设计的;  
 每个进程在使用 binder 机制通信时, 均需要维护一个 ProcessState 实例, 来描述当前进程在 binder 通信时的状态;  
 ProcessState 有如下2个主要功能:  
@@ -272,26 +278,7 @@ IPCThreadState也是以单例模式设计的;
 由于每个进程只维护了一个 ProcessState 实例, 同时 ProcessState 只启动一个 Pool thread, 也就是说每一个进程只会启动一个 Pool thread, 因此每个进程则只需要一个 IPCThreadState 即可;  
 Pool thread 的实际内容则为:  IPCThreadState::self()->joinThreadPool();  
 
-### Binder.跨进程通讯流程主要为如下 4 步  
-ServiceManager 初始化   
-当该应用程序启动时, ServiceManager 会和 Binder 驱动进行通信, 告诉 Binder 驱动它是服务管理者  
-Binder 驱动新建 ServiceManager 对应的 Binder 实体  
-
-Server 向 ServiceManager 申请注册   
-Server 向 Binder 驱动发起注册请求, Binder 为它创建 Binder 实体;  
-然后 ServiceManager 会根据这个 Server 的名称, 创建一个 Binder 引用, 并添加到 Binder 引用表;  
-
-Client 获取远程服务   
-Client 首先会向 Binder 驱动发起获取服务的请求, 传递要获取的服务名称;  
-Binder 驱动将该请求转发给 ServiceManager 进程;  
-ServiceManager 查找到 Client 需要的 Server 对应的 Binder 实体的 Binder 引用信息, 然后通过 Binder 驱动反馈给 Client;  
-Client 收到 Server 对应的 Binder 引用后, 会创建一个 Server 对应的远程服务, 即 Server 在当前进程的代理;  
-
-Client 通过代理调用 Server   
-Client 调用远程服务, 远程服务收到 Client 请求之后, 会和 Binder 驱动通信;  
-因为远程服务中有 Server 的 Binder 引用信息, 因此驱动就能轻易的找到对应的 Server, 进而将Client 的请求内容发送 Server;  
-
-### 各个类的作用  
+#### 各个类的作用  
 
 android.app.IActivityManager  
 android.app.IApplicationThread  
@@ -387,32 +374,17 @@ https://developer.android.com/guide/components/bound-services?utm_campaign=adp_s
 
 
 ### 参考#binder  
-https://www.cnblogs.com/samchen2009/p/3316001.html  
-https://blog.csdn.net/zhgxhuaa/article/details/23617557  
-https://blog.csdn.net/u011240877/article/details/72801425  
-http://wangkuiwu.github.io/2014/09/01/Binder-Introduce/  
-http://blog.csdn.net/universus/article/details/6211589  
-http://www.cnblogs.com/samchen2009/p/3316001.html  
-https://blog.csdn.net/coding_glacier/article/details/7520199  
-Binder系列00    http://gityuan.com/2015/10/31/binder-prepare/  
-Binder系列01    http://gityuan.com/2015/11/01/binder-driver/  
-Binder系列02    http://gityuan.com/2015/11/02/binder-driver-2/  
-Binder系列03    http://gityuan.com/2015/11/07/binder-start-sm/  
-Binder系列04    http://gityuan.com/2015/11/08/binder-get-sm/  
-Binder系列05    http://gityuan.com/2015/11/14/binder-add-service/  
-Binder系列06    http://gityuan.com/2015/11/15/binder-get-service/  
-Binder系列07    http://gityuan.com/2015/11/21/binder-framework/  
-Binder系列08    http://gityuan.com/2015/11/22/binder-use/  
-Binder系列09    http://gityuan.com/2015/11/23/binder-aidl/
-Binder系列10    http://gityuan.com/2015/11/28/binder-summary/  
 https://blog.csdn.net/carson_ho/article/details/73560642  
-https://www.jianshu.com/p/1eff5a13000d  
-http://www.aoaoyi.com/archives/1006.html
-https://blog.csdn.net/bettarwang/article/details/51166823  
+https://www.cnblogs.com/samchen2009/p/3316001.html  
+http://wangkuiwu.github.io/2014/09/01/Binder-Introduce/  
+http://blog.csdn.net/universus/article/details/6211589
+https://zhuanlan.zhihu.com/p/35519585  
+http://weishu.me/2016/01/12/binder-index-for-newer  
 https://juejin.im/entry/59c9cd8e518825745c636ffd  
-https://github.com/android-cjj/SourceAnalysis-1/blob/master/Binder源码分析.md  
-https://www.cnblogs.com/a284628487/p/3187320.html  
+https://github.com/xdtianyu/SourceAnalysis/blob/master/Binder源码分析.md  
 https://www.diycode.cc/topics/384  
+
+https://www.cnblogs.com/a284628487/p/3187320.html  
 https://www.jianshu.com/p/88fd0dcd0528  
 https://adbcode.com/2017/05/11/Android Binder分析/  
 https://adbcode.com/2017/06/27/Android Binder进阶/  
@@ -434,16 +406,31 @@ https://github.com/interviewandroid/AndroidInterView/blob/master/android/binder.
 https://github.com/interviewandroid/AndroidInterView/blob/master/android/binder1.md  
 https://github.com/interviewandroid/AndroidInterView/blob/master/android/binder2.md  
 
+
+Binder系列00  
+http://gityuan.com/2015/10/31/binder-prepare/  
+http://gityuan.com/2015/11/01/binder-driver/  
+http://gityuan.com/2015/11/02/binder-driver-2/  
+http://gityuan.com/2015/11/07/binder-start-sm/  
+http://gityuan.com/2015/11/08/binder-get-sm/  
+http://gityuan.com/2015/11/14/binder-add-service/  
+http://gityuan.com/2015/11/15/binder-get-service/  
+http://gityuan.com/2015/11/21/binder-framework/  
+http://gityuan.com/2015/11/22/binder-use/  
+http://gityuan.com/2015/11/23/binder-aidl/
+http://gityuan.com/2015/11/28/binder-summary/  
+
 废柴  
-http://weishu.me/2016/01/12/binder-index-for-newer/    
+https://www.jianshu.com/p/1eff5a13000d  
+https://blog.csdn.net/bettarwang/article/details/51166823  
+http://www.aoaoyi.com/archives/1006.html  
 https://www.jianshu.com/p/3d053abba04b   
 http://www.cnblogs.com/innost/archive/2011/01/09/1931456.html  
 http://blog.csdn.net/luoshengyang/article/details/6618363  
-https://www.jianshu.com/p/1eff5a13000d  
 https://blog.csdn.net/codefly/article/details/17058607  
 https://blog.csdn.net/desler/article/details/47908017  
 https://blog.csdn.net/freekiteyu/article/details/70082302  
-
+https://blog.csdn.net/coding_glacier/article/details/7520199  
 ### 参考#zygote  
 https://www.cnblogs.com/samchen2009/p/3294713.html  
 https://lrh1993.gitbooks.io/android_interview_guide/content/android/advance/app-launch.html  

@@ -271,17 +271,16 @@ void recycleUnchecked() {
     }
 }
 ```
-A.. 我们假设, 每次 post/send 一个消息, 用obtain 的话,   
-第一次sPool=null, 会new 出来一个 Message 对象 m0, 在处理完消息的时候, looper 会调用 msg.recycleUnchecked(),  那么, 这个m0 会被赋值给 sPool;  
-第二次, 或者第N次, 用obtain的话, 永远都是使用的m0, 这样就达到了消息的复用;  
+A.. 我们假设, 每次 post/send 一个消息, 用 obtain 的话,  
+第一次 sPool=null, 会 new 出来一个 Message 对象 m0, 在处理完消息的时候, looper 会调用 msg.recycleUnchecked(),  那么, 这个 m0 会被赋值给 sPool;  
+第二次, 或者第 N 次, 用 obtain 的话, 永远都是使用的 m0, 这样就达到了消息的复用;  
 
-B.. 我们假设, 有一次同时 post/send 8条消息, 这里的同时的意思是, 在looper没有调用msg.recycleUnchecked()之前, 所以继续看obtain 方法;  
+B.. 我们假设, 有一次同时 post/send 8 条消息, 这里的同时的意思是, 在 looper 没有调用 msg.recycleUnchecked()之前, 所以继续看 obtain 方法;  
 如果先加锁, 持有这把锁的是 public static final Object sPoolSync = new Object();  
-所以所有的调用处都要在外面排队等候, 当发现sPool非空时, 就使用链表头结点, 一直占用, 直到链表用光了, sPool 就会变成 null, 就会重新 new Message;  
-当然链表的next节点, 不会很多, 最大值是50个, 超出50的部分, 不会被加到链表next节点上, 也就是不会放在消息池中;  
+所以所有的调用处都要在外面排队等候, 当发现 sPool 非空时, 就使用链表头结点, 一直占用, 直到链表用光了, sPool 就会变成 null, 就会重新 new Message;  
+当然链表的 next 节点, 不会很多, 最大值是 50 个, 超出 50 的部分, 不会被加到链表 next 节点上, 也就是不会放在消息池中;  
 
-消息池如果增加到8个, 不会降下来, 如果继续增加到16个, 也不会降下来, 可以理解为, 核心池数量, 只要产生了峰值, 就会一直持有者;  
-
+消息池如果增加到 8 个, 不会降下来, 如果继续增加到 16 个, 也不会降下来, 可以理解为, 核心池数量, 只要产生了峰值, 就会一直持有者;  
 
 ### 参考  
 https://blog.csdn.net/solarsaber/article/details/48974907  

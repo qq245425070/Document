@@ -216,10 +216,6 @@ if (BuildConfig.DEBUG) {
 }  
 ```
 ### 性能优化工具  
-adb  
-https://testerhome.com/topics/9513  
-http://www.blogjava.net/fjzag/articles/317773.html  
-
 Systrace  
 Systrace 是分析 Android 性能问题的神器, Google IO 2017 上更是对其各种强推;  
 Android 4.1 以上版本提供的性能数据采样 & 分析工具;  
@@ -252,16 +248,9 @@ Heap Viewer
 Allocation Tracker  
 一个内存追踪分析工具, 追踪内存分配信息, 按顺序排列  
 
-BlockCanary  
-页面卡顿检测  
-http://blog.zhaiyifan.cn/2016/01/16/BlockCanaryTransparentPerformanceMonitor/  
 
 ### 参考  
-内存的计算  
-https://www.jianshu.com/p/f0f192ec5650  
-https://www.kernel.org/doc/Documentation/filesystems/proc.txt  
-
-
+https://www.jianshu.com/p/f0f192ec5650    
 https://www.jianshu.com/p/f5514b1a826c  
 https://www.jianshu.com/p/4f44a178c547  
 https://www.jianshu.com/p/c4b283848970  
@@ -351,6 +340,8 @@ https://github.com/NetEase/Emmagee
 iTest  
 https://www.25pp.com/android/detail_6522701/  
 
+BlockCanary 页面卡顿检测  
+http://blog.zhaiyifan.cn/2016/01/16/BlockCanaryTransparentPerformanceMonitor/  
 
 apk 压缩  
 https://github.com/interviewandroid/AndroidInterView/blob/master/android/AndResGuard.md  

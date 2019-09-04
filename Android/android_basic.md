@@ -82,6 +82,7 @@ TextureView; SurfaceView;
 [ImageView 与 Bitmap](basic/view_widget/ImageView.md)  
 [RecyclerView](basic/recyclerView/RecyclerView.md)  
 [ListView](basic/recyclerView/ListView.md)  
+[TextView](basic/view_widget/TextView.md)  
 [UI自动化测试](basic/view_window/UiAutomator.md)  
 音视频相关; 直播流; 播放器;  
 [链接](basic/live_stream/live_stream.md)  
