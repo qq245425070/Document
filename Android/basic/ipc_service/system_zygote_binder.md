@@ -383,8 +383,8 @@ http://weishu.me/2016/01/12/binder-index-for-newer
 https://juejin.im/entry/59c9cd8e518825745c636ffd  
 https://github.com/xdtianyu/SourceAnalysis/blob/master/Binder源码分析.md  
 https://www.diycode.cc/topics/384  
-
 https://www.cnblogs.com/a284628487/p/3187320.html  
+
 https://www.jianshu.com/p/88fd0dcd0528  
 https://adbcode.com/2017/05/11/Android Binder分析/  
 https://adbcode.com/2017/06/27/Android Binder进阶/  

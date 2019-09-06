@@ -18,7 +18,8 @@ IPC, 有哪些, binder 机制的了解有多少;
 
 
 红黑树, 你了解多少, 时间复杂度 O(lg n), 是怎么推导出来的;  
- 
+https://jeanboy.blog.csdn.net/  
+https://github.com/jeanboydev/Android-ReadTheFuckingSourceCode  
 https://github.com/interviewandroid/AndroidInterView  
 https://juejin.im/post/5d48e9c36fb9a06af13d50f9  
 https://github.com/JsonChao/Awesome-Android-Interview
