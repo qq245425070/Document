@@ -1,17 +1,16 @@
-[关于展示吐司和通知](library/open_toast_notification.md)     
-[Activity启动模式与任务栈](library/launchMode.md)    
-[清单文件Activity标签属性](library/manifest_tag.md)    
-[状态栏高度24dp](ImageFiles/status_bar_height.png)    
-[Activity常见方法](library/function.md)   
-[Fragment重叠异常](library/solution_001.md)  
-
+[关于展示吐司和通知](library/open_toast_notification.md)  
+[Activity 启动模式与任务栈](library/launchMode.md)  
+[清单文件 Activity 标签属性](library/manifest_tag.md)  
+[状态栏高度 24dp](ImageFiles/status_bar_height.png)  
+[Activity 常见方法](library/function.md)  
+[Fragment 重叠异常](library/solution_001.md)  
 不管 Activity 是不是被回收, 只要执行 onStop 就一定会执行 onSaveInstanceState;  
 
-Activity 会通过 android:id 逐个恢复View的State;  
+Activity 会通过 android:id 逐个恢复 View 的 State;  
 也就是说, 如果 android:id 为空, View 将不具备恢复 State 的能力了;  
-所有的自定义控件, 都应该实现State相关方法, onSaveInstanceState and onRestoreInstanceState;  
-一旦Fragment从回退栈出来, Fragment本身还在, View却是重新创建的;  
-但是给 TextView, EditText 设置 android:freezeText="true" 会让其在 Fragment 内, 自动保存State;     
+所有的自定义控件, 都应该实现 State 相关方法, onSaveInstanceState and onRestoreInstanceState;  
+一旦 Fragment 从回退栈出来, Fragment 本身还在, View 却是重新创建的;  
+但是给 TextView, EditText 设置 android:freezeText="true" 会让其在 Fragment 内, 自动保存 State;  
 
 启动一个 Activity 和 Fragment, 他们的生命周期方法, 调用顺序;  
 切换横竖屏;  屏幕锁;  
@@ -20,29 +19,29 @@ Activity 会通过 android:id 逐个恢复View的State;
 ### Fragment  
 
 setRetainInstance  
-Fragment 具有属性 retainInstance, 默认值为 false;   
+Fragment 具有属性 retainInstance, 默认值为 false;  
 当设备旋转时, fragment 会随托管 activity 一起销毁并重建;  
 
-如果 retainInstance 属性值为 false, FragmentManager会立即销毁该fragment实例;   
-随后, 为适应新的设备配置, 新的Activity的新的FragmentManager会创建一个新的fragment及其视图;  
+如果 retainInstance 属性值为 false, FragmentManager 会立即销毁该 fragment 实例;  
+随后, 为适应新的设备配置, 新的 Activity 的新的 FragmentManager 会创建一个新的 fragment 及其视图;  
 
-如果retainInstance属性值为true, 则该fragment的视图立即被销毁, 但fragment本身不会被销毁;   
-为适应新的设备配置, 当新的Activity创建后, 新的FragmentManager会找到被保留的fragment, 并重新创建其视图；  
-一旦发生Activity重启现象, Fragment会跳过onDestroy直接进行onDetach（界面消失、对象还在）,   
-而Fragment重启时也会跳过onCreate, 而onAttach和onActivityCreated还是会被调用;  
-需要注意的是, 要使用这种操作的Fragment不能加入backstack后退栈中;  
-并且, 被保存的Fragment实例不会保持太久, 若长时间没有容器承载它, 也会被系统回收掉的;  
+如果 retainInstance 属性值为 true, 则该 fragment 的视图立即被销毁, 但 fragment 本身不会被销毁;  
+为适应新的设备配置, 当新的 Activity 创建后, 新的 FragmentManager 会找到被保留的 fragment, 并重新创建其视图;   
+一旦发生 Activity 重启现象, Fragment 会跳过 onDestroy 直接进行 onDetach(界面消失, 对象还在),  
+而 Fragment 重启时也会跳过 onCreate, 而 onAttach 和 onActivityCreated 还是会被调用;  
+需要注意的是, 要使用这种操作的 Fragment 不能加入 backStack 后退栈中;  
+并且, 被保存的 Fragment 实例不会保持太久, 若长时间没有容器承载它, 也会被系统回收掉的;  
 
 [FragmentManagerImpl, Api21](library/FragmentManagerImplApi21.md)  
 getActivity()空指针问题  
-❀ 搞清楚, 为什么f.mActivity() 为空    
-如果app长时间在后台运行, 再次进入app的时候可能会出现crash, 而且fragment会有重叠现象;  
-如果系统内存不足、切换横竖屏、app长时间在后台运行, Activity都可能会被系统回收然后重建,   
-但Fragment并不会随着Activity的回收而被回收, 创建的所有 Fragment会被保存到Bundle里面, 从而导致Fragment丢失对应的Activity;  
-Fragment放在ViewPager中, ViewPager只预加载三个, 在跳转到未被预加载的Item的时候, 目标Fragment也重新创建, 这个时候, 通过getActivity()获取不到context;  
+❀ 搞清楚, 为什么 f.mActivity() 为空  
+如果 app 长时间在后台运行, 再次进入 app 的时候可能会出现 crash, 而且 fragment 会有重叠现象;  
+如果系统内存不足, 切换横竖屏, app 长时间在后台运行, Activity 都可能会被系统回收然后重建,  
+但 Fragment 并不会随着 Activity 的回收而被回收, 创建的所有 Fragment 会被保存到 Bundle 里面, 从而导致 Fragment 丢失对应的 Activity;  
+Fragment 放在 ViewPager 中, ViewPager 只预加载三个, 在跳转到未被预加载的 Item 的时候, 目标 Fragment 也重新创建, 这个时候, 通过 getActivity()获取不到 context;  
 ❀ 解决办法  
-Fragment中维护一个 全局的 Activity 对象, 在 onAttach 方法中 给其赋值, 在 onDetach 中, 把它置空;  
-管理好Fragment 的生命周期, 在onCreate 开始监听, 在onDestroy时, 解除监听, 忽略掉耗时操作的回调;  
+Fragment 中维护一个 全局的 Activity 对象, 在 onAttach 方法中 给其赋值, 在 onDetach 中, 把它置空;  
+管理好 Fragment 的生命周期, 在 onCreate 开始监听, 在 onDestroy 时, 解除监听, 忽略掉耗时操作的回调;  
 
 
 
@@ -50,7 +49,7 @@ Fragment中维护一个 全局的 Activity 对象, 在 onAttach 方法中 给其
 
 ❀ commit()  
 在主线程中异步执行, 其实也是 Handler 抛出任务, 等待主线程调度执行;  
-commit() 需要在宿主 Activity 保存状态之前调用, 否则会报错;   
+commit() 需要在宿主 Activity 保存状态之前调用, 否则会报错;  
 这是因为如果 Activity 出现异常需要恢复状态, 在保存状态之后的 commit() 将会丢失, 这和调用的初衷不符, 所以会报错;  
 
 ❀ commitAllowingStateLoss()  
@@ -64,25 +63,25 @@ FragmentManager.executePendingTransactions() 也可以实现立即提交事务;
 和 commit() 一样, commitNow() 也必须在 Activity 保存状态前调用, 否则会抛异常;  
 
 attach 与 detach  
-transaction.attach(fragment); 对应 onCreateView-onViewCreated-onActivityCreated-onStart-onResume    
+transaction.attach(fragment); 对应 onCreateView-onViewCreated-onActivityCreated-onStart-onResume  
 transaction.detach(fragment);  对应 onPause-onStop-onDestroyView  
 
 
 #### transaction  
-1.. replace  加入回退栈, Fragment不销毁, 但是切换回销毁视图和重新创建视图;  
-2.. replace  未加回退栈, Fragment销毁掉;  
-3.. hide. show. Fragment不销毁, 也不销毁视图, 隐藏和显示不走生命周期;  
+1.. replace  加入回退栈, Fragment 不销毁, 但是切换回销毁视图和重新创建视图;  
+2.. replace  未加回退栈, Fragment 销毁掉;  
+3.. hide. show. Fragment 不销毁, 也不销毁视图, 隐藏和显示不走生命周期;  
 
 replace, AFragment 加入回退栈  
-在同一个位置, 第一次 replace AFragment, 第二次replace BFragment;    
+在同一个位置, 第一次 replace AFragment, 第二次 replace BFragment;  
 ```
 A: onAttach -> onCreate -> onCreateView -> onActivityCreated -> onStart -> onResume;  
-A: onPause -> onStop -> onDestroyView   
+A: onPause -> onStop -> onDestroyView  
 B: onAttach -> onCreate -> onCreateView -> onActivityCreated -> onStart -> onResume;  
 ```
 
 replace, AFragment 未加回退栈  
-在同一个位置, 第一次 replace AFragment, 第二次replace BFragment;    
+在同一个位置, 第一次 replace AFragment, 第二次 replace BFragment;  
 ```
 A: onAttach -> onCreate -> onCreateView -> onActivityCreated -> onStart -> onResume;  
 A: onPause -> onStop -> onDestroyView -> onDestroy -> onDetach  
@@ -104,142 +103,109 @@ onCreateView -> onActivityCreated -> onStart -> onResume
 
 popBackStack(String tag,int flags)  
 ```
-如果  tag = null, flags = 0, 弹出回退栈中最上层的那个fragment  
-如果  tag = null, flags = 1, 弹出回退栈中所有fragment  
-如果  tag != null, flags = 0, 弹出该fragment以上的所有Fragment, 不包括 tag
-如果  tag != null, flags = 1, 弹出该fragment以上的所有Fragment, 包括 tag  
+如果  tag = null, flags = 0, 弹出回退栈中最上层的那个 fragment  
+如果  tag = null, flags = 1, 弹出回退栈中所有 fragment  
+如果  tag != null, flags = 0, 弹出该 fragment 以上的所有 Fragment, 不包括 tag  
+如果  tag != null, flags = 1, 弹出该 fragment 以上的所有 Fragment, 包括 tag  
 原本 D -> C -> B -> A ;  
-执行 
+执行  
 ```
 
 未挂载异常  
 ```
-//  "Fragment " + this + " not attached to Activity"
-transaction.add(routerFragment, RouterConfig.FM_TAG);
-transaction.commitAllowingStateLoss();
-manager.executePendingTransactions();
+//  "Fragment " + this + " not attached to Activity"  
+transaction.add(routerFragment, RouterConfig.FM_TAG);  
+transaction.commitAllowingStateLoss();  
+manager.executePendingTransactions();  
 ```
-### startActivity流程  
+### startActivity 流程  
 ![流程图](ImageFiles/start_ac_001.png)  
-之前, ActivityManagerNative.getDefault() 得到一个 ActivityManagerProxy 对象, 它是跟 AMS 进行通信, 是 client 端的代表;  
-AMP 通过 binder 将数据传输到 AMN, 后面程序进入 system_server 进程, 开始继续执行;  
-AMN 是 AMS 通信过程中 service 端的代表, 它继承于 Binder, 实现了 IActivityManager 的方法, 但它只是调用, 直接实现的类是 AMS;  
-
-
-
-api >= 26 之后  
-ApplicationThreadProxy  ApplicationThreadNative  ActivityManagerNative  BulkCursorNative  ContentProviderNative  
-都被废弃;  
-
-
-
+以下分析基于 api 26  
+之前, ActivityManagerNative.getDefault() 得到一个 ActivityManagerProxy 对象, 是 client 端的代表;  
+AMP 通过 binder 将数据传输到 activityManagerService, 后面程序进入 system_server 进程, 开始继续执行;  
 ActivityThread  
-App的真正入口, 当开启App之后, 会调用main()开始运行, 开启消息循环队列, 启动UI线程;   
-
+App 的真正入口, 当开启 App 之后, 会调用 main()开始运行, 开启消息循环队列, 启动 UI 线程;  
 ActivityThread.ApplicationThread  
 ApplicationThread 是 ActivityThread 的内部类, 继承于 IApplicationThread.Stub, 也就是 Binder;  
-用来完成 ActivityManagerService 与 ActivityThread 之间的交互;    
+用来完成 ActivityManagerService 与 ActivityThread 之间的交互;  
 在 ActivityManagerService 需要管理相关 Application 中的 Activity 的生命周期时, 通过 ApplicationThread 的代理对象与 ActivityThread 通讯;  
-
 ApplicationThreadProxy  
-是 ApplicationThread 在服务器端的代理, 负责和客户端的 ApplicationThread 通讯;  AMS就是通过该代理与 ActivityThread 进行通信的;  
-
+是 ApplicationThread 在服务器端的代理, 负责和客户端的 ApplicationThread 通讯;  AMS 就是通过该代理与 ActivityThread 进行通信的;  
 ActivityThread.H  
-H其实是一个Handler, 也是ActivityThread的一个内部类, 运行在主线程;  
-
+H 其实是一个 Handler, 也是 ActivityThread 的一个内部类, 运行在主线程;  
 Instrumentation  
 管理一个活动的生命周期;  
-Instrumentation是android系统中启动Activity的一个实际操作类, 也就是说Activity在应用进程端的启动实际上就是Instrumentation执行的；  
-
-每一个应用程序只有一个Instrumentation对象, 每个Activity内都有一个对该对象的引用;  Instrumentation可以理解为应用进程的管家,   
-ActivityThread要创建或暂停某个Activity时, 都需要通过Instrumentation来进行具体的操作;    
-
+Instrumentation 是 android 系统中启动 Activity 的一个实际操作类, 也就是说 Activity 在应用进程端的启动实际上就是 Instrumentation 执行的;   
+每一个应用程序只有一个 Instrumentation 对象, 每个 Activity 内都有一个对该对象的引用;  Instrumentation 可以理解为应用进程的管家,  
+ActivityThread 要创建或暂停某个 Activity 时, 都需要通过 Instrumentation 来进行具体的操作;  
 Instrumentation#newActivity();  
 Instrumentation#newApplication();  
-
 ActivityStack  
 管理一个活动栈  
-Activity在AMS的栈管理, 用来记录已经启动的Activity的先后关系, 状态信息等;  通过ActivityStack决定是否需要启动新的进程;  
-
+Activity 在 AMS 的栈管理, 用来记录已经启动的 Activity 的先后关系, 状态信息等;  通过 ActivityStack 决定是否需要启动新的进程;  
 ActivityStackSupervisor  
 管理所有的活动栈  
-
 ActivityRecord  
-ActivityStack的管理对象, 每个Activity在AMS对应一个ActivityRecord, 来记录Activity的状态以及其他的管理信息;  其实就是服务器端的Activity对象的映像;  
-
+ActivityStack 的管理对象, 每个 Activity 在 AMS 对应一个 ActivityRecord, 来记录 Activity 的状态以及其他的管理信息;  其实就是服务器端的 Activity 对象的映像;  
 ActivityStarter  
-根据intent, flags 找到 activity, stack  
-
+根据 intent, flags 找到 activity, stack  
 TaskRecord  
-AMS抽象出来的一个"任务"的概念, 是记录ActivityRecord的栈, 一个"Task"包含若干个ActivityRecord;  AMS用TaskRecord确保Activity启动和退出的顺序;    
-
+AMS 抽象出来的一个"任务"的概念, 是记录 ActivityRecord 的栈, 一个"Task"包含若干个 ActivityRecord;  AMS 用 TaskRecord 确保 Activity 启动和退出的顺序;  
 ActivityManagerService  
 管理所有的活动;  
-位于system_server进程, 从ActivityManagerService提供的接口来看, 它负责管理Activity的启动和生命周期;  
-
+位于 system_server 进程, 从 ActivityManagerService 提供的接口来看, 它负责管理 Activity 的启动和生命周期;  
 ActivityManagerProxy  
 是 ActivityManagerService 在普通应用进程的一个代理对象;  
-已经被废弃, 通过AIDL生成的对象;  
-它只负责准备相关的数据发送到system_process进程去处理startActivity;  
+已经被废弃, 通过 AIDL 生成的对象;  
+它只负责准备相关的数据发送到 system_process 进程去处理 startActivity;  
 应用进程通过 ActivityManagerProxy 对象调用 ActivityManagerService 提供的功能;  
-
-应用进程并不会直接创建 ActivityManagerProxy 对象,   
+应用进程并不会直接创建 ActivityManagerProxy 对象,  
 而是通过调用 ActivityManagerNative 类的工具方法 getDefault 方法得到 ActivityManagerProxy 对象;  
 也就是 通过 ActivityManager#getService 方法得到 ActivityManagerProxy 对象;  
-
-
-#### 函数调用栈    
-无论是通过 launcher 来启动 Activity 还是通过其他 Activity 来启动另一个 Activity, 都需要通过IPC调用 ActivityManagerService 的 startActivity 的方法;  
-
-ActivityManagerService 调用 ActivityStarter.startActivityMayWait, 经过一系列复杂的调用, 收集并记录Activity的启动信息, 调整ActivityStack(让栈顶的Activity进入pause状态),  
-创建并初始化Application对象, 创建ActivityThread并调用main方法;  
-
-最后在 ActivityStackSupervisor 的 realStartActivityLocked 方法调用 app.thread.scheduleLaunchActivity 方法,   
-也就是说, ActivityManagerService 调用 ApplicationThread 的 scheduleLaunchActivity 接口方法;  
-
+#### 函数调用栈  
 Activity.startActivity  
 Instrumentation#execStartActivity  
 ActivityManagerProxy#startActivity  
-通过Binder驱动程序就进入到 ActivityManagerService 的 startActivity 方法;  
-ActivityManagerService#startActivity  
-经过IPC调用, 启动Activity的指令来到了ActivityManagerService, 紧接着AMS调用 startActivityAsUser 着手Activity的启动工作;   
+无论是通过 launcher 来启动 Activity 还是通过其他 Activity 来启动另一个 Activity, 都需要通过 IPC 调用 ActivityManagerService 的 startActivity 的方法;  
+也就是说, ActivityManagerService 调用 ApplicationThread 的 scheduleLaunchActivity 方法, scheduleLaunchActivity 通过 handler 发送消息;  
+在 activityThread 的 performLaunchActivity 中创建 activity, 并创建 PhoneWindow 对象, 通过 activity 的 attach 方法, 把 phoneWindow 对象传递给 activity;  
+如果 Application 未创建, ActivityManagerService 所在的 system_server 进程;  
+创建并初始化 Application 对象, 参见 [在 Launcher 中点击  App 的图标后, 发生了什么](/Android/basic/ipc_service/system_zygote_binder.md)  
+经过 IPC 调用, 启动 Activity 的指令来到了 ActivityManagerService, 紧接着 AMS 调用 startActivityAsUser 着手 Activity 的启动工作;  
+
 
 ActivityStarter#startActiviytMayWait  
-AMS有一个ActivityStack, 负责Activity的调度工作, 比如维护回退栈, 但ActivityStack内的Activity是抽象成ActivityRecord来管理的, Activity对象不会存在于AMS当中;  
+AMS 有一个 ActivityStack, 负责 Activity 的调度工作, 比如维护回退栈, 但 ActivityStack 内的 Activity 是抽象成 ActivityRecord 来管理的, Activity 对象不会存在于 AMS 当中;  
 
 ActivityStarter#startActivityUncheckedLocked  
-这个方法会根据Activity启动信息(提取封装到ActivityInfo类中)中的launchMode, flag等属性来调度ActivityStack中的Task和ActivityRecord;  
-因此这个方法是理解Activity启动模式的关键;  
+这个方法会根据 Activity 启动信息(提取封装到 ActivityInfo 类中)中的 launchMode, flag 等属性来调度 ActivityStack 中的 Task 和 ActivityRecord;  
+因此这个方法是理解 Activity 启动模式的关键;  
 
 ActivityStack#resumeTopActivityInnerLocked  
-这个方法内部会把前台处于Resume状态的Activity变成Pause状态后才会继续启动Activity的逻辑;  
-将一个Activity变成Pause状态需要经历的调用于后面的启动调用非常相似;  
+这个方法内部会把前台处于 Resume 状态的 Activity 变成 Pause 状态后才会继续启动 Activity 的逻辑;  
+将一个 Activity 变成 Pause 状态需要经历的调用于后面的启动调用非常相似;  
 
 ActivityStack#startSpecificActivityLocked  
-这里最后会调用AMS的startProcessLocked, 这个方法会先判断是否已经存在相应的进程, 如果不存在则通过远程调用Zygote进程来孵化出新的应用进程,  
-Zygote进程孵化出新的应用进程后, 会执行ActivityThread类的main方法;  
-在该方法里会先准备好Looper和消息队列, 然后调用attach方法将应用进程绑定到ActivityManagerService, 然后进入loop循环, 不断地读取消息队列里的消息, 并分发消息;  
-这个过程在Android的消息机制里已经非常熟悉了, 其中attach方法在与AMS绑定的过程中会调用attachApplicationLocked方法;  
-attachApplicationLocked方法有两个重要的函数调用thread.bindApplication和mMainStack.realStartActivityLocked;  
-thread.bindApplication将应用进程的ApplicationThread对象绑定到ActivityManagerService, 也就是说获得ApplicationThread对象的代理对象;  
-mMainStack.realStartActivityLocked通知应用进程启动Activity  
+这里最后会调用 AMS 的 startProcessLocked, 这个方法会先判断是否已经存在相应的进程, 如果不存在则通过远程调用 Zygote 进程来孵化出新的应用进程;  
+zygote 进程孵化出新的应用进程后, 会执行 ActivityThread 类的 main 方法;  
+在该方法里会先准备好 Looper 和消息队列, 然后调用 attach 方法将应用进程绑定到 ActivityManagerService, 然后进入 loop 循环, 不断地读取消息队列里的消息, 并分发消息;  
+这个过程在 Android 的消息机制里已经非常熟悉了, 其中 attach 方法在与 AMS 绑定的过程中会调用 attachApplicationLocked 方法;  
+attachApplicationLocked 方法有两个重要的函数调用 thread.bindApplication 和 mMainStack.realStartActivityLocked;  
+thread.bindApplication 将应用进程的 ApplicationThread 对象绑定到 ActivityManagerService, 也就是说获得 ApplicationThread 对象的代理对象;  
+mMainStack.realStartActivityLocked 通知应用进程启动 Activity  
 
 ActivityStack#realStartActivityLocked  
-app.thread其实就是ApplicationThread在AMS的代理对象, 实际上是调用ApplicationThread#scheduleLaunchActivity;  
-接下来Activity的启动工作就交给应用进程来完成了, 别忘了这时候的Activity对象还没被创建呢;  
+app.thread 其实就是 ApplicationThread 在 AMS 的代理对象, 实际上是调用 ApplicationThread#scheduleLaunchActivity;  
+接下来 Activity 的启动工作就交给应用进程来完成了, 别忘了这时候的 Activity 对象还没被创建呢;  
 
 ActivityThread#performLaunchActivity  
-通过类加载器加载Activity对象;  
-创建ContextImpl对象并调用activity的attach方法, 把上下文变量设置进activity中, 创建Window对象和设置WindowManager;  
-回调onCreate,onStart和onRestoreInstanceState方法;  
+通过类加载器加载 Activity 对象;  
+创建 ContextImpl 对象并调用 activity 的 attach 方法, 把上下文变量设置进 activity 中, 创建 Window 对象和设置 WindowManager;  
+回调 onCreate,onStart 和 onRestoreInstanceState 方法;  
 
 ActivityThread#handleResumeActivity  
-回调Activity的onResume方法;  
-调用WindowManager的addView方法, 将前面在attach方法内创建出来的window对象添加到WindowManager当中;  
-
-
-
-
+回调 Activity 的 onResume 方法;  
+调用 WindowManager 的 addView 方法, 将前面在 attach 方法内创建出来的 window 对象添加到 WindowManager 当中;  
 ###  参考  
 https://inthecheesefactory.com/blog/fragment-state-saving-best-practices/en  
 https://github.com/nuuneoi/StatedFragment  
@@ -251,8 +217,8 @@ https://www.jianshu.com/p/a768810c3ff8
 https://blog.csdn.net/stonecao/article/details/6591847  
 https://blog.csdn.net/qq_23547831/article/details/51224992  
 http://gityuan.com/2016/03/12/start-activity/  
-https://github.com/yipianfengye/androidSource/blob/master/14 activity启动流程.md
-http://aspook.com/2017/02/10/Android-Instrumentation源码分析（附Activity启动流程）/  
+https://github.com/yipianfengye/androidSource/blob/master/14 activity 启动流程.md  
+http://aspook.com/2017/02/10/Android-Instrumentation 源码分析(附 Activity 启动流程)/  
 深入理解 Android 内核设计思想  
 Android 开发艺术探索  
 https://blog.csdn.net/pihailailou/article/details/78545391  
@@ -278,7 +244,7 @@ https://developer.android.com/training/basics/activity-lifecycle/recreating?utm_
 ❀ fragment 参考  
 http://toughcoder.net/blog/2015/04/30/android-fragment-the-bad-parts/  
 http://www.jianshu.com/p/825eb1f98c19  
-https://github.com/AlanCheen/Android-Resources/blob/master/Fragment.md    
+https://github.com/AlanCheen/Android-Resources/blob/master/Fragment.md  
 https://github.com/JustKiddingBaby/FragmentRigger  
 http://blog.csdn.net/u011240877/article/details/78132990#fragment-的使用  
 https://www.jianshu.com/p/f2fcc670afd6  
@@ -305,7 +271,7 @@ https://blog.csdn.net/guolin_blog/article/details/47028975
 
 
 ❀ onActivityResult  
-请放弃使用 类似的库, 因为在 页面被回收, 页面重启后, 回调不会被执行的；  
+请放弃使用 类似的库, 因为在 页面被回收, 页面重启后, 回调不会被执行的;   
 https://github.com/VictorAlbertos/RxActivityResult  
 https://github.com/florent37/InlineActivityResult  
 https://github.com/NateWickstrom/RxActivityResult  
@@ -313,3 +279,4 @@ https://github.com/nekocode/RxActivityResult
 
 ❀ 启动模式 IntentFilter  
 https://juejin.im/post/5c5d85da6fb9a049fd104d8f  
+

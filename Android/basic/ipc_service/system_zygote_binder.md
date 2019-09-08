@@ -117,16 +117,14 @@ ActivityManager 通过 AMN 的 getDefault 方法得到 AMP, 通过 AMP 就可以
 #### 在 Launcher 中点击  App 的图标后, 发生了什么  
 点击桌面 App 图标, Launcher 所在的进程通过 Binder IPC 向 system_server 进程发起 startActivity 请求;  
 system_server 进程接收到请求后, 如果发现目标 app 进程并没有在运行, 就会通过 socket 向 zygote 进程发送创建 app 进程的请求;  
-zygote 进程收到请求后, 就会 fork 出 App 进程;  
+zygote 进程收到请求后, 就会 fork 出 App 进程, 并调用 ActivityThread.main 方法, 在 main 方法里面创建 ActivityThread 对象, 并创建 Application 对象;  
 App 进程启动后, 会通过 Binder IPC 向 system_server 进程发起 attachApplication 请求;  
 system_server 进程在收到请求后, 进行一系列准备工作后, 再通过 binder IPC 向 App 进程发起 scheduleLaunchActivity 请求;  
 App 进程的 ApplicationThread(binder 线程) 收到请求后, 通过 handler 向主线程发送 LAUNCH_ACTIVITY 消息;  
 主线程在收到 Message 后, 通过发射机制创建目标 Activity, 并回调 Activity.onCreate()等方法;  
 到此, App 便正式启动, 开始进入 Activity 生命周期, 执行完 onCreate/onStart/onResume方法, UI 渲染结束后便可以看到 App 的主界面;  
 
-Activity 启动流程, 详见  
-[链接](/Android/basic/context/Activity.md)  
-
+startActivity 流程, 详见[链接](/Android/basic/context/Activity.md)  
 ### binder.机制  
 四大组件的操作都会用到 Binder;  
 Activity, BroadcastReceiver, ContentProvider, Service, Messenger, AIDL (这几种, 底层全是 binder 机制);  

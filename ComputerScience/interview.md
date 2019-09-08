@@ -19,6 +19,7 @@ IPC, 有哪些, binder 机制的了解有多少;
 
 红黑树, 你了解多少, 时间复杂度 O(lg n), 是怎么推导出来的;  
 https://jeanboy.blog.csdn.net/  
+https://www.jianshu.com/p/8a6951b0d0ee  
 https://github.com/jeanboydev/Android-ReadTheFuckingSourceCode  
 https://github.com/interviewandroid/AndroidInterView  
 https://juejin.im/post/5d48e9c36fb9a06af13d50f9  
@@ -60,7 +61,7 @@ https://github.com/interviewandroid/AndroidInterView
 https://github.com/Blankj/AndroidOfferKiller  
 https://github.com/hadyang/interview  
 https://github.com/Ellen2018/AndroidFaceInterview  
-
+https://juejin.im/post/5d7256526fb9a06af824fdd3  
 ### Java  
 ConcurrentHashMap;  
 TreeMap;  

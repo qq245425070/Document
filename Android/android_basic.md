@@ -53,6 +53,7 @@ MVVM;  DataBinding;  LiveData;
 [链接](basic/databinding/databinding.md)   
 
 ### 自定义控件相关  
+[WindowManagerService](basic/view_window/WindowManagerService.md)  
 
 View 绘制原理, View 绘制时机, 屏幕刷新机制;   fps;  
 invalidate;  requestLayout;  

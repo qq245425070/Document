@@ -52,7 +52,7 @@ PhoneWindow
 WindowManagerService  
 WindowManager  
 
-### DecorView添加到Window上  
+### DecorView 添加到 Window 上  
 ActivityThread#handleResumeActivity  
 ```
 @Override
@@ -116,6 +116,16 @@ public void setView(View view, WindowManager.LayoutParams attrs, View panelParen
             mAdded = true;  
             // 请求布局
             requestLayout();
+            //  mWindowSession = WindowManagerGlobal.getWindowSession();  
+            //  mWindowSession 实际上已经调用到 service 端了;  
+            //  当 window有变化, 肯定要去通知 service 端, 同时更新 Service 端的一些信息;  
+            //  之前说 ViewRootImpl 与 WMS 进行通信, 通信的工具就是 session  
+            res = mWindowSession.addToDisplay(mWindow, mSeq, mWindowAttributes,
+                                        getHostVisibility(), mDisplay.getDisplayId(),
+                                        mAttachInfo.mContentInsets, mAttachInfo.mStableInsets,
+                                        mAttachInfo.mOutsets, mInputChannel);
+               
+             
         }
     }
 }
