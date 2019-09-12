@@ -1,3 +1,11 @@
+窗口和图形系统 - Window and View Manager System;  
+显示合成系统 - Surface Flinger;  
+用户输入系统 - InputManager System;  
+应用框架系统 - Activity Manager System;  
+一个 Activity 对应一个 WindowManagerImpl, 一个DecorView(ViewRoot), 以及一个ViewRootImpl, 而 WindowManagerGlobals 是一个全局对象, 一个进程只有一 个;  
+WindowManager  是一个接口类, 定义了一些接口来管理 Activity 里的窗口, WindowManager 是 Android 应用进程空间里的一个对象, 不提供 IPC 服务;  
+WindowManagerService  是 SystemServer 进程里的一个 Service;  
+
 android.view.Window  
 com.android.internal.policy.PhoneWindow  
 android.view.WindowManager  

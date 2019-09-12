@@ -1,12 +1,14 @@
-### 静态变量回收问题  
+popupWindow  
+Activity has leaked window android.widget.PopupWindow$PopupDecorView  
+在 activity onPause 方法执行 popupWindow.dismiss();  
+
+静态变量回收问题  
 https://blog.csdn.net/qq_29918347/article/details/51727581  
-### ScrollView嵌套ListView  
-
-NestedScrollView嵌套RecyclerView  
-都会出现 ScrollView展示的第一条数据，是ListView的第一条数据， 在ListView之上的布局， 是看不见的，  
-解决办法：android:descendantFocusability="blocksDescendants"    
-
-
+### 布局嵌套问题  
+#### ScrollView 嵌套 ListView  
+NestedScrollView 嵌套 RecyclerView  
+都会出现 ScrollView 展示的第一条数据, 是 ListView 的第一条数据,  在 ListView 之上的布局,  是看不见的;  
+解决办法  android:descendantFocusability="blocksDescendants"  
 ```
 <android.support.v4.widget.NestedScrollView     
     android:layout_width="match_parent"     
@@ -19,12 +21,11 @@ NestedScrollView嵌套RecyclerView
         android:orientation="vertical">
         
 ```
-beforeDescendants：viewgroup会优先其子类控件而获取到焦点  
-afterDescendants：viewgroup只有当其子类控件不需要获取焦点时才获取焦点  
-blocksDescendants：viewgroup会覆盖子类控件而直接获得焦点   
+beforeDescendants  viewGroup 会优先其子类控件而获取到焦点  
+afterDescendants  viewGroup 只有当其子类控件不需要获取焦点时才获取焦点  
+blocksDescendants  viewGroup 会覆盖子类控件而直接获得焦点   
 
-### CoordinateLayout嵌套水平的RecyclerView  
-
+#### CoordinateLayout 嵌套水平的 RecyclerView  
 Java
 ```
 rvTotal.setNestedScrollingEnabled(false); rvWeekly.setNestedScrollingEnabled(false);
@@ -43,7 +44,7 @@ xml
     <NestedScrollView>
         <RecyclerView/>
 ```
-### ConstraintLayout.嵌套.RecyclerView  
+#### ConstraintLayout.嵌套.RecyclerView  
 ```
 如果不这样写, RecyclerView 展示不完全, 也无法滑动  
 <androidx.recyclerview.widget.RecyclerView
