@@ -63,9 +63,7 @@ http://w4lle.com/2016/03/03/Android热补丁之AndFix原理解析/
 
 
 ### 架构与组件化 (Architecture and Components)  
-MVC-MVP-MVVM  
 https://www.jianshu.com/p/f17f5d981de7  
-
 https://github.com/CameloeAnthony/AndroidArchitectureCollection  
 https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html  
 http://www.jianshu.com/p/3edcf85539a6  
@@ -88,6 +86,7 @@ https://listenzz.github.io/android-architecture-part-4-applying-clean-architectu
 https://listenzz.github.io/android-lifecyle-works-perfectly-with-rxjava.html    
 
 下面的, 是没看的  
+https://github.com/KunMinX/VIABUS-Architecture  
 https://www.jianshu.com/p/c1ee77f8237f  
 https://github.com/yangchong211/LifeHelper  
 https://github.com/CameloeAnthony/AndroidArchitectureCollection  

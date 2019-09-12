@@ -1,18 +1,21 @@
-◆ 展开与折叠的Layout  
+展开与折叠的 Layout  
 https://github.com/andyxialm/ExpandableLayout  
 https://github.com/SilenceDut/ExpandableLayout  
 https://github.com/florent37/ExpansionPanel  
 https://github.com/worker8/AccordionView  
 https://github.com/robertlevonyan/materialExpansionPanel  
 
+气泡  泡泡  
+https://github.com/igalata/Bubble-Picker  
 
-◆ 斜线布局  
+
+斜线布局  
 https://github.com/IntruderShanky/Squint  
 https://github.com/developer-shivam/Diagonalify  
 https://github.com/florent37/DiagonalLayout  
 https://github.com/akshay2211/Oblique  
 
-◆ 虚线控件  
+虚线控件  
 https://github.com/xiaohaibin/Maillineview  
 
 
@@ -23,25 +26,24 @@ https://github.com/xmuSistone/DragRankSquare
 头像组  
 https://github.com/kongnanlive/android-combination-avatar  
 
-◆ 百分比布局  
+百分比布局  
 https://github.com/hongyangAndroid/android-percent-support-extend  
 https://github.com/JulienGenoud/android-percent-support-lib-sample    
 
 
-◆ 气泡背景   
+气泡背景   
 https://github.com/xujiaji/HappyBubble  
 
 仿小黄车  
 https://github.com/xiangcman/OfoMenuView-master  
 
-### 翻页效果
+
 Fliboard 翻页效果
 https://github.com/keyboard3/HencoderKeyboard3
 https://github.com/wuyr/CoffinLayout  
 
 
-### 圆角化布局
-
+圆角化布局  
 https://github.com/JcMinarro/RoundKornerLayouts  
 https://github.com/GcsSloop/rclayout  
 https://github.com/xwc520/ShapeView    

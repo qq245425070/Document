@@ -240,7 +240,8 @@ AMS 把广播内容发给 Client 端, 首先是 ApplicationThread 接收到, 把
 
 
 #### 注册过程  
-
+Activity#registerReceiver  
+Context#registerReceiver  
 ContextImpl#registerReceiver  
 ContextImpl#registerReceiverInternal  
 ```
@@ -254,10 +255,8 @@ ActivityManagerService 中会使用 ReceiverList 列表来保存这些使用了�
 
 #### 发送过程  
 Activity#sendBroadcast  
-ContextWrapper#sendBroadcast  
 ContextImpl#sendBroadcast  
 把 BroadcastReceiver 封装成 InnerReceiver, 再加上 IntentFilter 传给 ActivityManagerService;  
-
 ActivityManagerService#broadcastIntent  
 ActivityManagerService#broadcastIntentLocked  
 会根据 Intent-Filter 查找匹配的广播接收器, 并将满足条件的接收器, 添加到 BroadcastQueue 中, 然后把数据传给响应的接收器;  
@@ -302,10 +301,10 @@ LoadedApk.ReceiverDispatcher.Args#run
 BroadcastReceiver#onReceive  
 
 第一阶段  
-通过 sendBroadcast 把一个广播通过 Binder 机制发送给 AMS, AMS 根据这个广播的Action类型找到相应的广播接收器, 然后把这个广播放进自己的消息队列中去;  
-AMS 在消息循环中处理这个广播, 并通过 Binder 机制, 把这个广播分发给注册的广播接收分发器 ReceiverDispatcher,  
-ReceiverDispatcher 把这个广播放进 MainActivity 所在的线程的消息队列中去;  
-ReceiverDispatcher 的内部类 Args 在 MainActivity 所在的线程消息循环中处理这个广播, 最终将这个广播分发给 BroadcastReceiver#onReceive 函数进行处理;  
+通过 sendBroadcast 把一个广播通过 Binder 机制发送给 AMS, AMS 根据这个广播的 Action 类型找到相应的广播接收器, 然后把这个广播放进自己的消息队列中去;  
+AMS 在消息循环中处理这个广播, 并通过 Binder 机制, 把这个广播分发给注册的广播接收分发器 ReceiverDispatcher;  
+ReceiverDispatcher 把这个广播放进 MainActivity 所在的进程的消息队列中去;  
+ReceiverDispatcher 的内部类 Args 在 MainActivity 所在的进程消息循环中处理这个广播, 最终将这个广播分发给 BroadcastReceiver#onReceive 函数进行处理;  
 
 ### 参考  
 https://blog.csdn.net/luoshengyang/article/details/6744448  
