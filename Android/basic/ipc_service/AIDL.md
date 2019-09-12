@@ -1,7 +1,7 @@
 Android接口定义语言  
 Android Interface Definition Language  
 
-### 定向#Tag  
+定向 Tag  
 传参时除了Java基本类型以及 String, CharSequence之外的类型;  
 都需要在前面加上定向 tag, 具体加什么量需而定;  
 AIDL 中的定向 tag 表示了在跨进程通信中数据的流向, 其中 in 表示数据只能由客户端流向服务端,  out 表示数据只能由服务端流向客户端,   
@@ -10,7 +10,9 @@ in 为定向 tag 的话表现为服务端将会接收到一个那个对象的完
 out 的话表现为服务端将会接收到那个对象的的空对象, 但是在服务端对接收到的空对象有任何修改之后客户端将会同步变动;  
 inout 为定向 tag 的情况下, 服务端将会接收到客户端传来对象的完整信息, 并且客户端将会同步服务端对该对象的任何变动;  
 
-### aidl  
+Stub 继承自 android.os.Binder, 说明 stub 是 binder 子类, 代表 binder 服务端;  
+Proxy 是 binder 代理类, 是 binder client 端;  
+### aidl 示例  
 DownloadMessageEntity  
 readFromParcel  
 一定要手动写一个 readFromParcel 方法;  

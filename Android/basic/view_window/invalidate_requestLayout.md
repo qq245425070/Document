@@ -188,10 +188,15 @@ API=18:  onMeasure-onMeasure-onLayout-onDraw
 
 当前Activity的所有子View的 onMeasure-onLayout-onDraw, 都是 performTraversals 直接或者间接触发的;  
 
+每个 View 将期望窗口尺寸交给 WMS(WindowManager Service);  
+WMS 将所有的窗口大小以及当前的 OverScan 区域传给 WPM (WindowPolicy Manager);  
+WPM 根据用户配置确定每个 Window 在最终 Display 输出上的位置以及需要分配的 Surface 大小;  
+
 1.. 预测量阶段, 调用 measureHierarchy, 对 View 树进行第一次测量, 测量的结果可以通过mView.getMeasureWidth-Height 得到;  
-在此阶段, 计算出 view 树要展示的内容的尺寸-size, 即期望的窗口的尺寸,  
+在此阶段, 计算出 view 树要展示的内容的尺寸-size, 即期望的窗口的尺寸;  
 在此阶段, 所有 view-ViewGroup 的 onMeasure 方法, 将会沿着 view 树一次被回调;  
-2.. 布局窗口阶段, 根据预测结果, 在 relayoutWindow 方法中, 通过 IWindowSession.relayout 方法, 向 WMS 请求调整窗口的尺寸等属性, 这将引发 WMS 对窗口进行重新布局, 并将布局结果返回给 ViewRootImpl.  
+2.. 布局窗口阶段, 根据预测结果, 在 reLayoutWindow 方法中, 通过 IWindowSession.reLayout 方法, 向 WMS 请求调整窗口的尺寸等属性;  
+这将引发 WMS 对窗口进行重新布局, 并将布局结果返回给 ViewRootImpl;  
 以下4大条件满足其一即进入布局窗口阶段:  
     a.. 第一次遍历时, 此时窗口尚未进行窗口布局, 没有有效的 Surface 进行内容绘制, 因此必须进行窗口布局;  
     b.. windowShouldResize, view 树的测量结果与窗口的当前尺寸有差异, 需要通过布局窗口阶段向 WMS 提出修改窗口尺寸的请求;  
