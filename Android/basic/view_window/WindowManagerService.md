@@ -28,45 +28,80 @@ com.android.internal.policy.PhoneWindow  继承于 Window
 android.view.ViewManager  是一个接口  
 android.view.WindowManager  是一个接口, 继承于 ViewManager  
 android.view.WindowManagerImpl  
+```
 android.view.WindowManagerGlobal  在整个 app 进程中, 单例存在  {  
     创建 ViewRootImpl 对象;  
 }
+```
 com.android.server.wm.Session  继承于 IWindowSession.Stub  
 每一个应用进程都有一个唯一的 Session 对象与 WMS 通信;  
 com.android.server.wm.WindowManagerService 继承于 IWindowManager.Stub  
 com.android.server.policy.WindowManagerPolicy  
 android.view.ViewParent  
-```
-android.view.ViewRootImpl 实现 ViewParent  {  
-    mWindowSession = WindowManagerGlobal.getWindowSession();  
-    final W mWindow = new W(this);  
-    android.view.ViewRootImpl.W extends IWindow.Stub {  }
-}
-```
 android.view.IWindowSession  
 [app wms ipc](../ImageFiles/app_wms_ipc_001.png)  
 [DecorView 添加到 Window 上](activity_window_view.md)  
 ```
 android.view.WindowManagerGlobal{
+    //  存储所有 window 对应的 view
+    private final ArrayList<View> mViews = new ArrayList<View>();
+    //  存储所有 window 对应的 ViewRootImpl, 会有绑定的操作
+    private final ArrayList<ViewRootImpl> mRoots = new ArrayList<ViewRootImpl>();
+    //  存储所有 window 对应的布局参数
+    private final ArrayList<WindowManager.LayoutParams> mParams = new ArrayList<WindowManager.LayoutParams>();
+    //  存储那些正在被删除的  view  对象
+    private final ArraySet<View> mDyingViews = new ArraySet<View>();
     private static IWindowSession sWindowSession;
     private static IWindowManager sWindowManagerService;
     //  就是 windowMannagerServiceProxy  
     sWindowManagerService = IWindowManager.Stub.asInterface(ServiceManager.getService("window"));
     //  sWindowSession  负责 viewRootImpl  与 windowMangerService 进行通信;  
     IWindowManager windowManager = getWindowManagerService();
-                        sWindowSession = windowManager.openSession(
-                                new IWindowSessionCallback.Stub() {
-                                    @Override
-                                    public void onAnimatorScaleChanged(float scale) {
-                                        ValueAnimator.setDurationScale(scale);
-                                    }
-                                },
-                                imm.getClient(), imm.getInputContext());
+    sWindowSession = windowManager.openSession( new IWindowSessionCallback.Stub() {
+        @Override
+        public void onAnimatorScaleChanged(float scale) {
+            ValueAnimator.setDurationScale(scale);
+        }
+    },imm.getClient(), imm.getInputContext());
+    
+    public void addView(View view, ViewGroup.LayoutParams params, Display display, Window parentWindow) {
+        root = new ViewRootImpl(view.getContext(), display);
+        view.setLayoutParams(wparams);
+        mViews.add(view);
+        mRoots.add(root);
+        mParams.add(wparams);
+        //  ViewRootImpl  
+        root.setView(view, wparams, panelParentView);
+    }
+}
+
+android.view.ViewRootImpl 实现 ViewParent  {  
+    mWindowSession = WindowManagerGlobal.getWindowSession();  
+    final W mWindow = new W(this);  
+    android.view.ViewRootImpl.W extends IWindow.Stub {  }
+    public void setView(View view, WindowManager.LayoutParams attrs, View panelParentView) {
+        //  同时调用 scheduleTraversals()来绘制 view
+        requestLayout();
+        //  通知 service 端, 同时更新 Service 端的一些信息;  
+        //  在通信之前操作 requestLayout(), 就是要在 WMS 注册前准备好当前 view 树接收事件的准备;  
+        res = mWindowSession.addToDisplay(mWindow, mSeq, mWindowAttributes, getHostVisibility(), mDisplay.getDisplayId(),
+                    mAttachInfo.mContentInsets, mAttachInfo.mStableInsets, mAttachInfo.mOutsets, mInputChannel);
+    }
 }
 
 com.android.server.wm.Session#addToDisplay{
         return mService.addWindow(this, window, seq, attrs, viewVisibility, displayId,
                 outContentInsets, outStableInsets, outOutsets, outInputChannel);
+}
+
+com.android.server.wm.WindowManagerService{
+    public int addWindow(Session session, IWindow client, int seq, WindowManager.LayoutParams attrs, int viewVisibility, int displayId,
+            Rect outContentInsets, Rect outStableInsets, Rect outOutsets, InputChannel outInputChannel) {
+         //  根据 token 对 window 分组;  
+         //  调整 z-order;  
+         //  计算窗口大小, 调整窗口;    
+        
+    }
 }
 ```
 在 system_server 启动的时候, 会注册 windowManagerService, 
@@ -74,8 +109,11 @@ com.android.server.wm.Session#addToDisplay{
 https://www.cnblogs.com/samchen2009/p/3364327.html  
 https://www.cnblogs.com/samchen2009/p/3367496.html  
 https://www.cnblogs.com/samchen2009/p/3315993.html  
+
 https://www.jianshu.com/p/effaff9ab9f2  
 https://www.jianshu.com/p/3528255475a2  
+https://www.jianshu.com/p/23bce4f5f8ea  
+
 https://blog.51cto.com/lindt/1864591  
 https://www.jianshu.com/p/9e244d13b866  
 

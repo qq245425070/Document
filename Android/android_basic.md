@@ -10,7 +10,7 @@ Application 内存回收机制; 内存回调;
 
 Activity;  Fragment;  Context;  Application;  
 [链接](basic/context/Activity.md)  
-
+[ActivityManagerService]()  
 Service;  IntentService;  进程保活;  
 [链接](basic/ipc_service/Service.md)  
 
