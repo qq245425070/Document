@@ -18,6 +18,22 @@ PackageManagerService 在启动后会扫描系统和第三方的app信息, 在 s
 PackageParser 的 parseBaseApk 在调用之后解析 AndroidManifest.xml, 返回一个 Package 对象, 将手机中所有的 app 的 AndroidManifest.xml 解析完毕, 构建出一个手机中所有 app 的信息树;  
 从这颗棵树上  
 
+构造方法初始化, 功能罗列  
+PackageDexOptimizer 初始化, dex 优化相关;  
+移动 app 的监听;  
+Permission 监听;  
+扫描安装 apk, 移除已经不在手机里的 apk 的信息,  
+    |  扫描安装/data/app/目录下的 apk 文件;  
+        |  解析AndroidManifest.xml  
+        |  判断是否更新, 覆盖安装等;  
+    |  保存 apk 信息, 分配 UID;  
+    |  获得开机向导;  
+    |  更新 packages 最后使用的时间;  
+    |  第一次开机, 升级, 执行 dexopt;  
+
+android.content.pm.PackageManager  抽象类  
+android.app.ApplicationPackageManager  继承于 PackageManager  
+
 
 ### 参考  
 https://github.com/interviewandroid/AndroidInterView/blob/master/android/pms.md  

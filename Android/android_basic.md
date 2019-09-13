@@ -2,21 +2,22 @@
 zygote#启动流程;  进程间通信;  IPC;  Binder机制;  
 [链接](basic/ipc_service/system_zygote_binder.md)  
 
-[进程, 进程优先级](basic/ipc_service/process.md)  
+[ActivityManagerService](basic/ipc_service/ActivityManagerService.md)  
+[WindowManagerService](basic/view_window/WindowManagerService.md)  
+[PackageManagerService](basic/ipc_service/PackageManagerService.md)   
 
 对四大组件的认识;  对 Context 的认识;  
 Application 内存回收机制; 内存回调;  
 [链接](basic/context/concept.md)  
+[进程, 进程优先级](basic/ipc_service/process.md)  
 
 Activity;  Fragment;  Context;  Application;  
 [链接](basic/context/Activity.md)  
-[ActivityManagerService]()  
 Service;  IntentService;  进程保活;  
 [链接](basic/ipc_service/Service.md)  
 
 [BroadcastReceiver](basic/ipc_service/BroadcastReceiver.md)  
 [ContentProvider](basic/ipc_service/ContentProvider.md)  
-[PackageManagerService](basic/ipc_service/PackageManagerService.md)   
 [AIDL](basic/ipc_service/AIDL.md)  
 [Handler](basic/handler/Handler.md)  
 [Intent](basic/context/Intent.md)   
@@ -53,8 +54,6 @@ MVVM;  DataBinding;  LiveData;
 [链接](basic/databinding/databinding.md)   
 
 ### 自定义控件相关  
-[WindowManagerService](basic/view_window/WindowManagerService.md)  
-
 View 绘制原理, View 绘制时机, 屏幕刷新机制;   fps;  
 invalidate;  requestLayout;  
 为什么 view.post 可以得到控件真是宽高;  
