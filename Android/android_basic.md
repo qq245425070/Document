@@ -5,6 +5,8 @@ zygote#启动流程;  进程间通信;  IPC;  Binder机制;
 [ActivityManagerService](basic/ipc_service/ActivityManagerService.md)  
 [WindowManagerService](basic/view_window/WindowManagerService.md)  
 [PackageManagerService](basic/ipc_service/PackageManagerService.md)   
+[BroadcastReceiver](basic/ipc_service/BroadcastReceiver.md)  
+[ContentProvider](basic/ipc_service/ContentProvider.md)  
 
 对四大组件的认识;  对 Context 的认识;  
 Application 内存回收机制; 内存回调;  
@@ -16,12 +18,9 @@ Activity;  Fragment;  Context;  Application;
 Service;  IntentService;  进程保活;  
 [链接](basic/ipc_service/Service.md)  
 
-[BroadcastReceiver](basic/ipc_service/BroadcastReceiver.md)  
-[ContentProvider](basic/ipc_service/ContentProvider.md)  
 [AIDL](basic/ipc_service/AIDL.md)  
 [Handler](basic/handler/Handler.md)  
 [Intent](basic/context/Intent.md)   
-
 
 MIME数据类型;  统一资源标识符 URI;  
 [链接](/ComputerScience/network/URI.md)   

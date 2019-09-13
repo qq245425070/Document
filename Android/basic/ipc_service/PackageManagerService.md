@@ -26,6 +26,10 @@ Permission 监听;
     |  扫描安装/data/app/目录下的 apk 文件;  
         |  解析AndroidManifest.xml  
         |  判断是否更新, 覆盖安装等;  
+        |  验证签名信息的合法性;  
+        |  确定进程名称;   
+        |  解析广播信息, 注册监听器;    
+        |  activity 信息;
     |  保存 apk 信息, 分配 UID;  
     |  获得开机向导;  
     |  更新 packages 最后使用的时间;  
