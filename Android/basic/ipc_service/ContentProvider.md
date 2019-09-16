@@ -42,7 +42,6 @@ public final IContentProvider acquireProvider(Context c, String auth, int userId
             throw ex.rethrowFromSystemServer();
         }
         if (holder == null) {
-            Slog.e(TAG, "Failed to find provider info for " + auth);
             return null;
         }
         holder = installProvider(c, holder, holder.info, true /*noisy*/, holder.noReleaseNeeded, stable);
@@ -54,8 +53,6 @@ android.app.ActivityThread#handleBindApplication
     if (!data.restrictedBackupMode) {
         if (!ArrayUtils.isEmpty(data.providers)) {
             installContentProviders(app, data.providers);
-            // For process that contains content providers, we want to
-            // ensure that the JIT is enabled "at some point".
             mH.sendEmptyMessageDelayed(H.ENABLE_JIT, 10*1000);
         }
     }
