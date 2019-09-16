@@ -11,7 +11,7 @@
 新安装的应用, 或者被用户强杀的应用, 会被置于"stopped"状态, 必须在用户主动打开这个应用, 才会改变状态, 能够正常接收到指定的广播消息;  
 系统这样做的目的是, 防止广播无意或者不必要地开启未启动的 APP 的后台服务;  
 
-如果想给这样的接收器发广播, 
+如果想给这样的接收器发广播,  
 ```
 <receiver android:name=".receiver.UpdateWidgetReceiver"
    android:exported="true">
@@ -108,7 +108,6 @@ sendBroadcast(Intent().apply {
 ### 顺序广播  
 顺序广播, 需要指定权限, 指定优先级, 只能在清单文件注册并配置;  
 priority 数值在 -1000 到 1000 之间, 值越大, 优先级越高;  
-
 ```
 <permission android:name="com.alex.andfun.service.ORDERED_RECEIVE"/>
 <uses-permission android:name="com.alex.andfun.service.ORDERED_RECEIVE"/>
@@ -182,44 +181,29 @@ localBroadcastManager.sendBroadcast(Intent().apply {
 局部广播采用的是 Handler 的消息机制来处理的, 而全局广播是通过 Binder 机制实现的, 局部广播响应速度更快;  
 局部广播无法跨进程, 只能在同一个进程中使用, 广播信号不会被其他app捕获, 相对安全;  
 使用简单, 只能动态注册, 没有顺序广播;  
-
 ### 原理  
-ActivityManagerService#mStickyBroadcasts  
 ```
+//  粘性广播,  根据 userId 存储 ArrayMap;    
 final SparseArray<ArrayMap<String, ArrayList<Intent>>> mStickyBroadcasts = new SparseArray<ArrayMap<String, ArrayList<Intent>>>();
-```
-根据 userId 存储 ArrayMap;  
 
-
+//  无序广播, 存储在 mParallelBroadcasts 中;  
 BroadcastQueue#mParallelBroadcasts  
-```
 final ArrayList<BroadcastRecord> mParallelBroadcasts = new ArrayList<>();
-```
-无序广播, 存储在 mParallelBroadcasts 中, 
 
-
+//  有序广播, 存储在 mOrderedBroadcasts 中;  
 BroadcastQueue#mOrderedBroadcasts  
-```
 final ArrayList<BroadcastRecord> mOrderedBroadcasts = new ArrayList<>();
-```
-有序广播, 存储在 mOrderedBroadcasts 中, 
 
-
+//  需要为接收器制定 InterFilter, 作为 Receiver 的身份信息;  
 ActivityManagerService#mReceiverResolver  
-```
 IntentResolver<BroadcastFilter, BroadcastFilter> mReceiverResolver;  
-```
-需要为接收器制定 InterFilter, 作为 Receiver 的身份信息;  
 
-
+//  registeredReceivers 用于保存匹配当前广播的动态注册的 BroadcastReceiver;  
+//  BroadcastFilter 中有对应的 BroadcastReceiver 的引用;  
 ActivityManagerService#mRegisteredReceivers  
-```
 final HashMap<IBinder, ReceiverList> mRegisteredReceivers = new HashMap<>();  
 final class ReceiverList extends ArrayList<BroadcastFilter>{  }
 ```
-registeredReceivers 用于保存匹配当前广播的动态注册的 BroadcastReceiver;  
-BroadcastFilter 中有对应的 BroadcastReceiver 的引用;  
-
 
 静态注册都是在应用安装时, 由 PackageManagerService(PMS)解析注册;  
 在 android 系统启动的时候, PackageManagerService 也会把静态广播注册到 AMS 中, 因为系统重启是会安装所有的 app;  
@@ -237,8 +221,6 @@ AMS 把广播内容发给 Client 端, 首先是 ApplicationThread 接收到, 把
 3.. AMS 收到广播后, 查找与之匹配的 BroadcastReceiver, 然后将广播发送到 BroadcastReceiver 对应进程的消息队列中;  
 4.. BroadcastReceiver 对应进程的处理该消息时, 将回调 BroadcastReceiver 中的 onReceive()方法;  
 5.. 广播处理完毕后, BroadcastReceiver 对应进程按需将执行结果通知给 AMS, 以便触发下一次广播发送;  
-
-
 #### 注册过程  
 Activity#registerReceiver  
 Context#registerReceiver  

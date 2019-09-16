@@ -91,13 +91,13 @@ content://com.example.app.provider/table/#   表示 匹配provider中的table表
 
 ### MIME  
 
-MIME类型组成  
+MIME 类型组成  
 每种MIME类型 由2部分组成 = 类型 + 子类型  
 text/css  
 text/xml  
 application/pdf  
 
-MIME类型形式  
+MIME 类型形式  
 // 形式1: 单条记录    
 vnd.android.cursor.item/自定义  
 // 形式2: 多条记录(集合)
@@ -107,7 +107,7 @@ vnd.android.cursor.dir/自定义
 // 3. 子类型可自定义  
 
 
-MIME实例说明  
+MIME 实例说明  
 <-- 单条记录 -->  
 // 单个记录的MIME类型  
 vnd.android.cursor.item/vnd.yourcompanyname.contenttype   

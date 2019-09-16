@@ -1,23 +1,65 @@
 ### ContentProvider  
 
-内容提供者，是 Android 四大组件之一；  
-内容提供者，只是适合于多进程模式下的，中间层、数据的搬运工，并不是数据源本身，数据源本身可能是db、file等；  
-内容提供者，基于Binder实现；  
-
-[ContentProvider初始化](ContentProvider/InitFun.md)  
-[ContentProvider  Insert](ContentProvider/Insert.md)  
+内容提供者, 是 Android 四大组件之一;   
+内容提供者, 只是适合于多进程模式下的, 中间层, 数据的搬运工, 并不是数据源本身, 数据源本身可能是db, file等;   
+内容提供者, 基于Binder实现;   
+[ContentProvider 用法](ContentProvider/InitFun.md)  
 
 
 相关知识  
 [统一资源标识符 URI](/ComputerScience/network/URI.md)   
-[MIME数据类型](/ComputerScience/network/MIME.md)    
 辅助类 ContentResolver  
 辅助类 ContentUris  
 辅助类 UriMatcher  
 辅助类 ContentObserver  
 
-
 ### 原理  
+进程创建的时候, 
+context.getContentResolver().query()  
+```
+android.app.ContextImpl.java  
+android.app.ContextImpl;  
+android.content.ContentResolver;  
+android.app.ContextImpl.ApplicationContentResolver;    
+android.content.ContentResolver#query(android.net.Uri, java.lang.String[], android.os.Bundle, android.os.CancellationSignal){
+    IContentProvider unstableProvider = acquireUnstableProvider(uri);
+}
+
+android.app.ContextImpl.ApplicationContentResolver#acquireUnstableProvider{
+    return mMainThread.acquireProvider(c,
+                    ContentProvider.getAuthorityWithoutUserId(auth),
+                    resolveUserIdFromAuthority(auth), false);
+}
+public final IContentProvider acquireProvider(Context c, String auth, int userId, boolean stable) {
+        final IContentProvider provider = acquireExistingProvider(c, auth, userId, stable);
+        if (provider != null) {
+            return provider;
+        }
+        ContentProviderHolder holder = null;
+        try {
+            holder = ActivityManager.getService().getContentProvider(getApplicationThread(), auth, userId, stable);
+        } catch (RemoteException ex) {
+            throw ex.rethrowFromSystemServer();
+        }
+        if (holder == null) {
+            Slog.e(TAG, "Failed to find provider info for " + auth);
+            return null;
+        }
+        holder = installProvider(c, holder, holder.info, true /*noisy*/, holder.noReleaseNeeded, stable);
+        return holder.provider;
+    }
+```
+android.app.ActivityThread#handleBindApplication  
+```
+    if (!data.restrictedBackupMode) {
+        if (!ArrayUtils.isEmpty(data.providers)) {
+            installContentProviders(app, data.providers);
+            // For process that contains content providers, we want to
+            // ensure that the JIT is enabled "at some point".
+            mH.sendEmptyMessageDelayed(H.ENABLE_JIT, 10*1000);
+        }
+    }
+```
 ContentProvider 读取数据, 使用了匿名共享内存, CursorWindow 就是匿名共享内存;  
 
 
@@ -43,6 +85,7 @@ http://blog.csdn.net/coder_pig/article/details/47858489
 https://github.com/Triple-T/simpleprovider  
 
 原理  
+https://blog.csdn.net/tianmi1988/article/details/51077378  
 https://www.jianshu.com/p/37f366064b98  
 https://www.jianshu.com/p/37f366064b98  
 https://www.jianshu.com/p/9fdc894fb97c    
