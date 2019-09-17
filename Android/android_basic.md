@@ -30,7 +30,7 @@ apk 打包流程;  65535 问题;  multiDex 问题;
 [adb相关](basic/adb.md)  
 [jvm, dalvik, art 对比](basic/jvm_dalvik_art.md)
 [Parcelable 和 Serializable](basic/parcelable_serializable.md)  
-[代码混淆](basic/librray/progurd.md)  
+[代码混淆](basic/library/progurd.md)  
 共享存储;  SharePreference; SP;  
 [链接](basic/sharePreference.md)  
 
@@ -39,15 +39,15 @@ apk 压缩;
 [链接](basic/optimize_stability_lowPower.md)  
 
 插件化; 热更新; 热修复; Plugin; ClassLoader;  dalvik ART 虚拟机;  系统;  
-[链接](basic/librray/plugin_hotfix_avm.md)  
+[链接](basic/library/plugin_hotfix_avm.md)  
 
 常见问题;  机型差异化;  
-[链接](basic/librray/bug.md)  
+[链接](basic/library/bug.md)  
 
 [tools 命名空间](basic/tools.md)  
 
 SparseArray-ArrayMap  
-[ArrayMap](basic/librray/ArrayMap.md)  
+[ArrayMap](basic/library/ArrayMap.md)  
 
 MVVM;  DataBinding;  LiveData;  
 [链接](basic/databinding/databinding.md)   

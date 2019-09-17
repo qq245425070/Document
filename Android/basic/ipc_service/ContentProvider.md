@@ -21,7 +21,7 @@ android.app.ContextImpl.java
 android.app.ContextImpl;  
 android.content.ContentResolver;  
 android.app.ContextImpl.ApplicationContentResolver;    
-android.content.ContentResolver#query(android.net.Uri, java.lang.String[], android.os.Bundle, android.os.CancellationSignal){
+android.content.ContentResolver#query(){
     IContentProvider unstableProvider = acquireUnstableProvider(uri);
 }
 
@@ -30,23 +30,30 @@ android.app.ContextImpl.ApplicationContentResolver#acquireUnstableProvider{
                     ContentProvider.getAuthorityWithoutUserId(auth),
                     resolveUserIdFromAuthority(auth), false);
 }
-public final IContentProvider acquireProvider(Context c, String auth, int userId, boolean stable) {
-        final IContentProvider provider = acquireExistingProvider(c, auth, userId, stable);
-        if (provider != null) {
-            return provider;
-        }
-        ContentProviderHolder holder = null;
-        try {
-            holder = ActivityManager.getService().getContentProvider(getApplicationThread(), auth, userId, stable);
-        } catch (RemoteException ex) {
-            throw ex.rethrowFromSystemServer();
-        }
-        if (holder == null) {
-            return null;
-        }
-        holder = installProvider(c, holder, holder.info, true /*noisy*/, holder.noReleaseNeeded, stable);
-        return holder.provider;
+public final IContentProvider android.app.ActivityThread#acquireProvider(Context c, String auth, int userId, boolean stable) {
+    final IContentProvider provider = acquireExistingProvider(c, auth, userId, stable);
+    if (provider != null) {
+        return provider;
     }
+    ContentProviderHolder holder = null;
+    try {
+        holder = ActivityManager.getService().getContentProvider(getApplicationThread(), auth, userId, stable);
+    } catch (RemoteException ex) {
+        throw ex.rethrowFromSystemServer();
+    }
+    if (holder == null) {
+        return null;
+    }
+    holder = installProvider(c, holder, holder.info, true /*noisy*/, holder.noReleaseNeeded, stable);
+    return holder.provider;
+}
+public final ContentProviderHolder com.android.server.am.ActivityManagerService#getContentProvider{
+    return getContentProviderImpl(caller, name, null, stable, userId);
+}
+
+public final ContentProviderHolder com.android.server.am.ActivityManagerService#getContentProviderImpl{
+    
+}
 ```
 android.app.ActivityThread#handleBindApplication  
 ```
