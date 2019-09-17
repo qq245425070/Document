@@ -3,24 +3,26 @@ ConcurrentHashMap 在 java8 已经摒弃了 Segment 的概念, 而是直接使�
 使用 synchronized 和 CAS 控制并发操作;  
 
 ### 名词解释  
+static final int MOVED     = -1;  //  表示正在转移  
+static final int TREEBIN   = -2;  //  表示已经转换成树  
+private transient volatile Node<K,V>[] nextTable;  //  转移的时候用的数组  
+
 private transient volatile int sizeCtl;    
 负数代表正在进行初始化或扩容操作;    
 -1 代表正在初始化;    
 -N 表示有 N-1 个线程正在进行扩容操作;    
 0 代表 hash 表还没有被初始化;    
 当为正数时 , 表示初始化或者下一次进行扩容的大小;    
-  
+
 private static final int MAX_RESIZERS = (1 << (32 - RESIZE_STAMP_BITS)) - 1;    
 2^15-1, help resize 的最大线程数    
-  
+
 private static final int RESIZE_STAMP_SHIFT = 32 - RESIZE_STAMP_BITS;    
 32-16=16, sizeCtl 中记录 size 大小的偏移量;    
   
 ForwardingNode    
 一个特殊的 Node 节点 , hash 值为 -1, 其中存储 nextTable 的引用 , 只有 table 发生扩容的时候 , ForwardingNode 才会发挥作用;    
 作为一个占位符放在 table 中表示当前节点为 null 或则已经被移动;    
-
-
 
 CAS  
 在 ConcurrentHashMap 中, 大量使用了 U.compareAndSwapXXX 的方法, 这个方法是利用一个 CAS 算法实现无锁化的修改值的操作, 他可以大大降低锁代理的性能消耗;   
@@ -37,21 +39,10 @@ CAS
 这样交叉就完成了复制工作; 而且还很好的解决了线程安全的问题;     
 
 
-### spread  
-再次hash, hash值均匀分布, 减少hash冲突;    
-无符号右移  
-各个位向右移指定的位数;右移后左边突出的位用零来填充;移出右边的位被丢弃  
-```
-static final int HASH_BITS = 0x7fffffff; // usable bits of normal node hash   //01111111_11111111_11111111_11111111
-static final int spread(int h) {
-    //  无符号右移加入高位影响, & HASH_BITS用于把hash值转化为正数, 负数hash是有特别的作用的   
-    return (h ^ (h >>> 16)) & HASH_BITS;
-}
-```
 ### putVal  
-如果没有初始化就先调用 initTable()方法来进行初始化过程    
-如果没有 hash 冲突就直接 CAS 插入    
-如果还在进行扩容操作就先进行扩容    
+如果没有初始化就先调用 initTable()方法来进行初始化过程;  
+如果没有 hash 冲突就直接 CAS 插入;  
+如果还在进行扩容操作就先进行扩容;  
 如果存在 hash 冲突 , 就加锁来保证线程安全 , 这里有两种情况 , 一种是链表形式就直接遍历到尾端插入 , 一种是红黑树就按照红黑树结构插入 ,     
 最后一个如果该链表的数量大于阈值 8, 就要先转换成黑红树的结构 , break 再一次进入循环    
 如果添加成功就调用 addCount()方法统计 size, 并且检查是否需要扩容    
@@ -60,7 +51,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
     if (key == null || value == null) throw new NullPointerException();
     //  再次 hash, hash 值均匀分布, 减少 hash 冲突;    
     int hash = spread(key.hashCode());  
-    int binCount = 0;
+    int binCount = 0;  //  用来计算在这个节点总共有多少个元素，用来控制扩容或者转移为树
     //  类似于while(true), 死循环, 保证插入成功  
     for (Node<K,V>[] tab = table;;) {
         Node<K,V> f; int n, i, fh; K fk; V fv;
@@ -217,12 +208,21 @@ final Node<K,V>[] helpTransfer(Node<K,V>[] tab, Node<K,V> f) {
 }
 ```
 ### transfer  
+把数组中的节点复制到新的数组的相同位置, 或者移动到扩张部分的相同位置;  
+在这里首先会计算一个步长, 表示一个线程处理的数组长度, 用来控制对 CPU 的使用;  
+每个 CPU 最少处理 16 个长度的数组元素, 也就是说, 如果一个数组的长度只有 16, 那只有一个线程会对其进行扩容的复制移动操作;  
+扩容的时候会一直遍历, 知道复制完所有节点, 没处理一个节点的时候会在链表的头部设置一个 fwd 节点, 这样其他线程就会跳过他;  
+复制后在新数组中的链表不是绝对的反序的;  
 ```
 private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
     int n = tab.length, stride;
     //  每核处理的量小于16, 则强制赋值16
     if ((stride = (NCPU > 1) ? (n >>> 3) / NCPU : n) < MIN_TRANSFER_STRIDE)
         stride = MIN_TRANSFER_STRIDE; // subdivide range
+    //  如果复制的目标 nextTab 为 nul l的话, 则初始化一个 table 两倍长的 nextTab
+    //  此时 nextTable 被设置值了(在初始情况下是为null的)
+    //  因为如果有一个线程开始了表的扩张的时候, 其他线程也会进来帮忙扩张;
+    //  而只是第一个开始扩张的线程需要初始化下目标数组
     if (nextTab == null) {            // initiating
         try {
             @SuppressWarnings("unchecked")
@@ -242,7 +242,7 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
     //  advance 为 true 表示当前节点已经处理完了, 可以继续处理下一个节点;  
     ForwardingNode<K,V> fwd = new ForwardingNode<K,V>(nextTab);
     boolean advance = true;  //  当advance == true时, 表明该节点已经处理过了
-    boolean finishing = false; // to ensure sweep before committing nextTab
+    boolean finishing = false; //  在完成之前重新在扫描一遍数组, 看看有没完成的
     for (int i = 0, bound = 0;;) {
         Node<K,V> f; int fh;
         while (advance) {
@@ -297,6 +297,14 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
                          //  构造两个链表  一个是原链表  另一个是原链表的反序排列
                         int runBit = fh & n;
                         Node<K,V> lastRun = f;
+                        //  lastRun 表示的是需要复制的最后一个节点
+                        //  每当新节点的 hash&n -> b 发生变化的时候, 就把 runBit 设置为这个结果 b
+                        //  这样 for 循环之后, runBit 的值就是最后不变的 hash&n 的值
+                        //  而 lastRun 的值就是最后一次导致 hash&n 发生变化的节点(假设为p节点)
+                        //  为什么要这么做呢, 因为 p 节点后面的节点的 hash&n 值跟 p节点是一样的,
+                        //  所以在复制到新的 table 的时候, 它肯定还是跟 p 节点在同一个位置
+                        //  在复制完 p 节点之后, p 节点的 next 节点还是指向它原来的节点, 就不需要进行复制了, 自己就被带过去了
+                        //  这也就导致了一个问题就是复制后的链表的顺序并不一定是原来的倒序
                         for (Node<K,V> p = f.next; p != null; p = p.next) {
                             int b = p.hash & n;
                             if (b != runBit) {
@@ -312,11 +320,21 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
                             hn = lastRun;
                             ln = null;
                         }
+                        //  构造两个链表, 顺序大部分和原来是反的
+                        //  分别放到原来的位置和新增加的长度的相同位置(i/n+i)
                         for (Node<K,V> p = f; p != lastRun; p = p.next) {
                             int ph = p.hash; K pk = p.key; V pv = p.val;
                             if ((ph & n) == 0)
+                                //  假设 runBit 的值为0, 则第一次进入这个设置的时候,  
+                                //  相当于把旧的序列的最后一次发生 hash 变化的节点
+                                //  该节点后面可能还有 hash 计算后同为0的节点,  
+                                //  设置到旧的 table 的第一个 hash 计算后为0的节点下一个节点
+                                //   并且把自己返回, 然后在下次进来的时候把它自己设置为后面节点的下一个节点
                                 ln = new Node<K,V>(ph, pk, pv, ln);
                             else
+                                //  假设 runBit 的值不为0, 则第一次进入这个设置的时候相当于, 把旧的序列的最后一次发生 hash 变化的节点
+                                //  该节点后面可能还有 hash 计算后同不为 0 的节点, 设置到旧的 table 的第一个 hash 计算后不为 0 的节点下一个节点
+                                //  并且把自己返回，然后在下次进来的时候把它自己设置为后面节点的下一个节点
                                 hn = new Node<K,V>(ph, pk, pv, hn);
                         }
                         //  在nextTable i 位置处插上链表
@@ -377,8 +395,8 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
 private final void treeifyBin(Node<K,V>[] tab, int index) {
     Node<K,V> b; int n;
     if (tab != null) {
-        //  如果整个table的数量小于64, 就扩容至原来的一倍, 不转红黑树了
-        //  因为这个阈值扩容可以减少hash冲突, 不必要去转红黑树
+        //  如果整个 table 的数量小于 64, 就扩容至原来的一倍, 不转红黑树了
+        //  因为这个阈值扩容可以减少 hash 冲突, 不必要去转红黑树
         if ((n = tab.length) < MIN_TREEIFY_CAPACITY)
             tryPresize(n << 1);
         else if ((b = tabAt(tab, index)) != null && b.hash >= 0) {
@@ -409,13 +427,16 @@ private final void treeifyBin(Node<K,V>[] tab, int index) {
 ```
 private final void tryPresize(int size) {
     //  给定的容量若 >=MAXIMUM_CAPACITY 的一半, 直接扩容到允许的最大值, 否则调用 tableSizeFor 函数扩容 
-    
     int c = (size >= (MAXIMUM_CAPACITY >>> 1)) ? MAXIMUM_CAPACITY :
         //  tableSizeFor(count) 的作用是找到大于等于 count 的最小的 2 的幂次方;  
         tableSizeFor(size + (size >>> 1) + 1);
     int sc;
     while ((sc = sizeCtl) >= 0) {  //  只有大于等于 0 才表示该线程可以扩容, 具体看 sizeCtl 的含义
         Node<K,V>[] tab = table; int n;
+        //  如果数组还没有初始化, 先初始化 tab  
+        //  使得 sizeCtrl 为数组长度的 3/4
+        //  如果第一次 put 的时候不是 put 单个元素, 而是调用 putAll 方法直接 put 一个 map 的话, 在 putAll 方法中没有调用 initTable 方法去初始化 table;  
+        //  而是直接调用了 tryPresize 方法, 所以这里需要做一个是不是需要初始化 table 的判断;
         if (tab == null || (n = tab.length) == 0) {  //  没有被初始化
             n = (sc > c) ? sc : c;
             //  期间没有其他线程对表操作, 则 CAS 将 SIZECTL 状态置为 -1, 表示正在进行初始化  
@@ -432,20 +453,26 @@ private final void tryPresize(int size) {
                 }
             }
         }
-        //  若欲扩容值不大于原阀值, 或现有容量>=最值, 什么都不用做了 
+        //  一直扩容到的 c 小于等于 sizeCtl, 或者数组长度大于最大长度的时候;    
         else if (c <= sc || n >= MAXIMUM_CAPACITY)
             break;
         else if (tab == table) {  //  table 不为空, 且在此期间其他线程未修改 table  
             int rs = resizeStamp(n);
+            //  如果正在扩容Table的话, 则帮助扩容, 否则的话，开始新的扩容
+            //  在 transfer 操作, 将第一个参数的 table 中的元素, 移动到第二个元素的 table 中去; 
+            //  虽然此时第二个参数设置的是 null, 但是在 transfer 方法中, 当第二个参数为 null 的时候, 会创建一个两倍大小的 table;  
             if (sc < 0) {
                 Node<K,V>[] nt;
                 if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
                     sc == rs + MAX_RESIZERS || (nt = nextTable) == null ||
                     transferIndex <= 0)
                     break;
+                //  transfer 的线程数加一, 该线程将进行 transfer 的帮忙
+                //  在 transfer 的时候, sc 表示在 transfer 工作的线程数
                 if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))
                     transfer(tab, nt);
             }
+            //  没有在初始化或扩容, 则开始扩容
             else if (U.compareAndSwapInt(this, SIZECTL, sc,
                                          (rs << RESIZE_STAMP_SHIFT) + 2))
                 transfer(tab, null);
@@ -622,9 +649,22 @@ final V replaceNode(Object key, V value, Object cv) {
 2.. 获得 JVM 的支持 可重入锁毕竟是 API 这个级别的, 后续的性能优化空间很小, synchronized 则是 JVM 直接支持的,   
 JVM 能够在运行时作出相应的优化措施: 锁粗化, 锁消除, 锁自旋等等;  
 
+#### 这三个方法又是分别在什么情况下进行调用的呢?  
+tryPresize 是在 treeifyBin 和 putAll 方法中调用, treeifyBin 主要是在put添加元素完之后;  
+判断该数组节点相关元素是不是已经超过 8 个的时候, 如果超过则会调用这个方法来扩容数组或者把链表转为树;  
+helpTransfer 是在当一个线程要对 table 中元素进行操作的时候, 如果检测到节点的 HASH 值为 MOVED 的时候, 就会调用 helpTransfer 方法;  
+在 helpTransfer 中再调用 transfer 方法来帮助完成数组的扩容;  
+addCount 是在当对数组进行操作, 使得数组中存储的元素个数发生了变化的时候会调用的方法;  
 
+####  那么, 多个线程又是如何同步处理的呢?  
+在 ConcurrentHashMap 中, 同步处理主要是通过 Synchronized 和 unsafe 两种方式来完成的;  
+在取得 sizeCtl, 某个位置的 Node 的时候, 使用的都是 unsafe 的方法, 来达到并发安全的目的;  
+当需要在某个位置设置节点的时候, 则会通过 Synchronized 的同步机制来锁定该位置的节点;  
+在数组扩容的时候, 则通过处理的步长和 fwd 节点来达到并发安全的目的, 通过设置 hash 值为 MOVED;  
+当把某个位置的节点复制到扩张后的 table 的时候, 也通过 Synchronized 的同步机制来保证现程安全;  
 
 ### 参考  
+https://www.cnblogs.com/zerotomax/p/8687425.html  
 https://juejin.im/entry/592a39820ce4630057778b80  
 https://my.oschina.net/hosee/blog/639352  
 https://my.oschina.net/hosee/blog/675884  
