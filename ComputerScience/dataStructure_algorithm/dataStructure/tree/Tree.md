@@ -7,7 +7,7 @@
 二叉查找树, 每个节点的数值, 都大于其左节点的数值, 小于其右节点的数值;   
 [平衡二叉树（AVL树）](Tree_AVL.md)  
 [哈夫曼树, 最优二叉树](HuffmanTree.md)    
-[红黑树](RedBlackTree/RedBlackTree.md)  
+[红黑树](RedBlackTree.md)  
 
 B+树    
 B-树    

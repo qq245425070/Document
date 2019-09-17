@@ -43,7 +43,7 @@ inScreenDensity——当前屏幕的像素密度
 inScaled——是否支持缩放，默认为true，当设置了这个，Bitmap将会以inTargetDensity的值进行缩放
 inPurgeable——当存储Pixel的内存空间在系统内存不足时是否可以被回收
 inInputShareable——inPurgeable为true情况下才生效，是否可以共享一个InputStream
-inPreferQualityOverSpeed——为true则优先保证Bitmap质量其次是解码速度
+inPreferQualityOverSpeed——为trueinDither则优先保证Bitmap质量其次是解码速度
 outWidth——返回的Bitmap的宽
 outHeight——返回的Bitmap的高
 inTempStorage——解码时的临时空间，建议16*1024
