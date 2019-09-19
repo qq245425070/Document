@@ -54,6 +54,23 @@ xml
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintBottom_toBottomOf="parent" />
 ```
+#### RecyclerView 嵌套 ViewPager  
+第一个 viewPager 能显示出来, 后几个 viewPager 显示不出来;  
+```
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ItemHolder) {
+            ((ItemHolder) holder).render(dataList.get(position), position);
+        }
+    }
+
+    void render(CramItemBean.DailyModel model, int position) {
+        if (model == null) {
+            return;
+        }
+        viewPager.setId(position + 1);
+    }
+```
 ### 65535问题  
 app build.gradle  
 ```
