@@ -106,19 +106,20 @@ http://wuxiaolong.me/archives/index.html
 http://zmywly8866.github.io/  
 https://mrfu.me/  
 
-### 废弃，不用看了    
-http://blog.lmj.wiki/archives/page/10/  
+### 看过不用看了  
+https://jeanboy.blog.csdn.net  
+http://blog.lmj.wiki/archives/page/10  
 http://blog.csdn.net/cym492224103  
-http://yifeiyuan.me/  
-http://www.cnblogs.com/tianzhijiexian/  
-http://blog.csdn.net/lzyzsd/  
-http://androidwing.net/   
-http://gavinliu.cn/categories/Android-Notes/  
-http://www.laoyuyu.me/archives/  
-http://www.lightskystreet.com/categories/Android/  
+http://yifeiyuan.me  
+http://www.cnblogs.com/tianzhijiexian  
+http://blog.csdn.net/lzyzsd  
+http://androidwing.net   
+http://gavinliu.cn/categories/Android-Notes  
+http://www.laoyuyu.me/archives  
+http://www.lightskystreet.com/categories/Android  
 http://blog.csdn.net/u012721933?viewmode=contents  
-http://jaeger.itscoder.com/  
+http://jaeger.itscoder.com  
 http://blog.csdn.net/xiaanming  
 http://blog.csdn.net/yanzhenjie1003  
 http://blog.chinaunix.net/uid/20771867/abstract/1.html?cid=10099  
-https://kymjs.com/column/  
+https://kymjs.com/column  

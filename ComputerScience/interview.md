@@ -1,25 +1,25 @@
 https://github.com/yifeikong/reverse-interview-zh  
 ### 综合  
-ConcurrentHashMap;  
-thread 之间通信, 怎么通信;  
-四大组件, 原理;  
+插件化, 系统的总结, 话术;  
+HTTPS, 系统的总结, 话术;  
+ConcurrentHashMap, 系统的总结, 话术;  
+线程池, 系统的总结, 话术;  
+
+
 view 测量-绘制原理;  
-okHttp 怎么做的3次握手, 什么时候做, socket有哪些api;  
-
-
-HTTP, keep-Alive 怎么实现的 长连接 和 复用;  
-FragmentPagerAdapter 缓存机制,  怎么做 Fragment 的缓存;  
-清单文件注册的广播, 什么时候回生效;  
-清单文件, 什么时候被解析, 什么时候生效;    
-IPC, 有哪些, binder 机制的了解有多少;  
-有哪些 OOM, 除了 bitmap string+string, 还有别的么?  
-创建线程过多, 也会引起 OOM;  
-  
 你有过哪些性能优化的案例, 能不能再说一些有深入性的案例;  
+FragmentPagerAdapter 缓存机制,  怎么做 Fragment 的缓存;  
+如果 用列表页面, 播放视频, 怎么做, 可以保证流畅度  占用内存小;  
+WebView 怎么解决加载缓慢, 和 缓存问题, 导致数据不能及时刷新;  
+LinearLayout, FrameLayout, RelativeLayout 哪个效率高, 为什么;
+Jvm、Dalvik、Art和对比;  
+图片编解码, BitmapFactory.createBitmap 的时候, 就会涉及编解码;  
+LinearLayout 包裹 A, B 两个 Button, 在 AButton 上按下, 一直移动, 手指扫过 BButton, 整个事件传递的过程, MoveEvent 的数值;  
+AlertDialog, popupWindow, 在 Activity 中的区别;  
+Https 请求慢的解决办法, DNS, 携带数据, 直接访问 IP;  
 
 
-红黑树, 你了解多少, 时间复杂度 O(lg n), 是怎么推导出来的;  
-https://jeanboy.blog.csdn.net/  
+
 https://www.jianshu.com/p/8a6951b0d0ee  
 https://github.com/jeanboydev/Android-ReadTheFuckingSourceCode  
 https://github.com/interviewandroid/AndroidInterView  
@@ -64,56 +64,10 @@ https://github.com/hadyang/interview
 https://github.com/Ellen2018/AndroidFaceInterview  
 https://juejin.im/post/5d7256526fb9a06af824fdd3  
 ### Java  
-ConcurrentHashMap;  
-TreeMap;  
-
-String 为什么要设计成不可变的;  
-泛型, 如果不想 类型擦除, 怎么办;  
-
 责任链设计模式, 手写;  
 https://github.com/crossoverJie/Java-Interview  
 
 ###  Android  
-LinearLayout, FrameLayout, RelativeLayout 哪个效率高, 为什么;  
-
-横竖屏切换, 会触发 Activity 什么生命周期;  
-
-图片编解码, BitmapFactory.createBitmap 的时候, 就会涉及编解码;  
-LinearLayout 包裹 A, B 两个 Button, 在 AButton 上按下, 一直移动, 手指扫过 BButton, 整个事件传递的过程, MoveEvent 的数值;  
-
-Jvm、Dalvik、Art和对比;  
-
-Application 的 Context 和 Activity 的 Context;  
-
-Service 的生命周期;  
-BroadcastReceiver;  
-Binder机制及底层实现;  
-什么是AIDL 以及如何使用;  
-BroadcastReceiver, LocalBroadcastReceiver 区别  
-
-你用过MD, 你知道怎么定义一个Behavior吗?  
-https://www.jianshu.com/p/82d18b0d18f4  
-
-AlertDialog, popupWindow, 在 Activity 中的区别;  
-
-多线程断点续传原理;  
-
-
-Https请求慢的解决办法, DNS, 携带数据, 直接访问IP;  
-
-1.. IPC机制, Binder和匿名共享内存等;  
-2.. 四大组件启动, 工作原理;  
-3.. View系统, 绘制原理, 事件分发;  
-4.. 动画框架, 原理;  
-5.. 多线程机制, 消息机制 AsyncTask, Thread / Handler;  
-6.. 系统启动过程, system_server启动过程;  
-7.. Window系统, Window创建过程;  
-8.. 资源管理系统, 资源加载机制等;  
-
-图片加解码;  
-如果 用列表页面, 播放视频, 怎么做, 可以保证流畅度  占用内存小;  
-WebView 怎么解决加载缓慢, 和 缓存问题, 导致数据不能及时刷新;  
-
 https://github.com/Mr-YangCheng/ForAndroidInterview  
 https://github.com/Blankj/AndroidOfferKiller  
 https://github.com/JackyAndroid/AndroidInterview-Q-A  
@@ -148,6 +102,7 @@ https://www.jianshu.com/p/ea4f5d685a9a
 
 
 ### 算法  
+红黑树, 你了解多少, 时间复杂度 O(lg n), 是怎么推导出来的;  
 时间复杂度, 推导;  
 两个排序数组归并为一个;  
 写出你所知道的排序算法及时空复杂度, 稳定性;  

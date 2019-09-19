@@ -1,4 +1,5 @@
-### Service#Thread  
+### service 基础知识  
+#### Service 与 Thread  
 Service 与 Thread没有任何关系;  
 Service 是工作在主线程, Thread工作在子线程;  
 Service 的运行使用 start, stop,  或者 bind, unbind;  
@@ -10,7 +11,7 @@ Service的基本描述
 服务的启动方式有两种:  bind 和 start;  
 服务的寄存方式有两种: LocalService 和 RemoteService; 
 
-### 远程服务#RemoteService  
+#### 远程服务 RemoteService  
 远程服务也被称作为, 独立的进程(pid不一样), 不受其他进程, 主进程的影响;  
 将一个普通的 Service 转换成远程 Service, 只需要在注册 Service 添加属性 android:process=":remote" 即可;  
 当然, 是以 : 开头, 后面是名字, 可以不叫 remote;  
@@ -46,7 +47,7 @@ public void onCreate() {
 缺点:  
 相对普通服务, 占用系统资源较多, 需要使用 AIDL 进行 IPC 也相对麻烦;  
 
-### 前台服务#ForegroundService   
+#### 前台服务 ForegroundService   
 Service 几乎都是在后台运行, 一直默默地做着辛苦的工作, 但这种情况下, 后台运行的 Service 系统优先级相对较低, 当系统内存不足时, 在后台运行的 Service 就有可能被回收;  
 那么, 如果我们希望 Service 可以一直保持运行状态, 且不会在内存不足的情况下被回收时, 可以选择将需要保持运行的 Service 设置为前台服务;  
 App 中的音乐播放服务, 应被设置在前台运行(前台服务), 在App后台运行时, 便于用户明确知道它的当前操作, 在状态栏中指明当前歌曲信息, 提供对应操作;  
@@ -54,7 +55,7 @@ App 中的音乐播放服务, 应被设置在前台运行(前台服务), 在App�
 <!-- api >= 28 startForeground 需要权限-->  
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 ```
-### Service#启动方式  
+#### Service 启动方式  
 启动一个服务  
 启动一个服务有两种方式, start 与 bind;  
 如果需要在运行时, context 和 service传递参数, 要用 bind 方式, 如果是一个远程服务, 还需要结合 AIDL;  
@@ -64,10 +65,9 @@ bind 方式, 调用稍难, 运用灵活, 可以通过 IBinder 接口中获取 Se
 从 Android 系统设计的架构上看, startService() 是用于启动本地服务, bindService() 更多是用于对远程服务进行绑定;  
 两中启动方式可以混合使用;  
 
-#### start 方式  
+#### 启动方式 startService  
 start 一个服务, onCreate 方法, 只会被调用一次;  
 onStartCommand 方法执行的次数, 等于 startService 被调用的次数; 
-
 
 隐式意图  
 如果启动 service 的 intent 的 component 和 package 都为空并且版本大于LOLLIPOP(5.0)的时候,直接抛出异常;  
@@ -82,7 +82,7 @@ private void startService(String serviceAction) {
 }
 ```
 
-#### bindService  
+#### 启动方式 bindService  
 bind 一个服务, onCreate 和 onBind 方法, 只会被调用一次;  
 多次调用 bindService, 不会引起任何生命周期的回调;  
 unBindService 只能调用一次, 多次调用会报错;  
@@ -122,7 +122,7 @@ private inner class RemoteDownloadServiceConnection : ServiceConnection {
 
 
 
-### Service#生命周期  
+#### Service 生命周期  
 只使用 startService  
 startService  ⤑  onCreate  ⤑   onStartCommand  ⤑  【service running】  ⤑  stopService  ⤑  onDestroy  
 
@@ -141,13 +141,12 @@ bindService  ⤑  onCreate  ⤑  onBind  ⤑  【client are bind to service】  
 但是还是会与宿主绑定, 即使宿主解除绑定后, 服务依然按 start 方式的生命周期在后台运行,   
 直到有 Context 调用了stopService(), 或是服务本身调用了stopSelf()方法, 或内存不足时才会销毁服务;  
 
-### onDestroy  
-
+onDestroy  
 以 startService 启动 service, 调用 stopService 结束时, 触发此方法;  
 以 bindService 启动 service, 调用 unbindService 结束时, 触发此方法;  
 先以 startService 启动服务, 再用 bindService 绑定服务, 结束时必须, 先调用 unbindService 解绑, 再调用 stopService 结束 service 才会触发此方法;  
 
-### onStartCommand 方法
+onStartCommand 方法
 由于手机的 RAM, 内部资源有限, 所以很多 Service 都会因为资源不足而被 Kill 掉, 这时候返回值就决定了 Service 被Kill后的处理方式,  
 一般 int onStartCommand(intent,flags,startId)的返回值分为以下几种:  
 ```
@@ -178,7 +177,7 @@ START_FLAG_RETRY
 START_FLAG_REDELIVERY  
 代表 service 被 kill 后重新启动, 由于上次返回值为 START_REDELIVER_INTENT, 所以带输入参数 intent  
 ```
-### ServiceConnection  
+#### ServiceConnection  
 //  与服务器端交互的接口方法, 绑定服务的时候被回调, 在这个方法获取绑定 Service 传递过来的 IBinder 对象,  
 //  通过这个IBinder对象, 实现宿主和Service的交互;  
 onServiceConnected  
@@ -189,7 +188,7 @@ onServiceConnected
 onServiceDisconnected  
 
 
-### 向Service传递参数  
+#### 向Service传递参数  
 context  
 ```
 startService(serviceIntent.apply {
@@ -209,11 +208,11 @@ public int onStartCommand(Intent intent, int flags, int startId) {
 bind传递参数    
 原来, 想要跟给service传递数据, 从service中拿数据, 就要用bind, 远程service还要结合AIDL;  
 这里说的给service传递数据, 并不仅仅限制与在start的时候, 用intent传递数据, 还可以是在运行时的某个节点上, 传递数据;    
-### IntentService  
+#### IntentService  
 startService 会触发一次 onCreate 和 多次 onStartCommand;  
 onHandleIntent 执行在 子线程, 当耗时操作结束以后, 会触发 onDestroy 回调, 再次 startService 会再次触发完整的生命周期;  
 
-### Service#清单文件#属性  
+#### Service 清单文件属性  
 //  服务全类名;  
 android:name  
 //  服务的名字, 如果为空, 默认显示的服务名为类名  
@@ -307,6 +306,7 @@ mJobScheduler.cancel(JOB_ID);
 mJobScheduler.cancelAll();  
 
 ### 其他  
+启动 service, 需要设置 componentName  
 ```
 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
     // Attach component of GCMIntentService that will handle the intent in background thread
@@ -317,9 +317,15 @@ if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
 }
 ```
 
+### 原理  
+context.startService  
+contextImpl.startService  
+ActivityManagerProxy.startService  
+
 
 ### 参考  
 原理  
+https://jeanboy.blog.csdn.net/article/details/79785720  
 https://www.jianshu.com/p/8170b9f1e4af  
 https://www.jianshu.com/p/37f366064b98  
 https://www.jianshu.com/p/411b504902db  

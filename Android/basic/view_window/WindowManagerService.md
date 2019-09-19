@@ -1,3 +1,4 @@
+### WindowManagerService  
 窗口和图形系统 - Window and View Manager System;  
 显示合成系统 - Surface Flinger;  
 用户输入系统 - InputManager System;  
@@ -105,6 +106,8 @@ com.android.server.wm.WindowManagerService{
 }
 ```
 在 system_server 启动的时候, 会注册 windowManagerService, 
+### Surface 与 SurfaceFlinger  
+
 ### 参考  
 https://www.cnblogs.com/samchen2009/p/3364327.html  
 https://www.cnblogs.com/samchen2009/p/3367496.html  
@@ -116,5 +119,8 @@ https://www.jianshu.com/p/23bce4f5f8ea
 
 https://blog.51cto.com/lindt/1864591  
 https://www.jianshu.com/p/9e244d13b866  
-
+Surface 与 SurfaceFlinger  
+https://jeanboy.blog.csdn.net/article/details/79483406
+Activity 与 Window 与 View 之间的关系  
+https://jeanboy.blog.csdn.net/article/details/79408969  
 

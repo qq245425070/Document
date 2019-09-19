@@ -36,7 +36,7 @@ https://github.com/mmin18/RealtimeBlurView
 https://github.com/qiujuer/ImageBlurring  
 https://github.com/CameraKit/blurkit-android  
 
- 碎玻璃效果  
+碎玻璃效果  
 https://github.com/zhanyongsheng/BrokenView    
 
 粒子爆炸效果  

@@ -34,6 +34,7 @@ Permission 监听;
     |  获得开机向导;  
     |  更新 packages 最后使用的时间;  
     |  第一次开机, 升级, 执行 dexopt;  
+    | 将 pms 自身注册到 ServiceManager, 也就是 binder 服务注册;  
 
 android.content.pm.PackageManager  抽象类  
 android.app.ApplicationPackageManager  继承于 PackageManager  
