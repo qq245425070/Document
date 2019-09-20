@@ -127,7 +127,23 @@ git tag -d v3.1.0
 git push origin :refs/tags/v3.1.0  
 ```
 ### git merge  
+
 ```
+git checkout release  
+git pull  
+git submodule update  
+git merge origin/feature  
+git pull  
+git submodule update  
+这个时候回出现几个状态:  
+1.. 直接 merge 过来的, 没有任何冲突的, 是绿色的, 不用关注;  
+2.. 有冲突的 file.java 等文件, 解决冲突;  
+3.. 有冲突的提交点, 提交点事无法打开的, 使用  git df module/moment  
+     这个时候, 到对应的子模块下, 一般情况下, 是将某个分支 merge 到 master 分支;  
+     执行完之后, 在回到主模块下, 执行 git  add .  
+     Merge: 4288d9a4f 4969a761c  
+
+  
 #  当前分支是 release, merge 远端的 feature 分支到本地;  
 git merge origin/feature  
 假设有冲突, 先解决冲突, 我习惯用 intellij android-studio 标记并解决冲突;  

@@ -19,7 +19,6 @@ AlertDialog, popupWindow, 在 Activity 中的区别;
 Https 请求慢的解决办法, DNS, 携带数据, 直接访问 IP;  
 
 
-
 https://www.jianshu.com/p/8a6951b0d0ee  
 https://github.com/jeanboydev/Android-ReadTheFuckingSourceCode  
 https://github.com/interviewandroid/AndroidInterView  
@@ -132,6 +131,23 @@ Stack max()  O(1),  怎么实现? 用一个辅助的 stack;
 [4, 5], [5, 8] [6, 10] [11, 15], [14, 15], [17, 18] 区间合并  [4,10] [11, 15] [17, 18]  
 
 10 个数, 循环报数, 是 3 的出队;  
+
+数组中存有1-3的三种数字,例如[1,2,3,1,2,2,1,3,3]，将其排序为[1,1,1,2,2,2,3,3,3]，要求时间复杂度，后续将内容变为一个对象，继续排序  
+
+1~100盏灯，都是亮的，第一次将能被1整除的数的灯按下，变暗，第二次将能被2整除的数的等按下，变亮，第三次将能被3整除的数的等按下，变暗......第100次将能被100整除的数的灯按下，问，最后有多少盏灯是亮的。  
+
+二叉树的深度和广度，要求一次遍历  
+
+给定一个二叉树和一个目标数，在二叉树中是否存在一条路径的所有节点的和与目标数是相同的case，并且打印。  
+
+叉树，读取每一层最右边的节点;  
+
+m*n的二维数组，做(0,0)出发，可以上下左右走，0为畅通，1为阻塞，目标位置(k,j)，问是否能到达这个位置，类似迷宫的算  
+
+合并两个有序的链表  
+
+一个无序的int数组，给一个target数字，找出数组中两个数字相加为target，并输出坐标  
+
 
 https://github.com/helen-x/AndroidInterview/blob/master/algorithm/swordForOffer/合并两个排序链表.md  
 https://github.com/helen-x/AndroidInterview/blob/master/algorithm/swordForOffer/跳台阶.md  
