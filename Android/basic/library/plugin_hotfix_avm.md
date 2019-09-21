@@ -31,31 +31,28 @@ Hot Swap, Warm Swap, Cold Swap
 
 ### 热更新  
 主要分为 java 层实现, 和 native 层实现两种, java 层实现主要分为基于 multiDex 和 instantRun;  
-使用 DexClassLoader 加载dex 数组, patch.dex 最优先加载, 例如 A.class 存在于 patch.dex 和 class.dex 中,   
+使用 DexClassLoader 加载 dex 数组, patch.dex 最优先加载, 例如 A.class 存在于 patch.dex 和 class.dex 中;   
 那么系统中只会存在一个 A.class, 就是 patch.dex 中的 class;  
 如果 A.class 和 B.class 以前在一个 dex 文件中, 现在 A.class 在 patch.dex 中, 那么, 如果 A 类和 B 类有相互调用的时候, 就是出现 与校验的问题, 下面具体讲解;  
 基于 multiDex 实现的热更新, 必须在重启之后才会生效;  
 简单来讲, 热更新的原理就是 dex 插桩;  
 java 文件编译成 .class 文件, dx.bat 再打包成 patch.dex;  
 
-❀ CLASS_ISPREVERIFIED 问题  
+CLASS_ISPREVERIFIED 问题  
 在 dalvik 虚拟机上, 安装 apk 的过程中, 会有一个验证优化 dex 的机制, 就是 dexOpt(Optimised Dex), 这个过程会生成 odex 文件, 当然 odex 文件也是属于 dex 文件;  
 执行 odex 的效率会比直接执行 dex 文件的效率要高很多;   
-运行Apk的时候, 直接加载 odex 文件, 从而避免重复验证和优化, 加快了 apk 的响应时间;  
-
+运行 Apk 的时候, 直接加载 odex 文件, 从而避免重复验证和优化, 加快了 apk 的响应时间;  
 在 apk 安装的时候, 虚拟机会将 dex 优化成 odex 后才拿去执行, 在这个过程中会对所有 class 进行校验;    
 校验方式, 假设 A 类的 static 方法, private方法, 构造函数, override 方法中直接引用到 B 类, 如果 A 类和 B 类在同一个 dex 中, 那么 A 类就会被打上 CLASS_ISPREVERIFIED 标记;  
 被打上这个标记的类不能引用其他 dex 中的类, 否则就会报错;  
-在我们的 Demo 中, MainActivity 和 Cat 本身是在同一个 dex 中的, 所以 MainActivity 被打上了 CLASS_ISPREVERIFIED,  
+在我们的 Demo 中, MainActivity 和 Cat 本身是在同一个 dex 中的, 所以 MainActivity 被打上了 CLASS_ISPREVERIFIED;  
 而我们修复 bug 的时候却引用了另外一个 dex 的 Cat.class, 所以这里就报错了;  
 而普通分包方案则不会出现这个错误, 因为引用和被引用的两个类一开始就不在同一个 dex 中, 所以校验的时候并不会被打上 CLASS_ISPREVERIFIED;  
-补充一下第二条: A 类如果还引用了一个 C 类, 而 C 类在其他 dex 中, 那么 A 类并不会被打上标记,  
+A 类如果还引用了一个 C 类, 而 C 类在其他 dex 中, 那么 A 类并不会被打上标记,  
 换句话说, 只要在 static 方法, 构造方法, private方法, override 方法中直接引用了其他 dex 中的类, 那么这个类就不会被打上 CLASS_ISPREVERIFIED 标记;  
-
-在 Dalvik虚拟机下, 执行 dexopt 时, 会对类进行扫描, 如果类里面所有直接依赖的类都在同一个 dex 文件中, 那么这个类就会被打上 CLASS_ISPREVERIFIED 标记,  
-如果一个类有 CLASS_ISPREVERIFIED 标记, 那么在热修复时, 它加载了其他 dex 文件中的类, 会报经典的Class ref in pre-verified class resolved to unexpected implementation异常;  
+在 Dalvik虚拟机下, 执行 dexopt 时, 会对类进行扫描, 如果类里面所有直接依赖的类都在同一个 dex 文件中, 那么这个类就会被打上 CLASS_ISPREVERIFIED 标记;  
+如果一个类有 CLASS_ISPREVERIFIED 标记, 那么在热修复时, 它加载了其他 dex 文件中的类, 会报经典的 Class ref in pre-verified class resolved to unexpected implementation 异常;  
 通过在 android7.0 8.0 上进行热修复, 也没有遇到这个异常, 猜测这个问题只属于 android5.0以前, 因为 android5.0 后新增了 art;  
-
 很多热更新的解决方案, 都存在这个问题, 但是美团的 robust 和 阿里的 Sophix 不存在, robust 的解决办法很巧妙, sophix 则是 native 方式解决, 所以不存在此问题;  
 ```
 Dexposed                阿里               开源          实时修复  
@@ -79,19 +76,43 @@ Sophix                        阿里             未开源       实时修复+ �
  
 多 dex 模式, 对于每一个插件, 都会生成一个 DexClassLoader, 当加载该插件中的类, 需要通过对应的 DexClassLoader;  
 这样, 不同的插件中的类是隔离的, 当不同的插件, 都引用了同一个库, 但是版本号不一致时, 是不会有问题的, RePlugin 就是采用的这种方案.  
- 
+
 单 dex 模式, 将每个插件的 pathList 合并到主工程的 DexClassLoader 中, 这样的好处是, 不同的插件之间互相调用, 不需要通过中介来完成, 直接调用即可;  
  
 怎么启动插件中的 Activity, 因为插件中的 Activity 并没有在清单文件中注册, 也就是如何绕过系统的检查;  
 解决问题的办法有很多种, 例如在清单文件中预先配置 SubActivity(就是占位符), 在 Application 初始化的时候, 利用反射系统的 Instrumentation,   
 Instrumentation 是 ActivityThread 的字段, ActivityThread 对象在内存中只有一份;  
 假如需要启动插件中的 AActivity, Intent 传值的时候, 启动的是 SubActivity, 在真正 new 出来 Activity 的时候, 利用 Intent 的传入参数, 创建目标 AActivity;  
- 
+
 Service ContentProvider 的启动方式, 也是通过 SubService 的形式来完成的;  
 BroadCastReceiver 是通过解析清单文件, 将静态注册转为动态注册;  
- 
- 
- 
+
+1.. 关于 Activity 插件化  
+四大组件的通信, 全都是通过 ActivityManagerService 来管理的, 所以想要做到欺上瞒下, 就要 hook 住 AMS;  
+在启动 Activity 的时候, componentName 是清单文件中预留的 SubActivity, 但是会传入参数, 告知系统真正想要启动的是 AActivity;  
+在 AMS 受到请求的时候, 会检查 componentName 对应的 Activity 是否在清单文件中注册, 如果是则会调起 Activity 对应的 ApplicationThread, 之后通过 handler 转发给 activityThread;  
+在 activityThread 中通过 Instrumentation 来解析 intent 并创建 Activity, 所以 hook 住 ActivityThread 里面的 Instrumentation 就可以启动真正的 Activity 了;  
+1.1... lunchModel 启动模式  
+
+1.2.. 管理资源文件  
+context 引用资源文件, 是通过 Resources 类来完成的;  
+Resources 对资源的管理是通过 AssetManager 来完成的;  
+AssetManager 有有一个方法 addAssetPath, app 启动的时候, 会把当前 apk 的路径传过去, 这样 AssetManager 就可以管理当前 apk 的所有资源文件了;  
+所以通过反射得到 AssetManager 对象, 并 调用 addAssetManagerPath 方法, 把 plugin 的路径添加进去, 这样就可以获取到 plugin 里面的资源了;  
+
+2.. 关于 Service 插件化  
+四大组件的通信, 都是通过 ActivityManagerService 来管理的;  
+在启动 Service 的时候, componentName 是清单文件中预留的 SubService, 但是会传入参数, 告知系统真正想要启动的是 Service;  
+在 AMS 受到请求的时候, 会检查 componentName 对应的 Service 是否在清单文件中注册, 如果是则会调起 Service 对应的 ApplicationThread, 之后通过 handler 转发给 activityThread;  
+在 activityThread 中直接 new 出来 Service, 这样就启动了 Service;  
+所以 hook 朱 activityThread 的 H 类, 就可以解析参数, 启动真正的 Service 了;  
+和 Activity 不同的是 Service 并没有lunchModel 的概念, 因为 Service 本身是单例存在的;  
+所以只用一个 SubService 是应付不了 Service 插件化的问题;  
+
+3.. 关于 BroadcastReceiver 插件化  
+
+4.. 关于 ContentProvider 插件化  
+
 ### 虚拟机  
 ❀ 编译技术  
 JIT just in time  
@@ -126,7 +147,6 @@ https://github.com/GitLqr/HotFixDemo
 https://yq.aliyun.com/articles/231111  
 https://github.com/WeMobileDev/article/blob/master/微信Android热补丁实践演进之路.md  
 
-
 http://weishu.me/2016/01/28/understand-plugin-framework-overview/  
 http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/  
 http://weishu.me/2016/03/21/understand-plugin-framework-activity-management/  
@@ -135,28 +155,35 @@ http://weishu.me/2016/04/12/understand-plugin-framework-receiver/
 http://weishu.me/2016/05/11/understand-plugin-framework-service/  
 http://weishu.me/2016/07/12/understand-plugin-framework-content-provider/  
 
-反射原理  http://javawebsoa.iteye.com/blog/1512798  
-类加载器  https://www.ibm.com/developerworks/cn/java/j-lo-classloader/  
-类加载器  http://blog.csdn.net/zdwzzu2006/article/details/2253982  
+反射原理  
+http://javawebsoa.iteye.com/blog/1512798  
+类加载器  
+https://www.ibm.com/developerworks/cn/java/j-lo-classloader/  
+类加载器  
+http://blog.csdn.net/zdwzzu2006/article/details/2253982  
 Android动态加载   
 http://www.androidblog.cn/index.php/Index/detail/id/16#  
-http://blog.csdn.net/u013478336/article/details/50734108（已看，最简单入门）  
+已看, 最简单入门  
+http://blog.csdn.net/u013478336/article/details/50734108
+  
 http://www.cnblogs.com/over140/archive/2011/11/23/2259367.html  
-http://blog.csdn.net/u010687392/article/details/47121729  （入门详解版本）  
-https://segmentfault.com/a/1190000004062866#articleHeader9（入门基础）  
-https://segmentfault.com/a/1190000004062866（深入L1理解）  
-https://segmentfault.com/a/1190000004062972（深入L2 代理Activity）  
-https://segmentfault.com/a/1190000004077469（深入L2 动态创建Activity）  
+入门详解版本  
+http://blog.csdn.net/u010687392/article/details/47121729  
+入门基础  
+https://segmentfault.com/a/1190000004062866#articleHeader9    
+深入 L1 理解  
+https://segmentfault.com/a/1190000004062866   
+深入 L2 代理 Activity   
+https://segmentfault.com/a/1190000004062972    
+深入 L2 动态创建 Activity  
+https://segmentfault.com/a/1190000004077469    
 http://www.jianshu.com/p/353514d315a7  
 https://www.jianshu.com/p/b65e5da3dff2  
 https://www.jianshu.com/p/e179fcc97666  
 
 
-插件化
-https://www.jianshu.com/p/b6d0586aab9f  
-https://www.kymjs.com/code/2016/05/04/01/  
+插件化  
 https://juejin.im/post/59752eb1f265da6c3f70eed9  
-
 https://github.com/ManbangGroup/Phantom  
 https://github.com/tiann/understand-plugin-framework  
 http://weishu.me/2016/01/28/understand-plugin-framework-overview/  
@@ -202,4 +229,8 @@ https://tech.meituan.com/2016/09/14/android-robust.html
 https://blog.csdn.net/u010299178/article/details/52031505  
 https://segmentfault.com/a/1190000004062866  
 https://www.jianshu.com/p/b1e7b6326330  
+https://www.jianshu.com/p/b6d0586aab9f  
+
+
+
 

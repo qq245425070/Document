@@ -7,20 +7,20 @@ robust 框架有两个插件, robust 负责生成钩子函数, auto-patch-plugin
 另外, 被访问的方法的权限, 也被修改成 public;  
 下载制定的 patch 包, 并且利用 DexClassLoader 将 patch.dex 加载到内存, 并且初始化 patch.dex 中的 class, 再初始化需要修改的类的 changeQuickRedirect 字段;   
 
-❀ 加载 patch  
+加载 patch  
 PatchExecutor.run  
 PatchExecutor.applyPatchList  
 PatchExecutor.patch  
 遍历每一个 dex 下的所有类文件, 如果需要热更新, 则会存在 ChangeQuickRedirect 的实现类, 并通过反射的形式, 给当前类的 changeQuickRedirect 属性赋值;  
 
-❀ 为什么 robust 不存在 CLASS_ISPREVERIFIED 问题  
+为什么 robust 不存在 CLASS_ISPREVERIFIED 问题  
 首先分析, 出现 CLASS_ISPREVERIFIED 问题的场景, 一定是 A.class 本来 和 B.class 在一个 dex 文件下, 后来 A 类存在于 patch.dex 下,  
 A 与 B 出现相互调用, 才会出现与校验的问题.  
 那么, 为什么 robust 不不存在这个问题呢?  假设对 A.class 进行修复, 并不会将 A 类放在 patch.dex 下, 而是将 A 类的新逻辑, 做成 APatch 类, 将 APatch 类放在 patch.dex 下;  
 所以, 不会存在与校验的问题;  
-  
+
 ### 运行 patch  
-❀ 本类  
+本类  
 ```
 public class RobustActivity extends AppCompatActivity implements OnClickListener {
     public static ChangeQuickRedirect k;
@@ -56,7 +56,7 @@ public class RobustActivity extends AppCompatActivity implements OnClickListener
     }
 }
 ```
-❀ patch 类  
+patch 类  
 ```
 
 public class RobustActivityPatch {
@@ -153,7 +153,7 @@ public class RobustActivityPatch {
 
 }
 ```
-❀ InLinePatch 类  
+InLinePatch 类  
 对于新增方法, robust 又是怎么实现的呢, 事实上是通过新增一个  MainActivityInLinePatch 类来实现;  
 ```
 public class RobustActivityInLinePatch {
