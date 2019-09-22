@@ -3,6 +3,8 @@ https://github.com/yifeikong/reverse-interview-zh
 插件化, 系统的总结, 话术;  
 HTTPS, 系统的总结, 话术;  
 ConcurrentHashMap, 系统的总结, 话术;  
+Service, 系统的总结, 话术;  
+ContentProvider, 系统的总结, 话术;  
 线程池, 系统的总结, 话术;  
 
 
@@ -12,12 +14,11 @@ FragmentPagerAdapter 缓存机制,  怎么做 Fragment 的缓存;
 如果 用列表页面, 播放视频, 怎么做, 可以保证流畅度  占用内存小;  
 WebView 怎么解决加载缓慢, 和 缓存问题, 导致数据不能及时刷新;  
 LinearLayout, FrameLayout, RelativeLayout 哪个效率高, 为什么;
-Jvm、Dalvik、Art和对比;  
+Jvm, Dalvik, Art 和 对比;  
 图片编解码, BitmapFactory.createBitmap 的时候, 就会涉及编解码;  
 LinearLayout 包裹 A, B 两个 Button, 在 AButton 上按下, 一直移动, 手指扫过 BButton, 整个事件传递的过程, MoveEvent 的数值;  
 AlertDialog, popupWindow, 在 Activity 中的区别;  
 Https 请求慢的解决办法, DNS, 携带数据, 直接访问 IP;  
-
 
 https://www.jianshu.com/p/8a6951b0d0ee  
 https://github.com/jeanboydev/Android-ReadTheFuckingSourceCode  

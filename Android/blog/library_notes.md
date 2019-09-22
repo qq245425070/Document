@@ -39,11 +39,11 @@ https://github.com/linsir6/AndroidNote
 https://juejin.im/user/586eff908d6d81005879507d/posts  
 https://cloud.tencent.com/developer/column/72810  
 
-❀  尼古拉斯_赵四  
+尼古拉斯_赵四  
 http://www.wjdiankong.cn/  
 https://blog.csdn.net/jiangwei0910410003  
 
-❀  刘望舒  
+刘望舒  
 http://liuwangshu.cn/system/  
 http://blog.csdn.net/itachi85?viewmode=contents  
 https://blog.csdn.net/qq_23547831
@@ -52,11 +52,11 @@ https://blog.csdn.net/qq_23547831/article/details/50696046
 http://codemx.cn/archives/    
 https://github.com/lizhangqu/CoreLink  
 
-❀  huachao1001  
+huachao1001  
 https://www.jianshu.com/u/0a7e42698e4b  
 http://blog.csdn.net/huachao1001  
 
-❀  ruheng  
+ruheng  
 http://lruheng.com/archives/    
 https://github.com/LRH1993/android_interview  
 https://www.jianshu.com/u/0fa6f5d09040  
@@ -84,11 +84,6 @@ https://github.com/hehonghui/android-tech-frontier
 https://github.com/GcsSloop/AndroidNote  
 https://blog.csdn.net/lin20044140410/article/list/1  
 https://www.cnblogs.com/dasusu/category/1330070.html  
-
-
-
-
-### 开发总结  
 http://blog.csdn.net/zxt0601  
 http://www.jianshu.com/u/383970bef0a0  
 https://juejin.im/user/587377ec61ff4b005c4d4189  
@@ -96,17 +91,12 @@ http://blog.csdn.net/qibin0506?viewmode=contents
 http://yifeng.studio/archives/  
 https://github.com/CymChad/BRVAHST   
 http://hukai.me/blog/archives/  
-### 好，老  
+
+### 看过不用看了  
+http://weishu.me/archives/  
 http://wangkuiwu.github.io/categories/  
 http://blog.csdn.net/Innost/article/list/1  
 http://blog.csdn.net/yanbober/article/list/1  
-### 一般化      
-http://blog.csdn.net/xiaole0313  
-http://wuxiaolong.me/archives/index.html  
-http://zmywly8866.github.io/  
-https://mrfu.me/  
-
-### 看过不用看了  
 https://jeanboy.blog.csdn.net  
 http://blog.lmj.wiki/archives/page/10  
 http://blog.csdn.net/cym492224103  
@@ -123,3 +113,11 @@ http://blog.csdn.net/xiaanming
 http://blog.csdn.net/yanzhenjie1003  
 http://blog.chinaunix.net/uid/20771867/abstract/1.html?cid=10099  
 https://kymjs.com/column  
+
+### 不好 一般  
+http://blog.csdn.net/xiaole0313  
+http://wuxiaolong.me/archives/index.html  
+http://zmywly8866.github.io/  
+https://mrfu.me/  
+
+

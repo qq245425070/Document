@@ -282,7 +282,6 @@ LoadedApk.ReceiverDispatcher#performReceive
 LoadedApk.ReceiverDispatcher.Args#run  
 BroadcastReceiver#onReceive  
 
-第一阶段  
 通过 sendBroadcast 把一个广播通过 Binder 机制发送给 AMS, AMS 根据这个广播的 Action 类型找到相应的广播接收器, 然后把这个广播放进自己的消息队列中去;  
 AMS 在消息循环中处理这个广播, 并通过 Binder 机制, 把这个广播分发给注册的广播接收分发器 ReceiverDispatcher;  
 ReceiverDispatcher 把这个广播放进 MainActivity 所在的进程的消息队列中去;  

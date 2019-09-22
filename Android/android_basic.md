@@ -1,4 +1,4 @@
-### Android相关知识  
+### Android 相关知识  
 zygote#启动流程;  进程间通信;  IPC;  Binder机制;  
 [链接](basic/ipc_service/system_zygote_binder.md)  
 

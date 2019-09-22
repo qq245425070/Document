@@ -121,6 +121,12 @@ AssetManager 有有一个方法 addAssetPath, app 启动的时候, 会把当前 
 所以只用一个 SubService 是应付不了 Service 插件化的问题;  
 
 3.. 关于 BroadcastReceiver 插件化  
+四大组件的通信, 都是通过 ActivityManagerService 来管理的;  
+广播有注册, 发送, 接收这几个概念, 注册的过程最终会将广播接收器的信息注册到 AMS;  
+发送广播也是通过 AMS 查找 action 相关的注册者是谁, AMS 会回调 action 对应的 applicationThread, 然后再回调对应的接收器的 onReceive 方法;  
+广播又区分静态注册和动态注册, 区别就在于静态广播需要在清单文件注册, 动态广播用 java 代码注册;  
+最简单的解决方案就是, 静态注册转动态注册;  
+
 
 4.. 关于 ContentProvider 插件化  
 
@@ -195,7 +201,8 @@ https://www.jianshu.com/p/e179fcc97666
 
 插件化  
 https://github.com/tiann/understand-plugin-framework  
-http://weishu.me/2016/01/28/understand-plugin-framework-overview/  
+http://weishu.me/2016/05/11/understand-plugin-framework-service/  
+http://weishu.me/2016/07/12/understand-plugin-framework-content-provider/  
 https://segmentfault.com/a/1190000004062866  
 http://liuwangshu.cn/application/classloader/1-java-classloader-.html  
 http://liuwangshu.cn/application/classloader/2-android-classloader.html
@@ -203,6 +210,7 @@ http://liuwangshu.cn/application/hotfix/1-code-repair.html
 https://www.jianshu.com/p/c58804962f73  
 https://www.jianshu.com/p/a620e368389a  
 https://www.jianshu.com/p/96a72d1a7974  
+
 http://www.cnblogs.com/lanrenxinxin/p/4712224.html  
 https://www.jianshu.com/p/704cac3eb13d  
 http://weishu.me/2016/03/21/understand-plugin-framework-activity-management/  
