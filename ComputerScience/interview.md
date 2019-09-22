@@ -63,9 +63,6 @@ https://github.com/Blankj/AndroidOfferKiller
 https://github.com/hadyang/interview  
 https://github.com/Ellen2018/AndroidFaceInterview  
 https://juejin.im/post/5d7256526fb9a06af824fdd3  
-### Java  
-责任链设计模式, 手写;  
-https://github.com/crossoverJie/Java-Interview  
 
 ###  Android  
 https://github.com/Mr-YangCheng/ForAndroidInterview  
