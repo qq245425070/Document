@@ -92,9 +92,20 @@ BroadCastReceiver 是通过解析清单文件, 将静态注册转为动态注册
 在启动 Activity 的时候, componentName 是清单文件中预留的 SubActivity, 但是会传入参数, 告知系统真正想要启动的是 AActivity;  
 在 AMS 受到请求的时候, 会检查 componentName 对应的 Activity 是否在清单文件中注册, 如果是则会调起 Activity 对应的 ApplicationThread, 之后通过 handler 转发给 activityThread;  
 在 activityThread 中通过 Instrumentation 来解析 intent 并创建 Activity, 所以 hook 住 ActivityThread 里面的 Instrumentation 就可以启动真正的 Activity 了;  
-1.1... lunchModel 启动模式  
 
-1.2.. 管理资源文件  
+1.1.. lunchModel 启动模式  
+正常来讲, 连续进入 5-6 级页面已经是极限了, 如果需要进入 10 级以上页面, 那真是产品设计缺陷, 不在技术上解决, 没有用户能接受层级这么深入;  
+每种 LunchMode 声明十个 StubActivity 绝对能满足需求了;  
+
+1.2.. 页面生命周期  
+目标 Activity 是具有正常的生命周期的;  
+AMS 要启动的是 SubActivity, 我们在 activityThread 中, 通过启动传入的参数, 改成了目标 Activity,  那么为什么还能正确的完成对 目标 Activity 生命周期的回调呢?  
+AMS 与 ActivityThread 之间对 Activity 生命周期的交互, 并没有直接使用 Activity 对象进行交互, 而是使用一个 token 来标识, 这个 token 是 binder 对象, 因此可以方便地跨进程传递;  
+Activity 里面有一个成员变量 mToken 代表的就是它, token 可以唯一地标识一个 Activity 对象, 它在 Activity 的 attach 方法里面初始化;  
+在 AMS 处理 Activity 的任务栈的时候, 使用这个 token 标记 Activity;  
+因此, 在 ActivityThread 执行回调的时候, 能正确地回调到目标 Activity 相应的方法;  
+
+1.3.. 管理资源文件  
 context 引用资源文件, 是通过 Resources 类来完成的;  
 Resources 对资源的管理是通过 AssetManager 来完成的;  
 AssetManager 有有一个方法 addAssetPath, app 启动的时候, 会把当前 apk 的路径传过去, 这样 AssetManager 就可以管理当前 apk 的所有资源文件了;  
@@ -183,8 +194,6 @@ https://www.jianshu.com/p/e179fcc97666
 
 
 插件化  
-https://juejin.im/post/59752eb1f265da6c3f70eed9  
-https://github.com/ManbangGroup/Phantom  
 https://github.com/tiann/understand-plugin-framework  
 http://weishu.me/2016/01/28/understand-plugin-framework-overview/  
 https://segmentfault.com/a/1190000004062866  
