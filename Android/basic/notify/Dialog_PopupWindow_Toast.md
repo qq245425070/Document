@@ -1,4 +1,4 @@
-### Dialog、PopupWindow、Toast  
+### Dialog PopupWindow Toast  
 
 [Dialog 和 PopupWindow 的比较](Dialog_PopupWindow_Compare.md)  
 [处理PopupWindow弹出高度和位置](pop_window_height.md)  

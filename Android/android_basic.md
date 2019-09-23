@@ -1,4 +1,7 @@
 ### Android 相关知识  
+插件化; 热更新; 热修复; Plugin; ClassLoader;  dalvik ART 虚拟机;  系统;  
+[链接](basic/library/plugin_hotfix_avm.md)  
+
 zygote#启动流程;  进程间通信;  IPC;  Binder机制;  
 [链接](basic/ipc_service/system_zygote_binder.md)  
 
@@ -7,6 +10,9 @@ zygote#启动流程;  进程间通信;  IPC;  Binder机制;
 [PackageManagerService](basic/ipc_service/PackageManagerService.md)   
 [BroadcastReceiver](basic/ipc_service/BroadcastReceiver.md)  
 [ContentProvider](basic/ipc_service/ContentProvider.md)  
+Service;  IntentService;  进程保活;  
+[链接](basic/ipc_service/Service.md)  
+[AIDL](basic/ipc_service/AIDL.md)  
 
 对四大组件的认识;  对 Context 的认识;  
 Application 内存回收机制; 内存回调;  
@@ -15,12 +21,8 @@ Application 内存回收机制; 内存回调;
 
 Activity;  Fragment;  Context;  Application;  
 [链接](basic/context/Activity.md)  
-Service;  IntentService;  进程保活;  
-[链接](basic/ipc_service/Service.md)  
-
-[AIDL](basic/ipc_service/AIDL.md)  
 [Handler](basic/handler/Handler.md)  
-[Intent](basic/context/Intent.md)   
+[Intent](basic/context/Intent.md)  
 
 MIME数据类型;  统一资源标识符 URI;  
 [链接](/ComputerScience/network/URI.md)   
@@ -37,9 +39,6 @@ apk 打包流程;  65535 问题;  multiDex 问题;
 优化稳定性;  低功耗;  性能优化;  冷启动介绍;  冷启动优化;  ANR;  内存泄露;  
 apk 压缩;  
 [链接](basic/optimize_stability_lowPower.md)  
-
-插件化; 热更新; 热修复; Plugin; ClassLoader;  dalvik ART 虚拟机;  系统;  
-[链接](basic/library/plugin_hotfix_avm.md)  
 
 常见问题;  机型差异化;  
 [链接](basic/library/bug.md)  
