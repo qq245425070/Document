@@ -93,9 +93,9 @@ BroadCastReceiver 是通过解析清单文件, 将静态注册转为动态注册
 在 AMS 受到请求的时候, 会检查 componentName 对应的 Activity 是否在清单文件中注册, 如果是则会调起 Activity 对应的 ApplicationThread, 之后通过 handler 转发给 activityThread;  
 在 activityThread 中通过 Instrumentation 来解析 intent 并创建 Activity, 所以 hook 住 ActivityThread 里面的 Instrumentation 就可以启动真正的 Activity 了;  
 
-1.1.. lunchModel 启动模式  
+1.1.. launchModel 启动模式  
 正常来讲, 连续进入 5-6 级页面已经是极限了, 如果需要进入 10 级以上页面, 那真是产品设计缺陷, 不在技术上解决, 没有用户能接受层级这么深入;  
-每种 LunchMode 声明十个 StubActivity 绝对能满足需求了;  
+每种 LaunchMode 声明十个 StubActivity 绝对能满足需求了;  
 
 1.2.. 页面生命周期  
 目标 Activity 是具有正常的生命周期的;  

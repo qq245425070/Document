@@ -124,10 +124,10 @@ private inner class RemoteDownloadServiceConnection : ServiceConnection {
 
 #### Service 生命周期  
 只使用 startService  
-startService  ⤑  onCreate  ⤑   onStartCommand  ⤑  【service running】  ⤑  stopService  ⤑  onDestroy  
+startService  ⤑  onCreate  ⤑   onStartCommand  ⤑  [service running]  ⤑  stopService  ⤑  onDestroy  
 
 只使用 bindService  
-bindService  ⤑  onCreate  ⤑  onBind  ⤑  【client are bind to service】  ⤑  onUnbind  ⤑  onDestroy  
+bindService  ⤑  onCreate  ⤑  onBind  ⤑  [client are bind to service]  ⤑  onUnbind  ⤑  onDestroy  
 
 关于 startService 与 bindService 之间的转换问题  
 不管是 startService 还是 bindService, 操作的是同一个 Service 实例;  
@@ -318,9 +318,33 @@ if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
 ```
 
 ### 原理  
+start 方式  
 context.startService  
 contextImpl.startService  
-ActivityManagerProxy.startService  
+ActivityManagerService.startService  
+ActiveServices#startServiceLocked  
+ActiveServices#startServiceInnerLocked  
+```
+ActiveServices#bringUpServiceLocked{
+    //  1.. 如果不需要运行在独立的进程, 调用 realStartServiceLocked 启动服务;
+    //  2.. 如果需要运行在独立的进程, 先调用 startProcessLocked 来启动新的进程;  
+    //  2.1.. 启动进程结束之后, 会回调 attachApplicationLocked;  
+    //  2.2.. 紧接着调用 realStartServiceLocked 启动服务;  
+}
+```
+ActiveServices.realStartServiceLocked  
+ApplicationThreadProxy.scheduleCreateService  //  binder  
+ApplicationThread.scheduleCreateService  
+ActivityThread#handleCreateService  
+```
+创建 service, 并执行相关生命周期方法;  
+```
+
+bind 方式  
+Context.bindService  
+ContextImpl.bindService  
+ContextImpl.bindServiceCommon  
+ActivityManagerService.bindService  
 
 
 ### 参考  
