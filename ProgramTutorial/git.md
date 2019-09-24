@@ -133,7 +133,6 @@ git checkout release
 git pull  
 git submodule update  
 git merge origin/feature  
-git pull  
 git submodule update  
 这个时候回出现几个状态:  
 1.. 直接 merge 过来的, 没有任何冲突的, 是绿色的, 不用关注;  
@@ -145,7 +144,6 @@ git submodule update
      Merge: 4288d9a4f 4969a761c  
 如果仅仅是 merge 操作, commit 不需要写 message;  直接 git commit 回车, 就可以;  
 
-  
 #  当前分支是 release, merge 远端的 feature 分支到本地;  
 git merge origin/feature  
 假设有冲突, 先解决冲突, 我习惯用 intellij android-studio 标记并解决冲突;  
