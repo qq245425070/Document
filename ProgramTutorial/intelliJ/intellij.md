@@ -21,7 +21,8 @@
 ```
 window + r   
 输入 c:\windows\system32\drivers\etc  
-编辑 hosts文件 追加  0.0.0.0 account.jetbrains.com  
+mac  open /etc/  
+编辑 hosts 文件 追加  0.0.0.0 account.jetbrains.com  
 打开网站 http://idea.lanyus.com/  
 点击获取注册码  
 ```

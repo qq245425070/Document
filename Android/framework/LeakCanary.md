@@ -3,11 +3,12 @@ public WeakReference(T referent, ReferenceQueue<? super T> q) {
     super(referent, q);
 }
 ```
-LeakCanary 主要利用了弱引用的对象, 当GC回收了这个对象后, 会被放进 ReferenceQueue 中;  
+LeakCanary 主要利用了弱引用的对象, 当 GC 回收了这个对象后, 会被放进 ReferenceQueue 中;  
 在页面消失, 也就是 activity.onDestroy 的时候, 判断利用 idleHandler 发送一条延时消息, 5秒之后,  
 分析 ReferenceQueue 中存在的引用, 如果当前 activity 仍在引用队列中, 则认为可能存在泄漏, 再利用系统类 VMDebug 提供的方法, 获取内存快照,  
 找出 GC roots 的最短强引用路径, 并确定是否是泄露, 如果泄漏, 建立导致泄露的引用链;  
 
+[runGc](/Java/jvm/garbage_collection.md) # 手动尝试垃圾回收  
 ```
 ActivityLifecycleCallbacks{
     @Override public void onActivityDestroyed(Activity activity) {

@@ -318,6 +318,8 @@ if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
 ```
 
 ### 原理  
+通过 ASM 查找相关的 Service;  
+
 start 方式  
 context.startService  
 contextImpl.startService  
@@ -345,7 +347,8 @@ Context.bindService
 ContextImpl.bindService  
 ContextImpl.bindServiceCommon  
 ActivityManagerService.bindService  
-
+ActiveServices.bindServiceLocked  
+ActiveServices.requestServiceBindingsLocked  
 
 ### 参考  
 原理  

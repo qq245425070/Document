@@ -20,6 +20,8 @@ LinearLayout 包裹 A, B 两个 Button, 在 AButton 上按下, 一直移动, 手
 AlertDialog, popupWindow, 在 Activity 中的区别;  
 Https 请求慢的解决办法, DNS, 携带数据, 直接访问 IP;  
 
+https://github.com/codeegginterviewgroup/CodeEggDailyInterview  
+https://juejin.im/post/5d4e40a5f265da03ef7a02a1  
 https://www.jianshu.com/p/8a6951b0d0ee  
 https://github.com/jeanboydev/Android-ReadTheFuckingSourceCode  
 https://github.com/interviewandroid/AndroidInterView  

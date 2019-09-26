@@ -52,6 +52,7 @@ WARN	 BBBB23
 
 编辑不区分大小写  
 设置 -> Editor -> General -> Code Completion , 右边 case sensitive completion 选择 none  
+Match case  勾掉;  
 
 
 不让每次都直接进入工程  
