@@ -320,7 +320,7 @@ if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
 ### 原理  
 通过 AMS 查找相关的 Service, 找到;  
 
-start 方式  
+#### start 方式  
 context.startService  
 contextImpl.startService  
 ActivityManagerService.startService  
@@ -359,19 +359,36 @@ ActivityThread#handleCreateService
 创建 service, 并执行相关生命周期方法;  
 ```
 
-bind 方式  
+#### bind 方式  
 Context.bindService  
 ContextImpl.bindService  
 ContextImpl.bindServiceCommon  
+```
+把 ServiceConnection 转化成 InnerConnection(binder 对象)  
+android.app.LoadedApk.ServiceDispatcher.InnerConnection extends IServiceConnection.Stub  
+
+```
 ActivityManagerService.bindService  
 ActiveServices.bindServiceLocked  
 ActiveServices.requestServiceBindingsLocked  
+ActiveServices.requestServiceBindingLocked  
+```
+//  com.android.server.am.ProcessRecord {  IApplicationThread thread  }  
+r.app.thread.scheduleBindService(r, i.intent.getIntent(), rebind, r.app.repProcState);  
+```  
+ActivityThread.handleCreateService  
+
 
 ### 参考  
 原理  
+https://www.jianshu.com/p/a50a366a160c  
+https://www.cnblogs.com/zhchoutai/p/8681312.html  
+https://blog.csdn.net/pihailailou/article/details/78608537  
+https://www.cnblogs.com/TS-qrt/articles/andorid_ser.html  
 https://jeanboy.blog.csdn.net/article/details/79785720  
 https://www.jianshu.com/p/8170b9f1e4af  
 https://www.jianshu.com/p/37f366064b98  
+https://blog.csdn.net/jly0612/article/details/51249960  
 https://www.jianshu.com/p/411b504902db  
 https://www.jianshu.com/p/37f366064b98  
 https://blog.csdn.net/newhope1106/article/details/53843809  
