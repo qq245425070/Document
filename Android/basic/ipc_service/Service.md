@@ -318,13 +318,30 @@ if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
 ```
 
 ### 原理  
-通过 ASM 查找相关的 Service;  
+通过 AMS 查找相关的 Service, 找到;  
 
 start 方式  
 context.startService  
 contextImpl.startService  
 ActivityManagerService.startService  
 ActiveServices#startServiceLocked  
+```
+从 ServiceMap 中的 mServicesByName, mServicesByIntent 字段查找, 如果内存中存在, 则返回结果;  
+如果不存在, 则从 PMS 中查找;     
+ServiceLookupResult res =
+    retrieveServiceLocked(service, resolvedType, callingPackage,
+            callingPid, callingUid, userId, true, callerFg, false);  
+retrieveServiceLocked{
+    if (r == null) {
+        try {
+            ResolveInfo rInfo = mAm.getPackageManagerInternalLocked().resolveService(service,
+                    resolvedType, ActivityManagerService.STOCK_PM_FLAGS
+                            | PackageManager.MATCH_DEBUG_TRIAGED_MISSING,
+                    userId, callingUid);
+        }
+    }
+}
+```
 ActiveServices#startServiceInnerLocked  
 ```
 ActiveServices#bringUpServiceLocked{
