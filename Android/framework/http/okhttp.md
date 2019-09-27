@@ -79,6 +79,7 @@ https://blog.csdn.net/briblue/article/details/52920531
 https://blog.csdn.net/shengfakun1234/article/details/54615592  
 https://blog.csdn.net/u014614038/article/details/51210685  
 https://github.com/franmontiel/PersistentCookieJar  
+https://github.com/Jlanglang/JRxRetrofit  
 
 ### 源码  
 https://blog.csdn.net/chunqiuwei/column/info/16213  

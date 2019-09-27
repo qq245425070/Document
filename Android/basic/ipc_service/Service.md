@@ -68,7 +68,7 @@ bind 方式, 调用稍难, 运用灵活, 可以通过 IBinder 接口中获取 Se
 #### 启动方式 startService  
 start 一个服务, onCreate 方法, 只会被调用一次;  
 onStartCommand 方法执行的次数, 等于 startService 被调用的次数; 
-
+因为 service 是单例存在, 所以只需要一次 stopService 就可以结束;  
 隐式意图  
 如果启动 service 的 intent 的 component 和 package 都为空并且版本大于LOLLIPOP(5.0)的时候,直接抛出异常;  
 调用 setPackage, 解决问题;  
@@ -86,7 +86,6 @@ private void startService(String serviceAction) {
 bind 一个服务, onCreate 和 onBind 方法, 只会被调用一次;  
 多次调用 bindService, 不会引起任何生命周期的回调;  
 unBindService 只能调用一次, 多次调用会报错;  
-
 ```
 var downloadEntityAidl: IDownloadEntityAidlInterface? = null  
 bindService(remoteServiceIntent, rdsConnection, Context.BIND_AUTO_CREATE)  
@@ -210,7 +209,9 @@ bind传递参数
 这里说的给service传递数据, 并不仅仅限制与在start的时候, 用intent传递数据, 还可以是在运行时的某个节点上, 传递数据;    
 #### IntentService  
 startService 会触发一次 onCreate 和 多次 onStartCommand;  
-onHandleIntent 执行在 子线程, 当耗时操作结束以后, 会触发 onDestroy 回调, 再次 startService 会再次触发完整的生命周期;  
+IntentService 与 Service 的区别就在于, IntentService 内部使用的 Looper 来自于 HandlerThread.mLooper, 这个 looper 是在子线程中创建的;   
+IntentService 内部的 Handler 创建成功之后, 会回调 onHandleIntent, 所以 onHandleIntent 是工作在子线程的;   
+onHandleIntent 执行在 子线程, 当耗时操作结束以后, 会触发 onDestroy 回调, 并退出 looper, 再次 startService 会再次触发完整的生命周期;  
 
 #### Service 清单文件属性  
 //  服务全类名;  
@@ -321,43 +322,53 @@ if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
 通过 AMS 查找相关的 Service, 找到;  
 
 #### start 方式  
-context.startService  
-contextImpl.startService  
+Context.startService  
+ContextImpl.startService  
+ContextImpl.startServiceCommon  
+```
+//  binder 通信  
+ComponentName cn = ActivityManager.getService().startService(
+    mMainThread.getApplicationThread(), service, service.resolveTypeIfNeeded(
+                getContentResolver()), requireForeground,
+                getOpPackageName(), user.getIdentifier());
+```
 ActivityManagerService.startService  
 ActiveServices#startServiceLocked  
 ```
-从 ServiceMap 中的 mServicesByName, mServicesByIntent 字段查找, 如果内存中存在, 则返回结果;  
+获得 ServiceRecoder 从 ServiceMap 中的 mServicesByName, mServicesByIntent 字段查找, 如果内存中存在, 则返回结果;  
 如果不存在, 则从 PMS 中查找;     
 ServiceLookupResult res =
     retrieveServiceLocked(service, resolvedType, callingPackage,
             callingPid, callingUid, userId, true, callerFg, false);  
-retrieveServiceLocked{
+
+com.android.server.am.ActiveServices#retrieveServiceLocked{
+    r = smap.mServicesByName.get(comp);
+    r = smap.mServicesByIntent.get(filter);
     if (r == null) {
         try {
             ResolveInfo rInfo = mAm.getPackageManagerInternalLocked().resolveService(service,
-                    resolvedType, ActivityManagerService.STOCK_PM_FLAGS
-                            | PackageManager.MATCH_DEBUG_TRIAGED_MISSING,
-                    userId, callingUid);
+                resolvedType, ActivityManagerService.STOCK_PM_FLAGS  | PackageManager.MATCH_DEBUG_TRIAGED_MISSING,
+                userId, callingUid);
         }
     }
 }
 ```
 ActiveServices#startServiceInnerLocked  
-```
-ActiveServices#bringUpServiceLocked{
-    //  1.. 如果不需要运行在独立的进程, 调用 realStartServiceLocked 启动服务;
-    //  2.. 如果需要运行在独立的进程, 先调用 startProcessLocked 来启动新的进程;  
-    //  2.1.. 启动进程结束之后, 会回调 attachApplicationLocked;  
-    //  2.2.. 紧接着调用 realStartServiceLocked 启动服务;  
-}
-```
+ActiveServices#bringUpServiceLocked  
 ActiveServices.realStartServiceLocked  
-ApplicationThreadProxy.scheduleCreateService  //  binder  
 ApplicationThread.scheduleCreateService  
-ActivityThread#handleCreateService  
+ActivityThread.H.handleMessage  
+ActivityThread.handleCreateService(CREATE_SERVICE)  
 ```
 创建 service, 并执行相关生命周期方法;  
+Service.attach  
+Service.onCreate  
 ```
+ActiveServices.sendServiceArgsLocked  
+ActivityThread.ApplicationThread.scheduleServiceArgs  
+ActivityThread.H.handleMessage(SERVICE_ARGS)  
+ActivityThread.handleServiceArgs  
+Service.onStartCommand   
 
 #### bind 方式  
 Context.bindService  
@@ -367,31 +378,136 @@ ContextImpl.bindServiceCommon
 把 ServiceConnection 转化成 InnerConnection(binder 对象)  
 android.app.LoadedApk.ServiceDispatcher.InnerConnection extends IServiceConnection.Stub  
 
+//  把 IServiceConnection 传给 AMS  
+int res = ActivityManager.getService().bindService(
+    mMainThread.getApplicationThread(), getActivityToken(), service,
+    service.resolveTypeIfNeeded(getContentResolver()),
+    sd, flags, getOpPackageName(), user.getIdentifier());
 ```
 ActivityManagerService.bindService  
 ActiveServices.bindServiceLocked  
-ActiveServices.requestServiceBindingsLocked  
-ActiveServices.requestServiceBindingLocked  
 ```
-//  com.android.server.am.ProcessRecord {  IApplicationThread thread  }  
-r.app.thread.scheduleBindService(r, i.intent.getIntent(), rebind, r.app.repProcState);  
-```  
+获得 ServiceRecoder 从 ServiceMap 中的 mServicesByName, mServicesByIntent 字段查找, 如果内存中存在, 则返回结果;  
+如果不存在, 则从 PMS 中查找; 
+创建 AppBindRecord, ConnectionRecord;  
+```
+ActiveServices.bringUpServiceLocked  
+ActiveServices.realStartServiceLocked  
+ApplicationThread.scheduleCreateService  
+ActivityThread.H.handleMessage(CREATE_SERVICE)  
 ActivityThread.handleCreateService  
+```
+创建 service, 并执行相关生命周期方法;  
+Service.attach  
+Service.onCreate  
+```
+ActiveServices.requestServiceBindingLocked  
+ApplicationThread.scheduleBindService  
+ActivityThread.H.handleMessage(BIND_SERVICE)  
+ActivityThread.handleBindService  
+```
+android.app.ActivityThread#handleBindService{
+    if (!data.rebind) {
+            IBinder binder = s.onBind(data.intent);
+            ActivityManager.getService().publishService(
+                    data.token, data.intent, binder);
+        } else {
+            s.onRebind(data.intent);
+            ActivityManager.getService().serviceDoneExecuting(
+                    data.token, SERVICE_DONE_EXECUTING_ANON, 0, 0);
+        }
+}
+```
+ActiveServices#publishServiceLocked  
+LoadedApk.ServiceDispatcher.InnerConnection.connected  
 
+#### bringUpServiceLocked 方法  
+ActiveServices.bringUpServiceLocked  
+```
+com.android.server.am.ActiveServices#bringUpServiceLocked{  
+    if (r.app != null && r.app.thread != null) {
+        sendServiceArgsLocked(r, execInFg, false);
+        return null;
+    }
+    如果 app 没有启动, 加入 mPendingServices;  
+    在 app 启动的时候, 会回调 attachApplication, ActiveServices.attachApplicationLocked, 找到 mPendingServices;  
+    执行 ActiveServices.realStartServiceLocked;  
+    
+    如果 app 已经启动, 执行 realStartServiceLocked   
+};
+```
+ActiveServices.sendServiceArgsLocked  
+```
+com.android.server.am.ServiceRecord#pendingStarts
+final ArrayList<StartItem> pendingStarts = new ArrayList<StartItem>();
+StartItem 记录了 service 的启动过程的相关参数;  
+
+com.android.server.am.ActiveServices#sendServiceArgsLocked{  
+    bumpServiceExecutingLocked(r, execInFg, "start");
+    try {
+        r.app.thread.scheduleServiceArgs(r, slice);
+    }
+}
+```
+ActiveServices.bumpServiceExecutingLocked  
+```
+com.android.server.am.ActiveServices#scheduleServiceTimeoutLocked{
+    scheduleServiceTimeoutLocked
+}
+```
+ActiveServices#scheduleServiceTimeoutLocked  
+````
+com.android.server.am.ActiveServices#scheduleServiceTimeoutLocked{
+    if (proc.executingServices.size() == 0 || proc.thread == null) {
+        return;
+    }
+    Message msg = mAm.mHandler.obtainMessage(ActivityManagerService.SERVICE_TIMEOUT_MSG);
+    msg.obj = proc;
+    mAm.mHandler.sendMessageDelayed(msg,proc.execServicesFg ? SERVICE_TIMEOUT : SERVICE_BACKGROUND_TIMEOUT);
+}
+````
+超时时间  
+前台 service 是 20 秒, 后台 service 是 200 秒  
+```
+com.android.server.am.ActiveServices#SERVICE_TIMEOUT  
+// How long we wait for a service to finish executing.
+static final int SERVICE_TIMEOUT = 20*1000;
+
+com.android.server.am.ActiveServices#SERVICE_BACKGROUND_TIMEOUT
+// How long we wait for a service to finish executing.
+static final int SERVICE_BACKGROUND_TIMEOUT = SERVICE_TIMEOUT * 10;
+```
+ApplicationThread#scheduleServiceArgs  
+ActivityThread#handleServiceArgs  
+```
+android.app.ActivityThread#handleServiceArgs{
+    //  s: service 
+    if (!data.taskRemoved) {
+        res = s.onStartCommand(data.args, data.flags, data.startId);
+    } else {
+        s.onTaskRemoved(data.args);
+        res = Service.START_TASK_REMOVED_COMPLETE;
+    }
+    try {
+        //  调用 client 去掉启动超时的消息
+        //  mAm.mHandler.removeMessages(ActivityManagerService.SERVICE_TIMEOUT_MSG, r.app);
+        ActivityManager.getService().serviceDoneExecuting(data.token, SERVICE_DONE_EXECUTING_START, data.startId, res);
+    } catch (RemoteException e) {
+        throw e.rethrowFromSystemServer();
+    }
+}
+```
 
 ### 参考  
 原理  
 https://www.jianshu.com/p/a50a366a160c  
-https://www.cnblogs.com/zhchoutai/p/8681312.html  
-https://blog.csdn.net/pihailailou/article/details/78608537  
 https://www.cnblogs.com/TS-qrt/articles/andorid_ser.html  
 https://jeanboy.blog.csdn.net/article/details/79785720  
-https://www.jianshu.com/p/8170b9f1e4af  
-https://www.jianshu.com/p/37f366064b98  
+https://www.jianshu.com/p/c0aadd5bf7a5  
+https://www.jianshu.com/p/37e0e66979a6  
 https://blog.csdn.net/jly0612/article/details/51249960  
-https://www.jianshu.com/p/411b504902db  
-https://www.jianshu.com/p/37f366064b98  
 https://blog.csdn.net/newhope1106/article/details/53843809  
+
 https://www.jianshu.com/p/325b9dc90878  
 
 全面剖释 Service 服务  
@@ -443,3 +559,9 @@ https://www.jianshu.com/p/9fb882cae239
 
 AlarmManager  
 https://juejin.im/entry/588628e8128fe10065eb62a9  
+
+不需要看了  
+https://blog.csdn.net/pihailailou/article/details/78608537  
+https://www.jianshu.com/p/8170b9f1e4af  
+https://www.jianshu.com/p/411b504902db  
+

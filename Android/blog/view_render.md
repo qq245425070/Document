@@ -45,13 +45,13 @@ https://github.com/Xieyupeng520/AZExplosion
 https://github.com/Yasic/ParticleTextView  
 
 阴影效果  
+https://github.com/lihangleo2/ShadowLayout  
 https://github.com/harjot-oberai/MaterialShadows  
 https://github.com/yingLanNull/ShadowImageView  
 https://github.com/DingMouRen/PaletteImageView  
 https://github.com/wangjiegulu/ShadowViewHelper  
 https://github.com/Hitomis/CrazyShadow  
 https://github.com/loopeer/shadow  
-
 
 文字阴影   
 https://github.com/florent37/LongShadow  

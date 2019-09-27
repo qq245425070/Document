@@ -89,6 +89,7 @@ http://blog.csdn.net/coder_pig/article/details/47858489
 https://github.com/Triple-T/simpleprovider  
 
 原理  
+https://www.jianshu.com/p/1763e314cdc1  
 https://blog.csdn.net/tianmi1988/article/details/51077378  
 https://www.jianshu.com/p/37f366064b98  
 https://www.jianshu.com/p/37f366064b98  
